@@ -9,6 +9,9 @@ Building static site for production
 
  `react-static build`
 
+Preview build on localhost:
+ `yarn serve`
+
 
 - JSON API Server(https://github.com/typicode/json-server)
 
