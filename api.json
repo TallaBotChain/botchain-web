@@ -1,0 +1,8 @@
+{
+  "access_token": {"access_token": "token-token", "eth_address": "0x123"},
+  "developer_records": {
+    "success": true,
+    "eth_transaction_hash": "9315cd037fea48cfe155d714d3feac64bd164974da0bbd4aae76ec5b2a6432f2",
+    "eth_address": "0x6818FAe9c430b5eda1BeD7359A11846499F330c1"
+  }
+}
