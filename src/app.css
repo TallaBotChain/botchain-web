@@ -31,3 +31,26 @@ nav a {
 .content {
   padding: 1rem;
 }
+.hidden {
+  display: none;
+}
+form {
+  display: block;
+  width: 630px;
+  margin: 0 auto;
+}
+form input, form select, form button {
+  margin-bottom: 1rem;
+  padding: 5px 10px;
+  width: 60%;
+  box-sizing: border-box;
+}
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+form .validation-error {
+  margin-left: 1rem;
+  color: Red;
+  font-size: 0.8rem;
+}
