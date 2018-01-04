@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
-import { reducer as formReducer } from 'redux-form'
+import { reducer as form } from 'redux-form'
+import registerDeveloper from './registerDeveloper'
 
 
 const reducer = combineReducers({
-  form: formReducer
+  form,
+  registerDeveloper
 })
 
 export default reducer

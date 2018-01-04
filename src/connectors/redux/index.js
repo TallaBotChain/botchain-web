@@ -1,4 +1,6 @@
-import { createStore } from 'redux'
+import { createStore,applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
 
 import reducer from './reducers'
 
@@ -6,12 +8,12 @@ if (typeof window === 'undefined') {
   global.window = {}
 }
 
-/* eslint-disable no-underscore-dangle */
+const loggerMiddleware = createLogger()
+
 const store = createStore(
   reducer,
   {}, // initial state
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk,loggerMiddleware)
 )
-/* eslint-enable */
 
 export default store

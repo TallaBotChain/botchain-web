@@ -54,3 +54,15 @@ form .validation-error {
   color: Red;
   font-size: 0.8rem;
 }
+.alert {
+  width: 630px;
+  margin: 1rem auto;
+  padding: 5px 10px;
+  background-color: #fbe3e4;
+  color: #645b5b;
+  display: block;
+  text-align: center;
+}
+ul li {
+  list-style-type: none;
+}

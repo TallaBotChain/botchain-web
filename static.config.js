@@ -3,6 +3,7 @@ import axios from 'axios'
 export default {
   getSiteProps: () => ({
     title: 'Botchain',
+    api_endpoint: 'http://localhost:3001'
   }),
   getRoutes: async () => {
     return [
