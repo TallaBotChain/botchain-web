@@ -13,7 +13,7 @@ export default () => (
     <Router>
       <div>
         <nav>
-          <Link to="/">Home</Link>
+          <a href="#">Botchain</a>
         </nav>
         <div className="content">
           <Routes />

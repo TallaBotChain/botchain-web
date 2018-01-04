@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
-import registerDeveloper from './registerDeveloper'
+import developerRecord from './developerRecord'
+import auth from './auth'
 
 
 const reducer = combineReducers({
   form,
-  registerDeveloper
+  auth,
+  developerRecord
 })
 
 export default reducer

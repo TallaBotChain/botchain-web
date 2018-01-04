@@ -9,7 +9,15 @@ export default {
     return [
       {
         path: '/',
-        component: 'src/containers/Home',
+        component: 'src/containers/Signin',
+      },
+      {
+        path: '/registration',
+        component: 'src/containers/Registration',
+      },
+      {
+        path: '/bots',
+        component: 'src/containers/Bots',
       },
       {
         is404: true,
