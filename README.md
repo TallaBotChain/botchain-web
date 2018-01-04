@@ -1,6 +1,6 @@
 # React-Static with Redux
 
- `yarn install` ( if nothing helps, but yarn can't install `web3js` )
+ `yarn install` ( usually yarn can't install `web3js`, use npm after yarn )
  `npm install`
 
  `npm start` or `react-static start`
@@ -16,4 +16,5 @@ Preview build on localhost:
 - JSON API Server(https://github.com/typicode/json-server)
 
  `npm install -g json-server`
+
  `json-server api.json -p 3001 --routes routes.json`
