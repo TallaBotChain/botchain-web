@@ -1,0 +1,20 @@
+{
+  "access_token": {
+    "access_token": "token-token",
+    "eth_address": "0x123"
+  },
+  "developer_records": {
+    "developer_record": {
+      "country": "United States",
+      "name": "qwerty",
+      "description": "qwerr",
+      "street_1": "123",
+      "city": "123",
+      "state": "123",
+      "postal_code": "123",
+      "phone": "1234567890",
+      "email": "qwerty@qwerty.com"
+    },
+    "access_token": "token-token"
+  }
+}
