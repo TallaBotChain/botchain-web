@@ -27,7 +27,7 @@ jobs:
               docker run $DOCKER_OPTS simplygenius/aws-ecs-deploy aws-assume-role \
                   $AWS_ACCOUNT \
                   $ENV-deployer \
-                  aws cp --acl bucket-owner-full-control --recursive \
+                  aws s3 cp --acl bucket-owner-full-control --recursive \
                     --exclude "*" --include public --include src
                     /app/ s3://talla-botchain-dev-ui/
             fi
