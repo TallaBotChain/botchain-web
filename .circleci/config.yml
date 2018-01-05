@@ -28,6 +28,6 @@ jobs:
                   $AWS_ACCOUNT \
                   $ENV-deployer \
                   aws s3 cp --acl bucket-owner-full-control --recursive \
-                    --exclude "*" --include "/app/public/*" --include "/app/src/*"
+                    --exclude "*" --include "/app/public/*" \
                     /app/ s3://talla-botchain-dev-ui/
             fi
