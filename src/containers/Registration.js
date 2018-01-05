@@ -31,9 +31,8 @@ class RegistrationPage extends Component {
      return <Redirect to='/' />
     }
     //if dev record was created
-    //TODO check hashed_identifier
-    if (this.props.developerRecord.email) {
-     return <Redirect to='/bots' />
+    if (this.props.developerRecord.hashed_identifier) {
+     return <Redirect to='/developer' />
     }
     return <div>
       <h1 style={{ textAlign: 'center' }}>Developer registration</h1>

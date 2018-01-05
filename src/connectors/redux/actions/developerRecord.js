@@ -35,8 +35,8 @@ export const fetchDeveloperRecord = (api_endpoint, eth_address) => (dispatch) =>
     }
   })
   .then(function(response) {
-    dispatch(setDevRecord(response.data))
     dispatch(setIsFetching(false))
+    dispatch(setDevRecord(response.data))
   })
   .catch(function(error) {
     //skip 404 error

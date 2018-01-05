@@ -24,7 +24,7 @@ class SigninPage extends Component {
 
   render() {
     //if authorized
-    if (this.props.auth.access_token != null) {
+    if (this.props.auth.access_token != null && this.props.auth.eth_address != null) {
      return <Redirect to='/registration' />
     }
     return <div>

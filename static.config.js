@@ -16,6 +16,14 @@ export default {
         component: 'src/containers/Registration',
       },
       {
+        path: '/developer',
+        component: 'src/containers/Developer',
+      },
+      {
+        path: '/bot/new',
+        component: 'src/containers/CreateBot',
+      },
+      {
         path: '/bots',
         component: 'src/containers/Bots',
       },

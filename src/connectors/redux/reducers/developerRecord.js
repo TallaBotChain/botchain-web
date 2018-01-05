@@ -17,6 +17,7 @@ const initialState = {
   approved: null,
   eth_address: null,
   hashed_identifier: null,
+  approved: false,
   errors: []
 }
 
