@@ -1,40 +1,33 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
+    machine: true
     working_directory: ~/repo
+
+    environment:
+      - ENV: "dev"
+      - AWS_ACCOUNT: "500651484941"
+      - AWS_DEFAULT_REGION: "us-east-1"
+      - NAME_PREFIX: "dev-botchain-"
 
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      # - run: yarn install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: echo 'export MOUNTS="-v $PWD:/app"' >> $BASH_ENV
+      - run: echo 'export DOCKER_OPTS="-e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION $MOUNTS"' >> $BASH_ENV
 
       # run tests!
-      # - run: yarn test
+      # - run: ?
 
       # Deploy to s3
-      # - run: aws s3 cp . s3://talla-botchain-dev-ui/
+      - run:
+          name: deploy
+          command: |
+            if [[ $CIRCLE_BRANCH == "master" ]]; then
+              docker run $DOCKER_OPTS simplygenius/aws-ecs-deploy aws-assume-role \
+                  $AWS_ACCOUNT \
+                  $ENV-deployer \
+                  aws cp --acl bucket-owner-full-control --recursive \
+                    --exclude "*" --include public --include src
+                    /app/ s3://talla-botchain-dev-ui/
+            fi
