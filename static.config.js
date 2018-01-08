@@ -7,7 +7,7 @@ export default {
     botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
     } : { // production
       title: 'Botchain',
-      api_endpoint: 'https://TBD',
+      api_endpoint: 'http://botchain-api.botchain.talla.io',
       botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
     }
   ),
