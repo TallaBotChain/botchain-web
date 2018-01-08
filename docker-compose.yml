@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  base: &base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
+    command: exec /bin/true
+    environment:
+      APP_ENV: 'development'
+      NODE_ENV: 'development'
+    volumes:
+      - .:/srv/app
+      # prevent the local node_modules (provided by the above mount) from supplanting the containers own
+      - notused:/srv/app/node_modules
+
+  app:
+    <<: *base
+    command: app
+    ports:
+      - 3000:3000
+
+  test:
+    <<: *base
+    # don't want this to start with a "docker-compose up", but want to be able to
+    # run tests with "docker-compose run test test"
+    command: exec /bin/true
+
+volumes:
+    notused:
