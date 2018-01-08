@@ -1,10 +1,16 @@
 import axios from 'axios'
 
 export default {
-  getSiteProps: () => ({
-    title: 'Botchain',
-    api_endpoint: 'http://localhost:3001'
-  }),
+  getSiteProps: ({dev}) => ( dev ? { // development
+    title: '[DEV] Botchain',
+    api_endpoint: 'http://localhost:3001',
+    botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
+    } : { // production
+      title: 'Botchain',
+      api_endpoint: 'https://TBD',
+      botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
+    }
+  ),
   getRoutes: async () => {
     return [
       {
