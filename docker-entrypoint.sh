@@ -52,11 +52,10 @@ case $action in
     wait_for_services
     app_init
 
-    react-static build
     if [[ -n $UI_BUCKET ]]; then
       echo "Copying web files to $UI_BUCKET"
       aws s3 cp --acl bucket-owner-full-control --recursive \
-        dist/ s3://$WEB_BUCKET/
+        dist/ s3://$UI_BUCKET/
     fi
   ;;
 
