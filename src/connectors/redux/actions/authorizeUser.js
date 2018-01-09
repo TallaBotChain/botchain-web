@@ -43,7 +43,7 @@ export const requestAccessToken = (api_endpoint,email) => (dispatch) => {
               params: {
                 signature: signature,
                 eth_address: ethereumAccount,
-                nonce: message
+                nonce: data // data is hex, message is text
               }
             })
               .then(function(response) {

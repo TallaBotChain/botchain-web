@@ -10,7 +10,11 @@ class CreateBotPage extends Component {
 
 
   submit = (values) => {
-    this.props.createBot(this.props.api_endpoint, this.props.auth.access_token, this.props.auth.eth_address, values)
+    let config = {
+      api_endpoint: this.props.api_endpoint,
+      contract_address: this.props.botchain_contract
+    }
+    this.props.createBot( config, this.props.auth.access_token, this.props.auth.eth_address, values)
   }
 
   render() {
