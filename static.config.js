@@ -1,16 +1,8 @@
 import axios from 'axios'
+import config from './config'
 
 export default {
-  getSiteProps: ({dev}) => ( dev ? { // development
-    title: '[DEV] Botchain',
-    api_endpoint: 'http://localhost:3001',
-    botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
-    } : { // production
-      title: 'Botchain',
-      api_endpoint: 'http://botchain-api.botchain.talla.io',
-      botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
-    }
-  ),
+  getSiteProps: ({dev}) => config(dev),
   getRoutes: async () => {
     return [
       {
