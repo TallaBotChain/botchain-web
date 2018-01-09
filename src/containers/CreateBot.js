@@ -19,7 +19,7 @@ class CreateBotPage extends Component {
 
   render() {
     //if dev record not exist
-    if (this.props.developerRecord.hashed_identifier == null) {
+    if ((this.props.developerRecord.hashed_identifier == null)&&(! this.props.developerRecord.wasFound)) {
      return <Redirect to='/registration'/>
     }
 

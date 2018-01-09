@@ -4,6 +4,7 @@ import update from 'immutability-helper';
 
 const initialState = {
   isFetching: false,
+  wasFound: false,
   name: null,
   description: null,
   street_1: null,
@@ -24,6 +25,7 @@ const initialState = {
 const developerRecord = (state = initialState, action) => {
   switch (action.type) {
     case DeveloperRecordActions.SET_ERRORS:
+    case DeveloperRecordActions.SET_WAS_FOUND:
     case DeveloperRecordActions.SET_IS_FETCHING:
       return update(state, {[action.key]: {$set: action.value}});
     case DeveloperRecordActions.SET_RECORD:

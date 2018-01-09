@@ -36,7 +36,7 @@ export const requestAccessToken = (api_endpoint,email) => (dispatch) => {
             axios.get(api_endpoint+"/v1/access_token", {
               params: {
                 signature: signature,
-                eth_address: ethereumAccount,
+                eth_address: ethereumAccount.toLowerCase(), // cause server-side recovers address in lowercase
                 nonce: data // data is hex, message is text
               }
             })

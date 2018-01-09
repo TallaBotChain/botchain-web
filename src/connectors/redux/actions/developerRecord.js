@@ -1,21 +1,20 @@
 import axios from 'axios'
 import Web3 from 'web3'
 
-function toHex(s) {
-  var hex = '';
-  for(var i=0;i<s.length;i++) { hex += ''+s.charCodeAt(i).toString(16); }
-  return "0x"+hex;
-}
-
 export const DeveloperRecordActions = {
   FETCH_RECORD: 'FETCH_RECORD',
   SET_IS_FETCHING: 'SET_IS_FETCHING',
+  SET_WAS_FOUND: 'SET_WAS_FOUND',
   SET_RECORD: 'SET_RECORD',
   SET_ERRORS: 'SET_ERRORS'
 }
 
 export const setIsFetching = (isFetching)  => {
   return { type: DeveloperRecordActions.SET_IS_FETCHING, key: 'isFetching', value: isFetching }
+}
+
+export const setWasFound = (wasFound)  => {
+  return { type: DeveloperRecordActions.SET_WAS_FOUND, key: 'wasFound', value: wasFound }
 }
 
 export const setErrors = (errors)  => {
@@ -29,14 +28,15 @@ const setDevRecord = (record)  => {
 export const fetchDeveloperRecord = (api_endpoint, eth_address) => (dispatch) => {
   dispatch(setIsFetching(true))
   console.log("Making API request to get Developer Record", api_endpoint);
-  axios.get(api_endpoint+"/v1/developer_record", {
+  axios.get(api_endpoint+"/v1/developer_records", {
     params: {
       eth_address: eth_address
     }
   })
   .then(function(response) {
-    dispatch(setIsFetching(false))
     dispatch(setDevRecord(response.data))
+    dispatch(setIsFetching(false))
+    dispatch(setWasFound(true))
   })
   .catch(function(error) {
     //skip 404 error
@@ -53,9 +53,7 @@ export const createDeveloperRecord = (api_endpoint, access_token, values) => (di
   axios.post(api_endpoint+"/v1/developer_records",
   {
       developer_record: values,
-      access_token: access_token,
-      eth_address: "0x123",
-      hashed_identifier: "ab12ba34"
+      access_token: access_token
   })
   .then(function(response) {
     let record = {...values, hashed_identifier: response.data.hashed_identifier}

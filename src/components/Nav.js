@@ -7,7 +7,7 @@ class Nav extends React.Component {
 
   render() {
     let links = null
-    if (this.props.auth.access_token && this.props.developerRecord.hashed_identifier) {
+    if (this.props.auth.access_token && (this.props.developerRecord.hashed_identifier || this.props.developerRecord.wasFound )) {
       links = (
         <div style={{float: 'right'}}>
           <NavLink to="/developer">Developer</NavLink>
