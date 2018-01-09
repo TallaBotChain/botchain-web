@@ -6,12 +6,12 @@ const configs = {
   },
   demo: {
     title: '[TESTNET] Botchain ',
-    api_endpoint: 'http://botchain-api.botchain.talla.io',
+    api_endpoint: 'https://botchain-api.botchain.talla.io',
     botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
   },
   production: { // the same with demo right now
     title: 'Botchain',
-    api_endpoint: 'http://botchain-api.botchain.talla.io',
+    api_endpoint: 'https://botchain-api.botchain.talla.io',
     botchain_contract: "0xaf8153cdc92563dc18aee3470e3dc53da0560830"
   }
 }

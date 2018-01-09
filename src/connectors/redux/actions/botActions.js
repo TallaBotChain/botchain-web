@@ -25,7 +25,7 @@ const setBots = (bots)  => {
 export const fetchBots = (api_endpoint, eth_address) => (dispatch) => {
   dispatch(setIsFetching(true))
   console.log("Making API request to get list of Bots", api_endpoint);
-  axios.get(api_endpoint+"/api/v1/bots", {
+  axios.get(api_endpoint+"/v1/bots", {
     params: {
       eth_address: eth_address
     }
@@ -44,7 +44,7 @@ export const createBot = (config, accessToken, ethAddress, values) => (dispatch)
   console.log("Configuration:", config);
   let apiEndpoint = config.api_endpoint;
   console.log("Making API request to create a Bot",apiEndpoint);
-  let apiPromise = axios.post(apiEndpoint+"/api/v1/bots",
+  let apiPromise = axios.post(apiEndpoint+"/v1/bots",
   {
       bot: values,
       access_token: accessToken,

@@ -29,7 +29,7 @@ const setDevRecord = (record)  => {
 export const fetchDeveloperRecord = (api_endpoint, eth_address) => (dispatch) => {
   dispatch(setIsFetching(true))
   console.log("Making API request to get Developer Record", api_endpoint);
-  axios.get(api_endpoint+"/api/v1/developer_record", {
+  axios.get(api_endpoint+"/v1/developer_record", {
     params: {
       eth_address: eth_address
     }
@@ -50,10 +50,12 @@ export const fetchDeveloperRecord = (api_endpoint, eth_address) => (dispatch) =>
 
 export const createDeveloperRecord = (api_endpoint, access_token, values) => (dispatch) => {
   console.log("Making API request to create Dev Record",api_endpoint);
-  axios.post(api_endpoint+"/api/v1/developer_records",
+  axios.post(api_endpoint+"/v1/developer_records",
   {
       developer_record: values,
-      access_token: access_token
+      access_token: access_token,
+      eth_address: "0x123",
+      hashed_identifier: "ab12ba34"
   })
   .then(function(response) {
     let record = {...values, hashed_identifier: response.data.hashed_identifier}
