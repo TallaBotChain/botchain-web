@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getSiteProps } from 'react-static';
+import { Head } from 'react-static';
 import SigninForm from '../components/SigninForm';
 import {connect} from 'react-redux'
 import * as Actions from '../connectors/redux/actions/authorizeUser'
@@ -28,6 +29,9 @@ class SigninPage extends Component {
      return <Redirect to='/registration' />
     }
     return <div>
+      <Head>
+        <title>{this.props.title}</title>
+      </Head>
       <h1 style={{ textAlign: 'center' }}>Sign In</h1>
       <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
       <div className={ this.state.no_metamask ? 'hidden' : '' }>

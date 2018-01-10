@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 const required = value => value ? undefined : 'Required'
+const address = value =>
+  value && !/^(0x)?[0-9a-f]{40}$/i.test(value) ?
+  'Invalid ethereum address' : undefined
 
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div>
@@ -18,6 +21,10 @@ class BotForm extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit}>
+        <Field name="bot_address" type="text"
+          component={renderField} label="Bot Address"
+          validate={[ required, address ]}
+        />
         <Field name="name" type="text"
           component={renderField} label="Name"
           validate={[ required ]}

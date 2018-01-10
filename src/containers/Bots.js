@@ -12,9 +12,9 @@ class BotsPage extends Component {
   }
 
   render() {
-    //if dev record not exist
-    if (this.props.developerRecord.hashed_identifier == null) {
-      return <Redirect to='/registration'/>
+    //if dev record is not approved
+    if (!this.props.developerRecord.approved) {
+      return <Redirect to='/developer'/>
     }
 
     return <div>

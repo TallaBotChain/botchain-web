@@ -1,12 +1,6 @@
 import axios from 'axios'
 import Web3 from 'web3'
 
-function toHex(s) {
-  var hex = '';
-  for(var i=0;i<s.length;i++) { hex += ''+s.charCodeAt(i).toString(16); }
-  return "0x"+hex;
-}
-
 export const authorizeUserActions = {
   SET_ETH_ADDRESS: 'SET_ETH_ADDRESS',
   SET_ACCESS_TOKEN: 'SET_ACCESS_TOKEN',
@@ -22,7 +16,7 @@ const setAccessToken = (access_token)  => {
 }
 
 const setEthAddress = (eth_address)  => {
-  return { type: authorizeUserActions.SET_ACCESS_TOKEN, key: 'eth_address', value: eth_address }
+  return { type: authorizeUserActions.SET_ETH_ADDRESS, key: 'eth_address', value: eth_address }
 }
 
 export const requestAccessToken = (api_endpoint,email) => (dispatch) => {
@@ -30,7 +24,7 @@ export const requestAccessToken = (api_endpoint,email) => (dispatch) => {
   var self = this;
   localWeb3.eth.getAccounts().then( (accounts) => {
     var message = "botchain;"+email
-    var data = toHex(message);
+    var data = localWeb3.utils.utf8ToHex(message);
     var ethereumAccount = accounts[0];
     localWeb3.currentProvider.sendAsync({ id: 1, method: 'personal_sign', params: [ethereumAccount, data] },
       function(err,response) {
@@ -39,11 +33,11 @@ export const requestAccessToken = (api_endpoint,email) => (dispatch) => {
           console.log("signature:", signature);
           if( signature ) {
             console.log("Making API request to request Access Token",api_endpoint);
-            axios.get(api_endpoint+"/api/v1/access_token", {
+            axios.get(api_endpoint+"/v1/access_token", {
               params: {
                 signature: signature,
-                eth_address: ethereumAccount,
-                nonce: message
+                eth_address: ethereumAccount.toLowerCase(), // cause server-side recovers address in lowercase
+                nonce: data // data is hex, message is text
               }
             })
               .then(function(response) {

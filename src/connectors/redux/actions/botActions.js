@@ -1,6 +1,7 @@
 import axios from 'axios'
-import Web3 from 'web3'
 import { browserHistory } from 'react-router'
+
+import Botchain from '../../blockchain/Botchain'
 
 export const botActions = {
   SET_BOTS: 'SET_BOTS',
@@ -24,7 +25,7 @@ const setBots = (bots)  => {
 export const fetchBots = (api_endpoint, eth_address) => (dispatch) => {
   dispatch(setIsFetching(true))
   console.log("Making API request to get list of Bots", api_endpoint);
-  axios.get(api_endpoint+"/api/v1/bots", {
+  axios.get(api_endpoint+"/v1/bots", {
     params: {
       eth_address: eth_address
     }
@@ -39,15 +40,21 @@ export const fetchBots = (api_endpoint, eth_address) => (dispatch) => {
   });
 }
 
-export const createBot = (api_endpoint, access_token, eth_address, values) => (dispatch) => {
-  console.log("Making API request to create a Bot",api_endpoint);
-  axios.post(api_endpoint+"/api/v1/bots",
+export const createBot = (config, accessToken, ethAddress, values) => (dispatch) => {
+  console.log("Configuration:", config);
+  let apiEndpoint = config.api_endpoint;
+  console.log("Making API request to create a Bot",apiEndpoint);
+  let apiPromise = axios.post(apiEndpoint+"/v1/bots",
   {
       bot: values,
-      access_token: access_token,
-      eth_address: eth_address
-  })
-  .then(function(response) {
+      access_token: accessToken,
+      eth_address: ethAddress
+  });
+
+  let botchain = new Botchain(config.contract_address);
+  let blockchainPromise = botchain.createBot(values.bot_address,values);
+
+  Promise.all([apiPromise,blockchainPromise]).then(function(response) {
     browserHistory.push('/bots')
   })
   .catch(function(error) {

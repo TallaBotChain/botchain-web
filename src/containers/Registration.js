@@ -20,7 +20,7 @@ class RegistrationPage extends Component {
   }
 
   submit = (values) => {
-    this.props.createDevRecord(this.props.api_endpoint, this.props.auth.access_token, values);
+    this.props.createDevRecord(this.props.api_endpoint, this.props.auth.access_token, this.props.auth.eth_address, values);
   }
 
 
@@ -31,7 +31,7 @@ class RegistrationPage extends Component {
      return <Redirect to='/' />
     }
     //if dev record was created
-    if (this.props.developerRecord.hashed_identifier) {
+    if (this.props.developerRecord.eth_address != null) {
      return <Redirect to='/developer' />
     }
     return <div>
@@ -59,7 +59,8 @@ const mapDispatchToProps = dispatch => {
     fetchDevRecord: (api_endpoint, eth_address) => {
       dispatch(Actions.fetchDeveloperRecord(api_endpoint, eth_address));
     },
-    createDevRecord: (api_endpoint, access_token, values) => {
+    createDevRecord: (api_endpoint, access_token, eth_address, values) => {
+      values.eth_address = eth_address;
       dispatch(Actions.createDeveloperRecord(api_endpoint, access_token, values));
     }
   }
