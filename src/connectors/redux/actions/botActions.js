@@ -6,6 +6,7 @@ import Botchain from '../../blockchain/Botchain'
 export const botActions = {
   SET_BOTS: 'SET_BOTS',
   SET_IS_FETCHING: 'SET_IS_FETCHING',
+  SET_TX_ID: "SET_TX_ID",
   SET_ERRORS: 'SET_ERRORS'
 }
 
@@ -16,6 +17,10 @@ export const setIsFetching = (isFetching)  => {
 
 export const setErrors = (errors)  => {
   return { type: botActions.SET_ERRORS, key: 'errors', value: errors }
+}
+
+export const setTxId = (tx_id)  => {
+  return { type: botActions.SET_TX_ID, key: 'tx_id', value: tx_id }
 }
 
 const setBots = (bots)  => {
@@ -52,7 +57,10 @@ export const createBot = (config, accessToken, ethAddress, values) => (dispatch)
   });
 
   let botchain = new Botchain(config.contract_address);
-  let blockchainPromise = botchain.createBot(values.bot_address,values);
+  let blockchainPromise = botchain.createBot(values.bot_address,values).then((tx_id) => {
+    dispatch( setTxId(tx_id) );
+    return Primise.resolve();
+  });
 
   Promise.all([apiPromise,blockchainPromise]).then(function(response) {
     browserHistory.push('/bots')
