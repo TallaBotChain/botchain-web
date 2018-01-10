@@ -6,19 +6,18 @@ import { NavLink, withRouter } from 'react-router-dom'
 class Nav extends React.Component {
 
   render() {
-    let links = null
-    if (this.props.auth.access_token && (this.props.developerRecord.hashed_identifier || this.props.developerRecord.wasFound )) {
-      links = (
-        <div style={{float: 'right'}}>
-          <NavLink to="/developer">Developer</NavLink>
-          <NavLink to="/bots">Bots</NavLink>
-        </div>
-      )
-    }
+
     return (
       <nav>
         <strong>Botchain</strong>
-        {links}
+        <div style={{float: 'right'}}>
+          {this.props.auth.access_token != null && this.props.developerRecord.eth_address != null &&(
+            <NavLink to="/developer">Developer</NavLink>
+          )}
+          {this.props.auth.access_token != null && this.props.developerRecord.approved &&(
+            <NavLink to="/bots">Bots</NavLink>
+          )}
+        </div>
       </nav>
     )
   }

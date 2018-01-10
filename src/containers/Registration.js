@@ -31,7 +31,7 @@ class RegistrationPage extends Component {
      return <Redirect to='/' />
     }
     //if dev record was created
-    if (this.props.developerRecord.hashed_identifier || this.props.developerRecord.wasFound) {
+    if (this.props.developerRecord.eth_address != null) {
      return <Redirect to='/developer' />
     }
     return <div>

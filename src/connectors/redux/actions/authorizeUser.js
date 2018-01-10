@@ -16,7 +16,7 @@ const setAccessToken = (access_token)  => {
 }
 
 const setEthAddress = (eth_address)  => {
-  return { type: authorizeUserActions.SET_ACCESS_TOKEN, key: 'eth_address', value: eth_address }
+  return { type: authorizeUserActions.SET_ETH_ADDRESS, key: 'eth_address', value: eth_address }
 }
 
 export const requestAccessToken = (api_endpoint,email) => (dispatch) => {

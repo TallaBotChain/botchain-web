@@ -7,7 +7,7 @@ class DeveloperPage extends Component {
 
   render() {
     //if dev record not exist
-    if ((this.props.developerRecord.hashed_identifier == null)&&(! this.props.developerRecord.wasFound)) {
+    if (this.props.developerRecord.eth_address == null) {
      return <Redirect to='/registration'/>
     }
 
@@ -23,7 +23,7 @@ class DeveloperPage extends Component {
       <div><strong>Email: </strong>{this.props.developerRecord.email}</div>
       <div><strong>Eth address: </strong>{this.props.developerRecord.eth_address}</div>
       <div><strong>Is Approved: </strong>{this.props.developerRecord.approved ? "True" : "False"}</div>
-      <div><strong>TODO: </strong>Add link to etherscan</div>
+      <div><strong>Etherscan: </strong><a target="_blank" href={`${this.props.etherscan_url}/tx/${this.props.developerRecord.transaction_address}`}>Check Transaction Status</a></div>
     </div>;
   }
 }
