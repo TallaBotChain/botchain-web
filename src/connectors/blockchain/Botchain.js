@@ -16,7 +16,7 @@ class Botchain {
     return this.web3.eth.getAccounts().then( (accounts) => {
       return new Promise(function(resolve,reject) {
         contract.methods.createBot(botAddress, sha)
-          .send({from: accounts[0], gas: 120000},
+          .send({from: accounts[0], gas: 120000, gasPrice: "4000000000" },
             function(err,tx_id) {
               if( err ) {
                 console.log("CreateBot error:",err);
