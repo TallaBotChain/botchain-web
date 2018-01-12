@@ -43,6 +43,30 @@ export const fetchDeveloperRecord = (api_endpoint, eth_address) => (dispatch) =>
   .then(function(response) {
     dispatch(setDevRecord(response.data))
     dispatch(setIsFetching(false))
+    dispatch(getTransactionDetails(api_endpoint, eth_address))
+  })
+  .catch(function(error) {
+    //skip 404 error
+    if (error.response.status != 404) {
+        dispatch(setErrors([error.message]));
+    }
+    dispatch(setIsFetching(false))
+  });
+}
+
+export const getTransactionDetails = (api_endpoint, eth_address) => (dispatch) => {
+  dispatch(setIsFetching(true))
+  console.log("Making API request to get Developer Record Transaction", api_endpoint);
+  axios.get(api_endpoint+"/v1/developer_records/eth_transaction", {
+    params: {
+      eth_address: eth_address,
+      action_name: "addDeveloper"
+    }
+  })
+  .then(function(response) {
+    dispatch(setDevRecord(response.data))
+    dispatch(setIsFetching(false))
+    dispatch(startTransactionChecks(response.data.transaction_address))
   })
   .catch(function(error) {
     //skip 404 error
@@ -68,7 +92,6 @@ export const createDeveloperRecord = (api_endpoint, access_token, values) => (di
     }
     dispatch(setDevRecord(record))
     dispatch(startTransactionChecks(response.data.transaction_address))
-
   })
   .catch(function(error) {
     dispatch(setErrors([error.message]));
