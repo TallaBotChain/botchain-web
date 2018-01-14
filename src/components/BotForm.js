@@ -21,7 +21,7 @@ class BotForm extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <Field name="bot_address" type="text"
+        <Field name="eth_address" type="text"
           component={renderField} label="Bot Address"
           validate={[ required, address ]}
         />

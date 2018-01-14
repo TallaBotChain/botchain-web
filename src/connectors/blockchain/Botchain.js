@@ -9,23 +9,24 @@ class Botchain {
 
   createBot(botAddress, values) {
     let string = JSON.stringify(values);
-    let sha = this.web3.utils.sha3(string);
+    let hashed_identifier = this.web3.utils.sha3(string);
     let contract = this.contract;
-    console.log("Hash:", sha);
+    console.log("Hashed identifier:", hashed_identifier);
     console.log("Bot Address:", botAddress);
     return this.web3.eth.getAccounts().then( (accounts) => {
       return new Promise(function(resolve,reject) {
-        contract.methods.createBot(botAddress, sha)
-          .send({from: accounts[0], gas: 120000, gasPrice: "4000000000" },
+        contract.methods.createBot(botAddress, hashed_identifier)
+          .send({from: accounts[0]},
             function(err,tx_id) {
               if( err ) {
                 console.log("CreateBot error:",err);
                 reject( err );
               }else {
                 console.log("CreateBot tx_id:",tx_id);
-                resolve(tx_id);
+                resolve({tx_id,hashed_identifier});
               }
             });
+
       });
     });
   }
