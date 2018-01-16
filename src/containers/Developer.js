@@ -22,7 +22,7 @@ class DeveloperPage extends Component {
       <div><strong>Phone: </strong>{this.props.developerRecord.phone}</div>
       <div><strong>Email: </strong>{this.props.developerRecord.email}</div>
       <div><strong>Eth address: </strong>{this.props.developerRecord.eth_address}</div>
-      <div><strong>Is Approved: </strong>{this.props.developerRecord.approved ? "True" : "False"}</div>
+      <div><strong>Transaction status: </strong>{this.props.developerRecord.approved ? "Succeed" : "Checking Tx status..."}</div>
       <div><strong>Etherscan: </strong><a target="_blank" href={`${this.props.etherscan_url}/tx/${this.props.developerRecord.transaction_address}`}>Check Transaction Status</a></div>
     </div>;
   }

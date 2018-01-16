@@ -14,11 +14,13 @@ const initialState = {
   isFetching: false,
   allIds: [],
   byHash: {},
-  errors: []
+  errors: [],
+  tx_id: null
 }
 
 const bots = (state = initialState, action) => {
   switch (action.type) {
+  case botActions.SET_CREATED:
   case botActions.SET_ERRORS:
   case botActions.SET_IS_FETCHING:
       return update(state, {[action.key]: {$set: action.value}});

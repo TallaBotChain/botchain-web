@@ -9,11 +9,25 @@ class Botchain {
 
   createBot(botAddress, values) {
     let string = JSON.stringify(values);
-    let sha = this.web3.utils.sha3(string);
-    console.log("Hash:", sha);
+    let hashed_identifier = this.web3.utils.sha3(string);
+    let contract = this.contract;
+    console.log("Hashed identifier:", hashed_identifier);
     console.log("Bot Address:", botAddress);
     return this.web3.eth.getAccounts().then( (accounts) => {
-      return this.contract.methods.createBot(botAddress, sha).send({from: accounts[0]});
+      return new Promise(function(resolve,reject) {
+        contract.methods.createBot(botAddress, hashed_identifier)
+          .send({from: accounts[0]},
+            function(err,tx_id) {
+              if( err ) {
+                console.log("CreateBot error:",err);
+                reject( err );
+              }else {
+                console.log("CreateBot tx_id:",tx_id);
+                resolve({tx_id,hashed_identifier});
+              }
+            });
+
+      });
     });
   }
 

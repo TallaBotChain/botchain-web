@@ -15,6 +15,9 @@
       "email": "dm.salko@gmail.com"
     },
     "access_token": "token-token",
+    "eth_address": "0x123"
+  },
+  "eth_transaction": {
     "eth_address": "0x123",
     "hashed_identifier": "ab12ba34",
     "transaction_address": "0x124c877c7afa2d414ffbb40f19cf1ee929cd5143d75c1a52d4136d8bdf106b7a"

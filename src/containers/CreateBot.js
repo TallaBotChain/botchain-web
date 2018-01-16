@@ -20,7 +20,12 @@ class CreateBotPage extends Component {
   render() {
     //if dev record is not approved
     if (!this.props.developerRecord.approved) {
-     return <Redirect to='/developer'/>
+      return <Redirect to='/developer'/>
+    }
+
+    if (this.props.bots.created) {
+      this.props.resetCreated();
+      return <Redirect to='/bots'/>
     }
 
     return <div>
@@ -40,6 +45,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    resetCreated: () => {
+      dispatch(Actions.setCreated(false));
+    },
     createBot: (api_endpoint, access_token, eth_address, values) => {
       dispatch(Actions.createBot(api_endpoint, access_token, eth_address, values));
     }
