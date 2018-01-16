@@ -51,7 +51,7 @@ export const createBot = (config, accessToken, ethAddress, values) => (dispatch)
   let apiEndpoint = config.api_endpoint;
 
   let botchain = new Botchain(config.contract_address);
-  botchain.createBot(values.bot_address,values).then((result) => {
+  botchain.createBot(values.eth_address,values).then((result) => {
     console.log("Hashed identifier:",result.hashed_identifier);
     console.log("Making API request to create a Bot",apiEndpoint);
     values.hashed_identifier = result.hashed_identifier;
