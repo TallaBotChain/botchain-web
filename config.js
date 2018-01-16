@@ -15,7 +15,7 @@ const configs = {
     title: 'Botchain',
     api_endpoint: 'https://botchain-api.botchain.talla.io',
     botchain_contract:  "0x9bbe731aef56ece5bd62b4da84e500bbc7507348",
-    etherscan_url: "https://etherscan.io"
+    etherscan_url: "https://kovan.etherscan.io"
   }
 }
 
