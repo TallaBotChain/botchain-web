@@ -48,8 +48,8 @@ const mapDispatchToProps = dispatch => {
     resetCreated: () => {
       dispatch(Actions.setCreated(false));
     },
-    createBot: (api_endpoint, access_token, eth_address, values) => {
-      dispatch(Actions.createBot(api_endpoint, access_token, eth_address, values));
+    createBot: (config, access_token, eth_address, values) => {
+      dispatch(Actions.createBot(config, access_token, eth_address, values));
     }
   }
 }

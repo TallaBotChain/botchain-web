@@ -8,13 +8,13 @@ const configs = {
   demo: {
     title: '[TESTNET] Botchain ',
     api_endpoint: 'https://botchain-api.botchain.talla.io',
-    botchain_contract: "0xd71b558354bc436a2a4e39ae8f6baca4f3581176",
+    botchain_contract: "0x9bbe731aef56ece5bd62b4da84e500bbc7507348",
     etherscan_url: "https://kovan.etherscan.io"
   },
   production: { // the same with demo right now
     title: 'Botchain',
     api_endpoint: 'https://botchain-api.botchain.talla.io',
-    botchain_contract:  "0xd71b558354bc436a2a4e39ae8f6baca4f3581176",
+    botchain_contract:  "0x9bbe731aef56ece5bd62b4da84e500bbc7507348",
     etherscan_url: "https://etherscan.io"
   }
 }
