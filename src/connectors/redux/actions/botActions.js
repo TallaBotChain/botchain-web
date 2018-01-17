@@ -59,7 +59,8 @@ export const createBot = (config, accessToken, ethAddress, values) => (dispatch)
     return axios.post(apiEndpoint+"/v1/bots",
       {
         bot: values,
-        access_token: accessToken
+        access_token: accessToken,
+        tx_hash: result.tx_id
       }).then((response) => {
         console.log("API response:",response);
         if( response.data.success ) {
