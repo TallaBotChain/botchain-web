@@ -13,7 +13,7 @@ class RegistrationPage extends Component {
   }
 
   componentDidMount() {
-    if( ! this.state.record_fetched ) {
+    if( ! this.state.record_fetched && this.props.auth.eth_address) {
       this.props.fetchDevRecord(this.props.api_endpoint, this.props.auth.eth_address)
       this.setState({ record_fetched: true });
     }

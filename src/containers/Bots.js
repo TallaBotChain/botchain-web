@@ -8,7 +8,9 @@ import { Redirect } from 'react-router-dom'
 class BotsPage extends Component {
 
   componentDidMount() {
-    this.props.fetchBots(this.props.api_endpoint, this.props.auth.eth_address)
+    if (this.props.developerRecord.approved) {
+        this.props.fetchBots(this.props.api_endpoint, this.props.auth.eth_address)
+    }
   }
 
   render() {
@@ -29,7 +31,8 @@ class BotsPage extends Component {
             <th>Description</th>
             <th>Tags</th>
             <th>Version</th>
-            <th>Status</th>
+            <th>Last Tx</th>
+            <th>Last Tx Status</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +42,8 @@ class BotsPage extends Component {
               <td>{this.props.bots.byHash[hash].description}</td>
               <td>{this.props.bots.byHash[hash].tags}</td>
               <td>{this.props.bots.byHash[hash].current_version}</td>
-              <td>TODO Add status</td>
+              <td><a target="_blank" href={`${this.props.etherscan_url}/tx/${this.props.bots.byHash[hash].latest_transaction_address}`}>View on Ethersan</a></td>
+              <td>{this.props.bots.byHash[hash].status ? this.props.bots.byHash[hash].status : "Checking Tx status..."}</td>
             </tr>
           ))}
         </tbody>
