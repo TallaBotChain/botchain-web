@@ -7,6 +7,11 @@ export default {
     return [
       {
         path: '/',
+        component: 'src/containers/Pay',
+      },
+      /*
+      {
+        path: '/',
         component: 'src/containers/Signin',
       },
       {
@@ -29,6 +34,7 @@ export default {
         is404: true,
         component: 'src/containers/404',
       }
+      */
     ]
   },
   // webpack: (config, { defaultLoaders }) => {

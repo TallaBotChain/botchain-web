@@ -9,7 +9,7 @@ class Nav extends React.Component {
 
     return (
       <nav>
-        <strong>Botchain</strong>
+        <strong></strong>
         <div style={{float: 'right'}}>
           {this.props.auth.access_token != null && this.props.developerRecord.eth_address != null &&(
             <NavLink to="/developer">Developer</NavLink>
