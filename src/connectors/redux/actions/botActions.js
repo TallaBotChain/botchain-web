@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
-import Botchain from '../../blockchain/Botchain'
+import BotChain from '../../blockchain/BotChain'
 
 let timers = {};
 
@@ -64,7 +64,7 @@ export const fetchBots = (api_endpoint, eth_address) => (dispatch) => {
 export const createBot = (config, accessToken, ethAddress, values) => (dispatch) => {
   let apiEndpoint = config.api_endpoint;
 
-  let botchain = new Botchain(config.contract_address);
+  let botchain = new BotChain(config.contract_address);
   botchain.createBot(values.eth_address,values).then((result) => {
     console.log("Hashed identifier:",result.hashed_identifier);
     console.log("Transaction id:",result.tx_id);
@@ -91,7 +91,7 @@ export const createBot = (config, accessToken, ethAddress, values) => (dispatch)
 
 export const checkTransactionStatus = (eth_address, tx_id) => (dispatch) => {
   dispatch({ type: botActions.TX_CHECK })
-  let botchain = new Botchain();
+  let botchain = new BotChain();
   if (botchain.isTxMined(tx_id)) {
     if (botchain.isTxSucceed(tx_id)) {
       dispatch(updateBotStatus(eth_address, 'Succeed'))

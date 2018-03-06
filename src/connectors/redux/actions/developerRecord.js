@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Web3 from 'web3'
-import Botchain from '../../blockchain/Botchain'
+import BotChain from '../../blockchain/BotChain'
 
 let timer = null;
 
@@ -100,7 +100,7 @@ export const createDeveloperRecord = (api_endpoint, access_token, values) => (di
 
 export const checkTransactionStatus = (tx_id) => (dispatch) => {
   dispatch({ type: DeveloperRecordActions.TX_CHECK })
-  let botchain = new Botchain();
+  let botchain = new BotChain();
   if (botchain.isTxMined(tx_id)) {
     if (botchain.isTxSucceed(tx_id)) {
       dispatch(setApproved(true))

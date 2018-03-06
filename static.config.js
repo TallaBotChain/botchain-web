@@ -7,7 +7,7 @@ export default {
     return [
       {
         path: '/',
-        component: 'src/containers/Pay',
+        component: 'src/containers/Search',
       },
       /*
       {

@@ -3,9 +3,8 @@ import { getSiteProps } from 'react-static';
 import { Head } from 'react-static';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Lucky from '../connectors/blockchain/Lucky'
 
-class PayPage extends Component {
+class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = { no_metamask: false, tx_id: null, ready: false };
@@ -35,9 +34,9 @@ class PayPage extends Component {
       <Head>
         <title>{this.props.title}</title>
       </Head>
-      <h1 style={{ textAlign: 'center' }}>Pay 50 tokens</h1>
       <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
       <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
+        <input placeholder="Search BotChain" />
         <button onClick={ this.ready }>Submit</button>
       </div>
       <div className={ this.state.ready ? '' : 'hidden' }>
@@ -64,4 +63,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(PayPage));
+export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(SearchPage));

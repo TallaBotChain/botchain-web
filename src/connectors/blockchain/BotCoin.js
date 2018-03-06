@@ -1,7 +1,7 @@
 import Web3 from 'web3'
-import artifact from './LuckyCoin.json'
+import artifact from './abi/BotCoin.json'
 
-class Lucky {
+class BotCoin {
   constructor() {
     this.web3 = new Web3(window.web3.currentProvider);
     this.contract = new this.web3.eth.Contract(artifact.abi, "0xa166bbb72d3da1119511a8bdbdff1c49560df094");
