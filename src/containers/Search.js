@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { getSiteProps } from 'react-static';
 import { Head } from 'react-static';
-import {connect} from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import * as Actions from '../connectors/redux/actions/searchActions';
+import SearchForm from '../components/SearchForm';
+import Errors from '../components/Errors';
 
 class SearchPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { no_metamask: false, tx_id: null, ready: false };
+    this.state = { no_metamask: false, ready: false};
+    //  api_endpoint: this.props.api_endpoint
   }
 
   componentDidMount() {
@@ -21,12 +25,7 @@ class SearchPage extends Component {
   }
 
   submit = (values) => {
-    let lucky = new Lucky();
-    lucky.pay()
-      .then((tx_id) => {
-        this.setState({tx_id: tx_id});
-      })
-      .catch((err)=> { alert(err.message); });
+    this.props.collectPayment(this.props.botcoin_contract,values.query);
   }
 
   render() {
@@ -36,17 +35,17 @@ class SearchPage extends Component {
       </Head>
       <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
       <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
-        <input placeholder="Search BotChain" />
-        <button onClick={ this.ready }>Submit</button>
+        <Errors errors={this.props.search.errors} />
+        <SearchForm onSubmit={this.submit} />
       </div>
       <div className={ this.state.ready ? '' : 'hidden' }>
-        <p>Transferring <b>50 tokens</b> from your account to <b>0xCED373380A875AC7650EA0aC78CBDCF62Da7f9A2</b> account.</p><p> A metamask window will popup for you sign and authorize this transaction</p>
+        <p>Transferring <b>50 tokens</b> from your account.</p><p> A metamask window will popup for you sign and authorize this transaction</p>
         <button onClick={ this.submit }>Continue</button>
       </div>
-      <div className={ this.state.tx_id ? '' : 'hidden' }>
+      <div className={ this.props.search.tx_id ? '' : 'hidden' }>
         <p>
           Transaction is being processed, click following link to see details: </p>
-        <a href={"https://ropsten.etherscan.io/tx/"+this.state.tx_id} target='_blank'>{ this.state.tx_id }</a>
+        <a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>{ this.props.search.tx_id }</a>
       </div>
     </div>;
   }
@@ -54,12 +53,16 @@ class SearchPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    search: state.search
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    collectPayment: (botcoin_contract,query) => {
+      dispatch( Actions.setQuery(query) );
+      dispatch( Actions.collectPayment(botcoin_contract, 50 /*TODO: replace this*/, "0xc4F65F5A6e1797cfEAb952B5a582eE21fca0573C" /*TODO: replace this */ ) );
+    }
   }
 }
 
