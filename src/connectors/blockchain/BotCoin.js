@@ -28,6 +28,23 @@ class BotCoin {
     });
   }
 
+  isTxMined(tx_id){
+    return this.web3.eth.getTransaction(tx_id).then( (transaction) => {
+      return transaction.blockNumber != null ? true : false
+    }).catch(error => {
+      return false
+    });
+  }
+
+  isTxSucceed(tx_id){
+    return this.web3.eth.getTransactionReceipt(tx_id).then( (receipt) => {
+      console.log(receipt)
+      return receipt.status == 1 ? true : false
+    }).catch(error => {
+      return false
+    });
+  }
+
 }
 
 export default BotCoin;

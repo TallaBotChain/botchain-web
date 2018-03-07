@@ -42,11 +42,31 @@ class SearchPage extends Component {
         <p>Transferring <b>50 tokens</b> from your account.</p><p> A metamask window will popup for you sign and authorize this transaction</p>
         <button onClick={ this.submit }>Continue</button>
       </div>
-      <div className={ this.props.search.tx_id ? '' : 'hidden' }>
-        <p>
-          Transaction is being processed, click following link to see details: </p>
-        <a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>{ this.props.search.tx_id }</a>
-      </div>
+      {this.props.search.tx_id && (
+        <div>
+          {this.props.search.txMined ? (
+            <div>
+              <h3>Transaction is being processed.</h3>
+              <h4>Status: {this.props.search.txSucceed ? "Succeeed" : "Failed"}</h4>
+              {this.props.search.txSucceed && (
+                <div>
+                  {this.props.search.isFetching ? (
+                    <div>Query Bots. Please wait...</div>
+                  ) : (
+                    <div>
+                      <h4>Search results</h4>
+                      <pre>{JSON.stringify(this.props.search.bots,null,2)}</pre>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : (
+            <h3>Transaction is processing. Please wait...</h3>
+          ) }
+          <p><a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>TX Ethersan Link</a></p>
+        </div>
+      )}
     </div>;
   }
 }

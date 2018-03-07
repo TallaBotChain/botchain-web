@@ -1,4 +1,4 @@
 {
-  "/v1/developer_records/eth_transaction*": "/eth_transaction/$1",
+  "/v1/bots/search\\?query=:q": "/bots?q=:q",
   "/v1/*": "/$1"
 }

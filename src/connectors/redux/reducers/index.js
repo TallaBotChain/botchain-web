@@ -7,8 +7,6 @@ import search from './search'
 
 const reducer = combineReducers({
   form,
-  bots,
-  developerRecord,
   search
 })
 

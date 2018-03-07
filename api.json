@@ -1,25 +1,7 @@
 {
-  "access_token": {
-    "access_token": "token-token",
-    "eth_address": "0x123"
-  },
-  "developer_records": {
-    "developer_record": {
-      "country": "United States",
-      "name": "Dmytro Salko",
-      "street_1": "153 apalachee lane, 8",
-      "city": "Jupiter",
-      "state": "FL",
-      "postal_code": "33458",
-      "phone": "5614609421",
-      "email": "dm.salko@gmail.com"
-    },
-    "access_token": "token-token",
-    "eth_address": "0x123"
-  },
-  "eth_transaction": {
-    "eth_address": "0x123",
-    "hashed_identifier": "ab12ba34",
-    "transaction_address": "0x124c877c7afa2d414ffbb40f19cf1ee929cd5143d75c1a52d4136d8bdf106b7a"
-  }
+  "bots": [
+    {"id": "Bot #1", "name": "Smart Bot", "description": "Teach you smart things" },
+    {"id": "Bot #2", "name": "Qwerty Bot", "description": "Qwerty test bot" },
+    {"id": "Bot #3", "name": "Love Bot", "description": "Bot that loves you" }
+  ]
 }
