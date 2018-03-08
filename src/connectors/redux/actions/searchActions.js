@@ -24,7 +24,8 @@ export const collectPayment = (botcoin_contract, amount, to) => (dispatch) => {
       dispatch(startTransactionChecks(tx_id))
     })
     .catch((err) => {
-      dispatch( setErrors( ["Request cancelled"] ));
+      console.log(err);
+      dispatch( setErrors( ["Not signed by MetaMask. Request cancelled."] ));
     });
 }
 

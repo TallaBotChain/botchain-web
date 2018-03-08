@@ -4,28 +4,30 @@ import { Head } from 'react-static';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as Actions from '../connectors/redux/actions/searchActions';
-import SearchForm from '../components/SearchForm';
+import SearchForm from '../components/search/SearchForm';
 import Errors from '../components/Errors';
+import FeeModal from '../components/search/FeeModal';
 
 class SearchPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { no_metamask: false, ready: false};
+    this.state = { no_metamask: false, values: null };
     //  api_endpoint: this.props.api_endpoint
   }
 
   componentDidMount() {
     if( ! window.web3 ) {
-      this.setState({ no_metamask: true });
+      this.setState({ no_metamask: true, modal_visible: false });
     }
   }
 
-  ready = () => {
-    this.setState({ ready: true });
+  submit = (values) => {
+    this.setState({modal_visible: true, values: values});
   }
 
-  submit = (values) => {
-    this.props.collectPayment(this.props.botcoin_contract,values.query);
+  okClick = () => {
+    this.setState({modal_visible: false});
+    this.props.collectPayment(this.props.botcoin_contract,this.state.values.query);
   }
 
   render() {
@@ -37,10 +39,7 @@ class SearchPage extends Component {
       <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
         <Errors errors={this.props.search.errors} />
         <SearchForm onSubmit={this.submit} />
-      </div>
-      <div className={ this.state.ready ? '' : 'hidden' }>
-        <p>Transferring <b>50 tokens</b> from your account.</p><p> A metamask window will popup for you sign and authorize this transaction</p>
-        <button onClick={ this.submit }>Continue</button>
+        <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
       </div>
       {this.props.search.tx_id && (
         <div>

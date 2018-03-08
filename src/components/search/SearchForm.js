@@ -22,7 +22,7 @@ class SearchForm extends Component {
         <button type="submit">Search</button>
       </form>
       );
-}
+  }
 }
 
 SearchForm = reduxForm({
