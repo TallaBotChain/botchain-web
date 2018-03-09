@@ -1,7 +1,7 @@
 {
   "bots": [
-    {"id": "Bot #1", "name": "Smart Bot", "description": "Teach you smart things" },
-    {"id": "Bot #2", "name": "Qwerty Bot", "description": "Qwerty test bot" },
-    {"id": "Bot #3", "name": "Love Bot", "description": "Bot that loves you" }
+    {"id": "Bot #1", "name": "Smart Bot", "description": "Teach you smart things", "tags": ["smart", "bot"] },
+    {"id": "Bot #2", "name": "Qwerty Bot", "description": "Qwerty test bot", "tags": ["qwerty", "bot"] },
+    {"id": "Bot #3", "name": "Love Bot", "description": "Bot that loves you", "tags": ["love", "bot"]  }
   ]
 }

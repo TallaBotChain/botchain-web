@@ -7,6 +7,7 @@ import * as Actions from '../connectors/redux/actions/searchActions';
 import SearchForm from '../components/search/SearchForm';
 import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
+import SearchResults from '../components/search/SearchResults';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -30,43 +31,30 @@ class SearchPage extends Component {
     this.props.collectPayment(this.props.botcoin_contract,this.state.values.query);
   }
 
+  renderTxInfo = () => {
+    if (this.props.search.tx_id) {
+      let tx_link = <a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>Transaction</a>
+      let tx_status = this.props.search.txMined ? (this.props.search.txSucceed ? "is being successfully processed." : "failed") : "is processing. Please wait..."
+      return(<h3>{tx_link} {tx_status}</h3>)
+    }
+  }
+
   render() {
-    return <div style={{textAlign: 'center'}}>
-      <Head>
-        <title>{this.props.title}</title>
-      </Head>
-      <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
-      <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
-        <Errors errors={this.props.search.errors} />
-        <SearchForm onSubmit={this.submit} />
-        <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
-      </div>
-      {this.props.search.tx_id && (
-        <div>
-          {this.props.search.txMined ? (
-            <div>
-              <h3>Transaction is being processed.</h3>
-              <h4>Status: {this.props.search.txSucceed ? "Succeeed" : "Failed"}</h4>
-              {this.props.search.txSucceed && (
-                <div>
-                  {this.props.search.isFetching ? (
-                    <div>Query Bots. Please wait...</div>
-                  ) : (
-                    <div>
-                      <h4>Search results</h4>
-                      <pre>{JSON.stringify(this.props.search.bots,null,2)}</pre>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          ) : (
-            <h3>Transaction is processing. Please wait...</h3>
-          ) }
-          <p><a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>TX Ethersan Link</a></p>
+    return (
+      <div style={{textAlign: 'center'}}>
+        <Head>
+          <title>{this.props.title}</title>
+        </Head>
+        <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
+        <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
+          <Errors errors={this.props.search.errors} />
+          <SearchForm onSubmit={this.submit} />
+          <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
         </div>
-      )}
-    </div>;
+        {this.renderTxInfo()}
+        {this.props.search.txSucceed && <SearchResults query={this.state.values.query} bots={this.props.search.bots}/>}
+      </div>
+    )
   }
 }
 
