@@ -30,19 +30,21 @@ class BotCoin {
 
   isTxMined(tx_id){
     return this.web3.eth.getTransaction(tx_id).then( (transaction) => {
-      console.log(transaction)
-      return transaction.blockNumber != null ? true : false
+      console.log("transaction: ",transaction)
+      let result = (transaction && transaction.blockNumber) != null
+      console.log("mined: ",result);
+      return Promise.resolve(result);
     }).catch(error => {
-      return false
+      return Promise.reject();
     });
   }
 
   isTxSucceed(tx_id){
     return this.web3.eth.getTransactionReceipt(tx_id).then( (receipt) => {
-      console.log(receipt)
-      return receipt.status == 1 ? true : false
+      console.log("receipt: ",receipt)
+      return Promise.resolve(receipt.status == 1);
     }).catch(error => {
-      return false
+      return Promise.reject();
     });
   }
 

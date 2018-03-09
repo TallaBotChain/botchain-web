@@ -16,21 +16,24 @@ export const start = (tx_id, success_callback) => (dispatch) => {
   clearInterval(timers[tx_id]);
   timers[tx_id] = setInterval(() => dispatch(tick(tx_id, success_callback)), 5000);
   dispatch({ type: txObserverActions.TX_TIMER_START })
-  dispatch(tick(tx_id, success_callback))
 }
 
 const tick = (tx_id, success_callback) => (dispatch) => {
   dispatch({ type: txObserverActions.TX_TIMER_TICK })
-  //TODO use one smartcontract for all checks
   let botcoin = new BotCoin();
-  if (botcoin.isTxMined(tx_id)) {
-    let status = botcoin.isTxSucceed(tx_id) ? TxStatus.SUCCEED : TxStatus.FAILED
-    dispatch({ type: txObserverActions.UPDATE_TX, tx_id: tx_id, key: 'status', value: status })
-    if(success_callback){
-      dispatch(success_callback(status))
+  botcoin.isTxMined(tx_id).then( (mined) => {
+    if(mined) {
+      botcoin.isTxSucceed(tx_id).then( (succeeded) => {
+        let status = succeeded ? TxStatus.SUCCEED : TxStatus.FAILED;
+        console.log("status: ", status);
+        dispatch({ type: txObserverActions.UPDATE_TX, tx_id: tx_id, key: 'status', value: status })
+        if(status == TxStatus.SUCCEED){
+          dispatch(success_callback(status))
+        }
+        dispatch(stop(tx_id))
+      })
     }
-    dispatch(stop(tx_id))
-  }
+  })
 }
 
 const stop = (tx_id) => (dispatch) => {
