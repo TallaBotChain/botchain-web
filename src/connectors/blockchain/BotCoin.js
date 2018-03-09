@@ -30,6 +30,7 @@ class BotCoin {
 
   isTxMined(tx_id){
     return this.web3.eth.getTransaction(tx_id).then( (transaction) => {
+      console.log(transaction)
       return transaction.blockNumber != null ? true : false
     }).catch(error => {
       return false

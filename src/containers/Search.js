@@ -8,6 +8,7 @@ import SearchForm from '../components/search/SearchForm';
 import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import SearchResults from '../components/search/SearchResults';
+import TxStatus from '../connectors/helpers/TxStatus'
 
 class SearchPage extends Component {
   constructor(props) {
@@ -28,16 +29,25 @@ class SearchPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
-    this.props.collectPayment(this.props.botcoin_contract,this.state.values.query);
+    this.props.collectPayment(this.props.botcoin_contract, this.state.values.query);
   }
 
+  //TODO move this to seprate component. It can be re-used for dev reg and add bot
   renderTxInfo = () => {
     if (this.props.search.tx_id) {
       let tx_link = <a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>Transaction</a>
-      let tx_status = this.props.search.txMined ? (this.props.search.txSucceed ? "is being successfully processed." : "failed") : "is processing. Please wait..."
-      return(<h3>{tx_link} {tx_status}</h3>)
+      switch (this.props.transactions[this.props.search.tx_id].status) {
+        case TxStatus.SUCCEED:
+          return(<h3>{tx_link} is being successfully processed.</h3>)
+        case TxStatus.FAILED:
+          return(<h3>{tx_link} failed</h3>)
+        default:
+          return(<h3>{tx_link} is processing. Please wait...</h3>)
+      }
     }
   }
+
+
 
   render() {
     return (
@@ -52,7 +62,7 @@ class SearchPage extends Component {
           <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
         </div>
         {this.renderTxInfo()}
-        {this.props.search.txSucceed && <SearchResults query={this.state.values.query} bots={this.props.search.bots}/>}
+        {this.props.search.tx_id && this.props.transactions[this.props.search.tx_id].status == TxStatus.SUCCEED && <SearchResults query={this.state.values.query} bots={this.props.search.bots}/>}
       </div>
     )
   }
@@ -60,7 +70,8 @@ class SearchPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    search: state.search
+    search: state.search,
+    transactions: state.txObserver.transactions
   }
 }
 
