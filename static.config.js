@@ -9,11 +9,10 @@ export default {
         path: '/',
         component: 'src/containers/Search',
       },
-      /*
       {
-        path: '/',
-        component: 'src/containers/Signin',
-      },
+        path: '/developer',
+        component: 'src/containers/Developer',
+      }/*,
       {
         path: '/registration',
         component: 'src/containers/Registration',

@@ -2,35 +2,60 @@ import React, { Component } from 'react';
 import { getSiteProps } from 'react-static';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { Head } from 'react-static';
+import DeveloperForm from '../components/developer/DeveloperForm';
+import Errors from '../components/Errors';
+import FeeModal from '../components/search/FeeModal';
+import TxStatus from '../connectors/helpers/TxStatus'
 
 class DeveloperPage extends Component {
 
-  render() {
-    //if dev record not exist
-    if (this.props.developerRecord.eth_address == null) {
-     return <Redirect to='/registration'/>
-    }
+  //TODO move MetaMask check code into HOC https://reactjs.org/docs/higher-order-components.html
+  constructor(props) {
+    super(props);
+    this.state = { no_metamask: false, values: null };
+    //  api_endpoint: this.props.api_endpoint
+  }
 
-    return <div>
-      <h1 style={{ textAlign: 'center' }}>Developer information</h1>
-      <div><strong>Name: </strong>{this.props.developerRecord.name}</div>
-      <div><strong>Description: </strong>{this.props.developerRecord.description}</div>
-      <div><strong>Street: </strong>{this.props.developerRecord.street_1}</div>
-      <div><strong>City: </strong>{this.props.developerRecord.city}</div>
-      <div><strong>State: </strong>{this.props.developerRecord.state}</div>
-      <div><strong>Postal Code: </strong>{this.props.developerRecord.postal_code}</div>
-      <div><strong>Phone: </strong>{this.props.developerRecord.phone}</div>
-      <div><strong>Email: </strong>{this.props.developerRecord.email}</div>
-      <div><strong>Eth address: </strong>{this.props.developerRecord.eth_address}</div>
-      <div><strong>Transaction status: </strong>{this.props.developerRecord.approved ? "Succeed" : "Checking Tx status..."}</div>
-      <div><strong>Etherscan: </strong><a target="_blank" href={`${this.props.etherscan_url}/tx/${this.props.developerRecord.transaction_address}`}>Check Transaction Status</a></div>
-    </div>;
+  componentDidMount() {
+    console.log("kuku")
+    if( ! window.web3 ) {
+      this.setState({ no_metamask: true, modal_visible: false });
+    }
+  }
+
+  submit = (values) => {
+    this.setState({modal_visible: true, values: values});
+  }
+
+  okClick = () => {
+    this.setState({modal_visible: false});
+  }
+
+  render() {
+
+    return (
+      <div style={{textAlign: 'center'}}>
+        <Head>
+          <title>{this.props.title}</title>
+        </Head>
+        <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
+        <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
+          <h3>BotChain Developer Registration</h3>
+          <p>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+          <Errors errors={this.props.developer.errors} />
+          <DeveloperForm onSubmit={this.submit} />
+          <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
+        </div>
+    </div>
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    developerRecord: state.developerRecord
+    developer: state.developer,
+    transactions: state.txObserver.transactions
   }
 }
 
