@@ -13,14 +13,8 @@ import TxStatus from '../connectors/helpers/TxStatus'
 class SearchPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { no_metamask: false, values: null };
+    this.state = { values: null, modal_visible: false };
     //  api_endpoint: this.props.api_endpoint
-  }
-
-  componentDidMount() {
-    if( ! window.web3 ) {
-      this.setState({ no_metamask: true, modal_visible: false });
-    }
   }
 
   submit = (values) => {
@@ -55,8 +49,7 @@ class SearchPage extends Component {
         <Head>
           <title>{this.props.title}</title>
         </Head>
-        <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
-        <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
+        <div>
           <Errors errors={this.props.search.errors} />
           <SearchForm onSubmit={this.submit} />
           <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />

@@ -14,15 +14,11 @@ class DeveloperPage extends Component {
   //TODO move MetaMask check code into HOC https://reactjs.org/docs/higher-order-components.html
   constructor(props) {
     super(props);
-    this.state = { no_metamask: false, values: null };
+    this.state = { no_metamask: false, modal_visible: false };
   }
 
   componentDidMount() {
-    console.log("kuku")
     this.props.fetchMetamaskAccount();
-    if( ! window.web3 ) {
-      this.setState({ no_metamask: true, modal_visible: false });
-    }
   }
 
   submit = (values) => {
@@ -41,8 +37,7 @@ class DeveloperPage extends Component {
         <Head>
           <title>{this.props.title}</title>
         </Head>
-        <div className={ this.state.no_metamask ? 'alert' : 'hidden' }>Unable to connect to MetaMask</div>
-        <div className={ ( this.state.no_metamask || this.state.ready ) ? 'hidden' : '' }>
+        <div>
           <h3>BotChain Developer Registration</h3>
           <p>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
           <Errors errors={this.props.developer.errors} />
