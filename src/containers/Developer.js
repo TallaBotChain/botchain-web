@@ -7,6 +7,7 @@ import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import TxStatus from '../connectors/helpers/TxStatus'
+import * as Actions from '../connectors/redux/actions/developerActions';
 
 class DeveloperPage extends Component {
 
@@ -14,11 +15,11 @@ class DeveloperPage extends Component {
   constructor(props) {
     super(props);
     this.state = { no_metamask: false, values: null };
-    //  api_endpoint: this.props.api_endpoint
   }
 
   componentDidMount() {
     console.log("kuku")
+    this.props.fetchMetamaskAccount();
     if( ! window.web3 ) {
       this.setState({ no_metamask: true, modal_visible: false });
     }
@@ -30,6 +31,7 @@ class DeveloperPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
+    this.props.addDeveloper(this.state.values);
   }
 
   render() {
@@ -59,5 +61,15 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchMetamaskAccount: () => {
+      dispatch( Actions.fetchMetamaskAccount() );
+    },
+    addDeveloper: (values) => {
+      dispatch( Actions.addDeveloper(values.metadata_url, "{metadata}" ) );
+    }
+  }
+}
 
-export default connect(mapStateToProps)(getSiteProps(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(DeveloperPage));
