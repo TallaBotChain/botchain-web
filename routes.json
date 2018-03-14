@@ -1,4 +1,6 @@
 {
+  "/dev.json": "/valid_developer_metadata",
+  "/!dev.json": "/invalid_developer_metadata",
   "/v1/bots/search\\?query=:q": "/bots?q=:q",
   "/v1/*": "/$1"
 }
