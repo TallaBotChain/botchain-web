@@ -1,0 +1,44 @@
+form {
+  display: block;
+  width: 630px;
+  margin: 0 auto;
+}
+form input, form select, form button {
+  margin-bottom: 1rem;
+  width: 60%;
+  box-sizing: border-box;
+}
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+form .validation-error {
+  display: block;
+  margin-top: -0.8rem;
+  margin-bottom: 1rem;
+  color: #aa0000;
+  font-size: 0.8rem;
+}
+input {
+  font-size: 18px;
+  border: solid 1px #cccccc;
+  border-radius: 5px;
+  padding: 15px 15px;
+  &::-webkit-input-placeholder, &::-moz-placeholder {
+    color:#acaeb0;
+  }
+}
+button {
+  color: #00bb90;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px 25px;
+  max-width: 140px;
+  border: solid 1px #cccccc;
+  border-radius: 5px;
+  background-color: rgba(255,255,255,0.9);
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255,255,255,0.95);
+  }
+}

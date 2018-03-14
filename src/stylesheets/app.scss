@@ -1,4 +1,5 @@
 @import './base.scss';
+@import './forms.scss';
 
 nav {
   width: 100%;
@@ -6,20 +7,19 @@ nav {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  font-weight: normal;
 }
 
 nav a {
   color: white;
   padding: 1rem;
+  font-size: 18px;
   &:last-child {
     margin-right: 60px;
   }
 }
 
 nav a.active {
-  background: white;
-  color: #108db8;
-  border-top: 1px solid #108db8;
 }
 
 nav strong {
@@ -29,31 +29,53 @@ nav strong {
   flex-shrink: 0;
 }
 
+nav a {
+  position: relative;
+  margin-right: 30px;
+  .submenu {
+    &:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 7px 10px 7px;
+      border-color: transparent transparent rgba(255,255,255,0.7) transparent;
+    }
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    width: 180px;
+    min-height: 100px;
+    background-color: rgba(255,255,255,0.7);
+    border-bottom: solid 4px #fff;
+    padding-left: 0;
+    padding-top: 1em;
+    a {
+      white-space: nowrap;
+      color: #223450;
+      line-height: 2em;
+      &:hover {
+        text-decoration:underline;
+      }
+    }
+  }
+  &:hover {
+    .submenu {
+      display: block;
+    }
+  }
+}
+
 .content {
   padding: 1rem;
 }
 .hidden {
   display: none;
-}
-form {
-  display: block;
-  width: 630px;
-  margin: 0 auto;
-}
-form input, form select, form button {
-  margin-bottom: 1rem;
-  padding: 5px 10px;
-  width: 60%;
-  box-sizing: border-box;
-}
-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-form .validation-error {
-  margin-left: 1rem;
-  color: Red;
-  font-size: 0.8rem;
 }
 .alert {
   width: 630px;
@@ -68,55 +90,55 @@ ul li {
   list-style-type: none;
 }
 .table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
 }
 table {
-    background-color: transparent;
+  background-color: transparent;
 }
 table {
-    border-spacing: 0;
-    border-collapse: collapse;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
-    border-top: 0;
+  border-top: 0;
 }
 .table > thead > tr > th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #ddd;
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
 }
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
 }
 th {
-    text-align: left;
+  text-align: left;
 }
 td, th {
-    padding: 0;
+  padding: 0;
 }
 
 /* modal */
 .modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 360px;
-    min-height: 150px;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 360px;
+  min-height: 150px;
 }
