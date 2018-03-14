@@ -10,7 +10,7 @@ import NoMetamaskPage from './containers/NoMetamask'
 import SearchPage from './containers/Search'
 import DeveloperPage from './containers/Developer'
 
-import './app.scss'
+import './stylesheets/app.scss'
 
 
 const MetamaskRoute = ({ component: Component, ...rest }) => (

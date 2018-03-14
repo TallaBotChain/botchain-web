@@ -9,7 +9,7 @@ class Nav extends React.Component {
 
     return (
       <nav>
-        <strong>BotChain</strong>
+        <strong className="logo">BotChain</strong>
         <NavLink to="/developer">Developer</NavLink>
         <NavLink to="/bots">Bots</NavLink>
         <NavLink exact to="/">Services</NavLink>

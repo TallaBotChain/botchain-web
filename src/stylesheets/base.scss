@@ -1,0 +1,33 @@
+body {
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial,
+    'Lucida Grande', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+
+  background-image: url(img/big-gear.png), url(img/small-gear.png), url(img/bg.png);
+  background-repeat: no-repeat,no-repeat,no-repeat;
+  background-position: 5px 400px, 275px 270px, center center;
+}
+
+a {
+  text-decoration: none;
+  color: #108db8;
+  font-weight: bold;
+}
+
+img {
+  max-width: 100%;
+}
+
+.logo {
+  text-indent: -1000em;
+  background-image: url(img/logo.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 277px 64px;
+  width: 277px;
+  height: 64px;
+  margin-left: 60px;
+}
