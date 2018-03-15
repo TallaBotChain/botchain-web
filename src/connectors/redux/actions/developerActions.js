@@ -16,10 +16,10 @@ export const setInProgress = (inProgress)  => {
 export const allowTransfer = () => {}
 export const checkTransferAllowance = () => {}
 
-export const addDeveloper = (url, metadata, urlshortener_api_key) => async (dispatch) => {
+export const addDeveloper = (url, metadata) => async (dispatch) => {
   let shorten_url = url
   if (url.length > 32) {
-    shorten_url = await UrlShortener.shorten(url, this.props.urlshortener_api_key)
+    shorten_url = await UrlShortener.shorten(url, window.config.urlshortener_api_key)
   }
   //NOTE: metadata here is a json string, not an object
   console.log("addDeveloper with url:", shorten_url, " metadata:", metadata);
