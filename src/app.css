@@ -51,7 +51,7 @@ form {
   width: 630px;
   margin: 0 auto;
 }
-form input, form select, form button {
+form input, form select, form button, form textarea {
   margin-bottom: 1rem;
   padding: 5px 10px;
   width: 60%;

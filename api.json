@@ -3,5 +3,24 @@
     {"id": "Bot #1", "name": "Smart Bot", "description": "Teach you smart things", "tags": ["smart", "bot"] },
     {"id": "Bot #2", "name": "Qwerty Bot", "description": "Qwerty test bot", "tags": ["qwerty", "bot"] },
     {"id": "Bot #3", "name": "Love Bot", "description": "Bot that loves you", "tags": ["love", "bot"]  }
-  ]
+  ],
+  "valid_developer_metadata": {
+    "name": "BotChain",
+    "organization": "Talla",
+    "street_1": "23 Green Street",
+    "street_2": "",
+    "city": "Boston",
+    "state/province": "MA",
+    "postal_code": "123",
+    "country": "USA",
+    "phone": "12345678",
+    "phone_ext" : "",
+    "email": "info@talla.com",
+    "url": "http://talla.com",
+    "foo": "bar"
+  },
+  "invalid_developer_metadata": {
+    "name": "",
+    "organization": ""
+  }
 }

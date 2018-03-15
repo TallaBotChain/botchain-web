@@ -6,35 +6,13 @@ export default {
   getRoutes: async () => {
     return [
       {
-        path: '/',
-        component: 'src/containers/Search',
-      },
-      /*
-      {
-        path: '/',
-        component: 'src/containers/Signin',
-      },
-      {
-        path: '/registration',
-        component: 'src/containers/Registration',
-      },
-      {
-        path: '/developer',
-        component: 'src/containers/Developer',
-      },
-      {
-        path: '/bot/new',
-        component: 'src/containers/CreateBot',
-      },
-      {
-        path: '/bots',
-        component: 'src/containers/Bots',
+        path: '/no_metamask',
+        component: 'src/containers/NoMetamask',
       },
       {
         is404: true,
         component: 'src/containers/404',
       }
-      */
     ]
   },
   // webpack: (config, { defaultLoaders }) => {

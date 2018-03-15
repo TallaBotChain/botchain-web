@@ -11,6 +11,8 @@ class Nav extends React.Component {
       <nav>
         <strong>BotChain</strong>
         <NavLink to="/developer">Developer</NavLink>
+        <NavLink to="/bots">Bots</NavLink>
+        <NavLink exact to="/">Services</NavLink>
       </nav>
     )
   }
