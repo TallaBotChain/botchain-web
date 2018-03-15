@@ -1,5 +1,4 @@
 import axios from 'axios'
-//import config from 'config';
 import BotCoin from '../../blockchain/BotCoin';
 import { start as startTxObserver } from './txObserverActions';
 import TxStatus from '../../helpers/TxStatus'
@@ -12,8 +11,8 @@ export const searchActions = {
   TX_MINED: "SEARCH_TX_MINED"
 }
 
-export const collectPayment = (botcoin_contract, amount, to) => (dispatch) => {
-  let botcoin = new BotCoin(botcoin_contract);
+export const collectPayment = (amount, to) => (dispatch) => {
+  let botcoin = new BotCoin(window.config.botcoin_contract);
   botcoin.pay(amount, to)
     .then( (tx_id) => {
       dispatch(startTxObserver(tx_id, txMined))
@@ -53,9 +52,7 @@ const setIsFetching = (isFetching) => {
 }
 
 const searchBots = () => (dispatch, getState) => {
-  // TODO - find way to read config from this file
-  // let apiEndpoint = config.api_endpoint;
-  let api_endpoint = "http://localhost:3001"
+  let api_endpoint = window.config.api_endpoint
   const search = getState().search;
 
   dispatch(setIsFetching(true))

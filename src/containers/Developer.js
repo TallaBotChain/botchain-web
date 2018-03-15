@@ -8,10 +8,10 @@ import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as Actions from '../connectors/redux/actions/developerActions';
+import withConfig from '../hocs/withConfig';
 
 class DeveloperPage extends Component {
 
-  //TODO move MetaMask check code into HOC https://reactjs.org/docs/higher-order-components.html
   constructor(props) {
     super(props);
     this.state = { no_metamask: false, modal_visible: false };
@@ -27,8 +27,7 @@ class DeveloperPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
-    //TODO remove this.props.urlshortener_api_key from params
-    this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata, this.props.urlshortener_api_key);
+    this.props.addDeveloper(this.state.values);
   }
 
   render() {
@@ -63,9 +62,9 @@ const mapDispatchToProps = dispatch => {
       dispatch( Actions.fetchMetamaskAccount() );
     },
     addDeveloper: (values) => {
-      dispatch( Actions.addDeveloper(values.metadata_url, "{metadata}" ) );
+      dispatch( Actions.addDeveloper(values.metadata_url, values.metadata ) );
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(withConfig(DeveloperPage)));
