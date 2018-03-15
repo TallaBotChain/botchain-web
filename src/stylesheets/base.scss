@@ -6,10 +6,12 @@ body {
   padding: 0;
 
   background-color: #00bc90;
-  background-image: url(img/big-gear.png), url(img/small-gear.png), url(img/bg.png);
-  background-repeat: no-repeat,no-repeat,no-repeat;
-  background-position: 5px 400px, 275px 270px, center center;
   color: #efefef;
+  &.home {
+    background-image: url(img/big-gear.png), url(img/small-gear.png), url(img/bg.png);
+    background-repeat: no-repeat,no-repeat,no-repeat;
+    background-position: 5px 400px, 275px 270px, center center;
+  }
 }
 
 a {
@@ -19,6 +21,11 @@ a {
 
 img {
   max-width: 100%;
+}
+
+h1 {
+  font-size: 36px;
+  text-align: center;
 }
 
 .logo {

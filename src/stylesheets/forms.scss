@@ -3,9 +3,9 @@ form {
   width: 630px;
   margin: 0 auto;
 }
-form input, form select, form button {
+form input, form select, form button, form textarea {
   margin-bottom: 1rem;
-  width: 60%;
+  width: 100%;
   box-sizing: border-box;
 }
 form label {
@@ -16,10 +16,10 @@ form .validation-error {
   display: block;
   margin-top: -0.8rem;
   margin-bottom: 1rem;
-  color: #aa0000;
+  color: #fac8ca;
   font-size: 0.8rem;
 }
-input {
+input, textarea {
   font-size: 18px;
   border: solid 1px #cccccc;
   border-radius: 5px;
@@ -42,3 +42,10 @@ button {
     background-color: rgba(255,255,255,0.95);
   }
 }
+
+button.primary {
+  background-color: #0854cc;
+  border-color: #0854cc;
+  color: #fff;
+}
+

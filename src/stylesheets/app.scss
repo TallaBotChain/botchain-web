@@ -86,7 +86,25 @@ nav a {
   color: #645b5b;
   display: block;
   text-align: center;
+  border-radius: 5px;
+  border: solid 1px #fac8ca;
 }
+
+.alert-info {
+  background-color: #d8edf8;
+  border-color: #bbe8f2;
+  border-radius: 5px;
+  color: #3585af;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.8em;
+  margin-top: 25px;
+  margin: 1rem auto;
+  padding: 15px;
+  text-align: left;
+  width: 600px;
+}
+
 ul li {
   list-style-type: none;
 }

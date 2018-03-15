@@ -13,6 +13,7 @@
     "country-list": "^1.1.0",
     "json-loader": "^0.5.7",
     "react": "^16.0.0",
+    "react-body-classname": "^1.2.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",

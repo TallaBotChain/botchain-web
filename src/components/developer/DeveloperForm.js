@@ -22,18 +22,18 @@ class DeveloperForm extends Component {
     return (
       <form onSubmit={handleSubmit}>
         <Field name="eth_address" type="text" readOnly={true}
-          component={inputField} label="ETH Address"
+          component={inputField} label="ETH Address" placeholder="0x000..."
           validate={[ required()]}
         />
         <Field name="metadata_url" type="url"
-          component={inputField} label="Developer Metadata URL"
+          component={inputField} label="Developer Metadata URL" placeholder="https://example.com/..."
           validate={[ required(), length({ max: 132 }), url() ]}
         />
         <Field name="metadata"
-          component={textareaField} label="Will be autoloaded from url above"
+          component={textareaField} label="Metadata" placeholder="Will be autoloaded from url above"
           validate={[required(), validateMetadata]}
         />
-        <button type="submit">Register</button>
+        <button className='primary' type="submit">Register</button>
       </form>
     );
   }

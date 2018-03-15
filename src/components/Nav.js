@@ -9,7 +9,7 @@ class Nav extends React.Component {
 
     return (
       <nav>
-        <strong className="logo">BotChain</strong>
+        <strong className="logo">Botchain</strong>
         <NavLink to="/developer">Developer <b>&#8964;</b>
           <ul className="submenu">
             <li>
