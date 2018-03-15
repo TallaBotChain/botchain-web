@@ -9,12 +9,12 @@ import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import SearchResults from '../components/search/SearchResults';
 import TxStatus from '../connectors/helpers/TxStatus'
+import withConfig from '../hocs/withConfig';
 
 class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = { values: null, modal_visible: false };
-    //  api_endpoint: this.props.api_endpoint
   }
 
   submit = (values) => {
@@ -23,7 +23,7 @@ class SearchPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
-    this.props.collectPayment(this.props.botcoin_contract, this.state.values.query);
+    this.props.collectPayment(this.state.values.query);
   }
 
   //TODO move this to seprate component. It can be re-used for dev reg and add bot
@@ -70,11 +70,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    collectPayment: (botcoin_contract,query) => {
+    collectPayment: (query) => {
       dispatch( Actions.setQuery(query) );
-      dispatch( Actions.collectPayment(botcoin_contract, 50 /*TODO: replace this*/, "0xc4F65F5A6e1797cfEAb952B5a582eE21fca0573C" /*TODO: replace this */ ) );
+      dispatch( Actions.collectPayment( 50 /*TODO: replace this*/, "0xc4F65F5A6e1797cfEAb952B5a582eE21fca0573C" /*TODO: replace this */ ) );
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(SearchPage));
+export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(withConfig(SearchPage)));

@@ -8,6 +8,7 @@ import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as Actions from '../connectors/redux/actions/developerActions';
+import withConfig from '../hocs/withConfig';
 
 class DeveloperPage extends Component {
 
@@ -68,4 +69,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(withConfig(DeveloperPage)));

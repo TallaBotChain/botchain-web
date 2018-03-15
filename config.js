@@ -30,5 +30,6 @@ export default (dev) => {
   if( process.env['ENV'] !== undefined ) {
     enviroment = process.env['ENV'];
   }
-  return configs[ enviroment.toLowerCase() ];
+  let config = configs[ enviroment.toLowerCase() ];
+  return { config: config, title: config.title };
 }
