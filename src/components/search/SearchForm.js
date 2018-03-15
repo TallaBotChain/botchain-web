@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-
-const required = value => value ? undefined : 'Required'
-
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div>
-    <input {...input} placeholder={label} type={type}/>
-    {touched && ((error && <span className='validation-error'>{error}</span>) || (warning && <span>{warning}</span>))}
-  </div>
-)
+import { required } from 'redux-form-validators'
+import { inputField } from '../form/FormFields';
 
 class SearchForm extends Component {
   render() {
@@ -16,7 +9,7 @@ class SearchForm extends Component {
     return (
       <form onSubmit={handleSubmit}>
         <Field name="query" type="text"
-          component={renderField} label="Search BotChain"
+          component={inputField} label="Search BotChain"
           validate={[ required]}
         />
         <button type="submit">Search</button>
