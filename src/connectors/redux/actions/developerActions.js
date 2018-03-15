@@ -1,7 +1,7 @@
 import axios from 'axios'
 import DeveloperRegistry from '../../blockchain/DeveloperRegistry';
 import { start as startTxObserver } from './txObserverActions';
-import { UrlShortener } from '../../connectors/google/UrlShortener';
+import { UrlShortener } from '../../google/UrlShortener';
 import TxStatus from '../../helpers/TxStatus'
 
 
@@ -21,10 +21,10 @@ export const addDeveloper = (url, metadata, urlshortener_api_key) => async (disp
   if (url.length > 32) {
     shorten_url = await UrlShortener.shorten(url, this.props.urlshortener_api_key)
   }
-  //NOTE: metadata here is a json string, not an js object
+  //NOTE: metadata here is a json string, not an object
   console.log("addDeveloper with url:", shorten_url, " metadata:", metadata);
   let registry = new DeveloperRegistry("0xda4aacc9120ccec230c5d9d0600947052b8bb86c"); // TODO: put real address
-  registry.addDeveloper(url, metadata);
+  registry.addDeveloper(shorten_url, metadata);
 }
 
 export const fetchDeveloperMetadata = () => {
