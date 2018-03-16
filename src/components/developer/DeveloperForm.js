@@ -4,6 +4,7 @@ import { required, length, url } from 'redux-form-validators'
 import { MetadataValidator } from '../../connectors/validators/MetadataValidator';
 import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
+import MetadataTooltip from './MetadataTooltip';
 
 const REQUIRED_METADATA_ATTRIBUTES = ["name","organization","street_1","city","state/province","postal_code","country","phone","email","url"]
 
@@ -28,6 +29,7 @@ class DeveloperForm extends Component {
         <Field name="metadata_url" type="url"
           component={inputField} label="Developer Metadata URL" placeholder="https://example.com/..."
           validate={[ required(), length({ max: 132 }), url() ]}
+          appendComponent={<MetadataTooltip />}
         />
         <Field name="metadata"
           component={textareaField} label="Metadata" placeholder="Will be autoloaded from url above"
