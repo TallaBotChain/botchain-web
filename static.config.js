@@ -38,7 +38,7 @@ export default {
           {
             test: /\.s(a|c)ss$/,
             use:
-            stage === 'dev'
+            process.env.REACT_STATIC_ENV === 'development'
             ? [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }]
             : ExtractTextPlugin.extract({
               use: [
