@@ -20,10 +20,6 @@ class SearchPage extends Component {
     this.setState({modal_visible: true, values: values});
   }
 
-  componentDidMount(){
-    alert(ETHERSCAN_URL)
-  }
-
   okClick = () => {
     this.setState({modal_visible: false});
     this.props.collectPayment(this.props.botcoin_contract, this.state.values.query);

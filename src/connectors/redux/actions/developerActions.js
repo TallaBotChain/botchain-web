@@ -31,7 +31,6 @@ export const fetchDeveloperMetadata = () => {
 }
 
 export const fetchMetamaskAccount = () => async (dispatch) => {
-  console.log(ETHERSCAN_URL)
   let registry = new DeveloperRegistry();
   let account = await registry.getActiveAccount();
   dispatch( { type: DeveloperActions.SET_ATTRIBUTE, key: 'data', value: { 'eth_address': account } });

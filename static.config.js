@@ -10,10 +10,6 @@ export default {
         component: 'src/containers/NoMetamask',
       },
       {
-        path: '/',
-        component: 'src/containers/Search',
-      },
-      {
         is404: true,
         component: 'src/containers/404',
       }
