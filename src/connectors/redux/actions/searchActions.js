@@ -53,14 +53,11 @@ const setIsFetching = (isFetching) => {
 }
 
 const searchBots = () => (dispatch, getState) => {
-  // TODO - find way to read config from this file
-  // let apiEndpoint = config.api_endpoint;
-  let api_endpoint = "http://localhost:3001"
   const search = getState().search;
 
   dispatch(setIsFetching(true))
   console.log("Making API request to search Bots ", api_endpoint);
-  axios.get(api_endpoint+"/v1/bots/search", {
+  axios.get(API_ENDPOINT+"/v1/bots/search", {
     params: {
       query: search.query,
       botcoin_tx_hash: search.tx_id
