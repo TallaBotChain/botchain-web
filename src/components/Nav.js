@@ -9,9 +9,24 @@ class Nav extends React.Component {
 
     return (
       <nav>
-        <strong>BotChain</strong>
-        <NavLink to="/developer">Developer</NavLink>
-        <NavLink to="/bots">Bots</NavLink>
+        <strong className="logo">Botchain</strong>
+        <NavLink to="/developer">Developer <b>&#8964;</b>
+          <ul className="submenu">
+            <li>
+              <NavLink to="/developer">Register</NavLink>
+            </li>
+          </ul>
+        </NavLink>
+        <NavLink to="/bots">Bots <b> &#8964;</b>
+          <ul className="submenu">
+            <li>
+              <NavLink to="/add_bot">Add bot</NavLink>
+            </li>
+            <li>
+              <NavLink to="/add_instance">Add bot instance</NavLink>
+            </li>
+          </ul>
+        </NavLink>
         <NavLink exact to="/">Services</NavLink>
       </nav>
     )

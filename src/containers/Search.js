@@ -9,6 +9,7 @@ import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import SearchResults from '../components/search/SearchResults';
 import TxStatus from '../connectors/helpers/TxStatus'
+import BodyClassName from 'react-body-classname';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -43,8 +44,9 @@ class SearchPage extends Component {
 
 
 
-  render() {
-    return (
+render() {
+  return (
+    <BodyClassName className="home">
       <div style={{textAlign: 'center'}}>
         <Head>
           <title>{this.props.title}</title>
@@ -57,6 +59,7 @@ class SearchPage extends Component {
         {this.renderTxInfo()}
         {this.props.search.tx_id && this.props.transactions[this.props.search.tx_id].status == TxStatus.SUCCEED && <SearchResults query={this.state.values.query} bots={this.props.search.bots}/>}
       </div>
+    </BodyClassName>
     )
   }
 }

@@ -29,12 +29,13 @@ class FeeModal extends Component {
         <div className={ this.state.step == 1 ? '' : 'hidden' }>
           The fee for this transaction is <br />
           <b>50 BOTC</b><br/>
-          <button type="button" onClick={this.nextStep}>Pay</button>
+          <button type="button" className="primary" onClick={this.nextStep}>Authorize</button>
+          <button type="button" onClick={this.nextStep}>Cancel</button>
         </div>
         <div className={ this.state.step == 2 ? '' : 'hidden' }>
           <p>Transferring <b>50 BOTC</b> from your account. A metamask window will popup for you sign and authorize this transaction.</p>
-          <button type="button" onClick={this.okClick}>Continue</button>
-          <p>
+          <button type="button" className="primary" onClick={this.okClick}>Continue</button>
+          <p className='info'>
             Please ensure MetaMask is installed, unlocked and set to the Kovan test network.
           </p>
         </div>
