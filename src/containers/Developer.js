@@ -10,7 +10,6 @@ import * as Actions from '../connectors/redux/actions/developerActions';
 
 class DeveloperPage extends Component {
 
-  //TODO move MetaMask check code into HOC https://reactjs.org/docs/higher-order-components.html
   constructor(props) {
     super(props);
     this.state = { no_metamask: false, modal_visible: false };
@@ -33,13 +32,13 @@ class DeveloperPage extends Component {
   render() {
 
     return (
-      <div style={{textAlign: 'center'}}>
+      <div>
         <Head>
           <title>{this.props.title}</title>
         </Head>
         <div>
-          <h3>BotChain Developer Registration</h3>
-          <p>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+          <h1>Botchain Developer Registration</h1>
+          <p class='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
           <Errors errors={this.props.developer.errors} />
           <DeveloperForm onSubmit={this.submit} />
           <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />

@@ -5,7 +5,9 @@ class Modal extends Component {
     return (
       <div className={ this.props.visible ? 'modal' : 'hidden' }>
         <div className='modal-content'>
-          {this.props.children}
+          <div>
+            {this.props.children}
+          </div>
         </div>
       </div>
     )

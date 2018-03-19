@@ -9,7 +9,7 @@ class SearchForm extends Component {
     return (
       <form onSubmit={handleSubmit}>
         <Field name="query" type="text"
-          component={inputField} label="Search BotChain"
+          component={inputField} label="Search Botchain"
           validate={[ required() ]}
         />
         <button type="submit">Search</button>
