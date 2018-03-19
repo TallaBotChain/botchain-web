@@ -1,8 +1,8 @@
-import axios from 'axios'
-import config from './config'
+import React from 'react'
+import Config from './config'
+
 
 export default {
-  getSiteProps: ({dev}) => config(dev),
   getRoutes: async () => {
     return [
       {
@@ -10,25 +10,34 @@ export default {
         component: 'src/containers/NoMetamask',
       },
       {
+        path: '/',
+        component: 'src/containers/Search',
+      },
+      {
         is404: true,
         component: 'src/containers/404',
       }
     ]
   },
-  // webpack: (config, { defaultLoaders }) => {
-  //   config.module.rules = [
-  //     {
-  //       oneOf: [
-  //         {
-  //           test: /\.json$/,
-  //           use: [{ loader: 'json-loader' }],
-  //         },
-  //         defaultLoaders.jsLoader,
-  //         defaultLoaders.cssLoader,
-  //         defaultLoaders.fileLoader,
-  //       ],
-  //     },
-  //   ]
-  //   return config
-  // },
+  siteRoot: 'https://mysite.com',
+  stagingSiteRoot: 'http://localhost:3000',
+  webpack: (config, { defaultLoaders }) => {
+
+    config.plugins.push(Config)
+
+    config.module.rules = [
+      {
+        oneOf: [
+          {
+            test: /\.json$/,
+            use: [{ loader: 'json-loader' }],
+          },
+          defaultLoaders.jsLoader,
+          defaultLoaders.cssLoader,
+          defaultLoaders.fileLoader,
+        ],
+      },
+    ]
+    return config
+  },
 }

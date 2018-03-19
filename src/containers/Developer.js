@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Head } from 'react-static';
+import { Head, withRouter } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
@@ -68,4 +67,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(DeveloperPage));

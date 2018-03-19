@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
-import { Head } from 'react-static';
+import { Head, withRouter } from 'react-static';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as Actions from '../connectors/redux/actions/searchActions';
@@ -19,6 +18,10 @@ class SearchPage extends Component {
 
   submit = (values) => {
     this.setState({modal_visible: true, values: values});
+  }
+
+  componentDidMount(){
+    alert(ETHERSCAN_URL)
   }
 
   okClick = () => {
@@ -77,4 +80,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(SearchPage));
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(SearchPage));

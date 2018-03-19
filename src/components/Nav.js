@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { getSiteProps } from 'react-static';
 import { NavLink, withRouter } from 'react-router-dom'
 
 class Nav extends React.Component {
@@ -25,4 +24,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(getSiteProps(Nav)))
+export default withRouter(connect(mapStateToProps)(Nav))
