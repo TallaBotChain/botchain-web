@@ -19,11 +19,11 @@ export const checkTransferAllowance = () => {}
 export const addDeveloper = (url, metadata) => async (dispatch) => {
   let shorten_url = url
   if (url.length > 32) {
-    shorten_url = await UrlShortener.shorten(url, URLSHORTENER_API_KEY)
+    shorten_url = await UrlShortener.shorten(url)
   }
   //NOTE: metadata here is a json string, not an object
   console.log("addDeveloper with url:", shorten_url, " metadata:", metadata);
-  let registry = new DeveloperRegistry("0xda4aacc9120ccec230c5d9d0600947052b8bb86c"); // TODO: put real address
+  let registry = new DeveloperRegistry();
   registry.addDeveloper(shorten_url, metadata);
 }
 

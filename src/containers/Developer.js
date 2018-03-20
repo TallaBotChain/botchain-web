@@ -26,7 +26,6 @@ class DeveloperPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
-    //TODO remove this.props.urlshortener_api_key from params
     this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata);
   }
 

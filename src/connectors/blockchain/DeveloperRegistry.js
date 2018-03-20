@@ -2,9 +2,9 @@ import Web3 from 'web3'
 import artifact from './abi/DeveloperRegistryDelegate.json'
 
 class DeveloperRegistry {
-  constructor(address) {
+  constructor() {
     this.web3 = new Web3(window.web3.currentProvider);
-    this.contract = new this.web3.eth.Contract(artifact.abi, address);
+    this.contract = new this.web3.eth.Contract(artifact.abi, DEVELOPER_REGISTRY_CONTRACT);
   }
 
   getActiveAccount() {

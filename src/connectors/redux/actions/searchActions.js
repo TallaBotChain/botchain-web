@@ -12,9 +12,9 @@ export const searchActions = {
   TX_MINED: "SEARCH_TX_MINED"
 }
 
-export const collectPayment = (botcoin_contract, amount, to) => (dispatch) => {
-  let botcoin = new BotCoin(botcoin_contract);
-  botcoin.pay(amount, to)
+export const collectPayment = (amount) => (dispatch) => {
+  let botcoin = new BotCoin();
+  botcoin.pay(amount, BOTCOIN_CONTRACT)
     .then( (tx_id) => {
       dispatch(startTxObserver(tx_id, txMined))
       return dispatch( setTxId(tx_id) );

@@ -73,9 +73,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    collectPayment: (botcoin_contract,query) => {
+    collectPayment: (query) => {
       dispatch( Actions.setQuery(query) );
-      dispatch( Actions.collectPayment(botcoin_contract, 50 /*TODO: replace this*/, "0xc4F65F5A6e1797cfEAb952B5a582eE21fca0573C" /*TODO: replace this */ ) );
+      dispatch( Actions.collectPayment(50);
     }
   }
 }
