@@ -6,6 +6,7 @@ import { Head } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
 import PaymentModal from '../components/developer/PaymentModal';
+import TransactionModal from '../components/developer/TransactionModal';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as Actions from '../connectors/redux/actions/developerActions';
 
@@ -13,7 +14,7 @@ class DeveloperPage extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { no_metamask: false, modal_visible: false };
+    this.state = { no_metamask: false, payment_modal_visible: false };
   }
 
   componentDidMount() {
@@ -21,22 +22,22 @@ class DeveloperPage extends Component {
   }
 
   submit = (values) => {
-    this.setState({modal_visible: true, values: values});
-  }
-
-  okClick = () => {
-    this.setState({modal_visible: false});
-    //TODO remove this.props.urlshortener_api_key from params
-    this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata, this.props.urlshortener_api_key);
+    console.log(this.props);
+    this.setState({payment_modal_visible: true, values: values});
   }
 
   cancelClick = () => {
-    this.setState({modal_visible: false});
+    this.setState({payment_modal_visible: false});
   }
 
   approveClick = () => {
     console.log("Starting approve request");
     this.props.approvePayment();
+  }
+
+  continueClick = () => {
+    console.log("Sending actual addDeveloper transaction");
+    this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata);
   }
 
   render() {
@@ -51,7 +52,8 @@ class DeveloperPage extends Component {
           <p class='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
           <Errors errors={this.props.developer.errors} />
           <DeveloperForm onSubmit={this.submit} />
-          <PaymentModal approved={false} completed={false} visible={this.state.modal_visible} okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick}  />
+          <PaymentModal tx_id={this.props.developer ? this.props.developer.allowanceTxId : null} visible={this.state.payment_modal_visible && (!this.props.developer.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick}  />
+          <TransactionModal tx_id={this.props.developer ? this.props.developer.addDeveloperTxId : null} visible={this.state.payment_modal_visible && this.props.developer.allowanceTxMined && (!this.props.developer.addDeveloperTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
         </div>
     </div>
     )
@@ -74,8 +76,8 @@ const mapDispatchToProps = dispatch => {
       let fee = 50.0; // TODO: to config
       dispatch( Actions.approvePayment(fee) );
     },
-    addDeveloper: (values) => {
-      dispatch( Actions.addDeveloper(values.metadata_url, "{metadata}" ) );
+    addDeveloper: (url, metadata) => {
+      dispatch( Actions.addDeveloper(url, metadata) );
     }
   }
 }

@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import Modal from '../Modal';
 import Loader from '../Loader';
 
-class PaymentModal extends Component {
+class TransactionModal extends Component {
 
   constructor(props) {
     super(props);
     this.state = {step: 1};
-    this.approveClick = this.approveClick.bind(this);
+    this.continueClick = this.continueClick.bind(this);
     this.cancelClick = this.cancelClick.bind(this);
-    this.nextStep = this.nextStep.bind(this);
-    this.okClick = this.okClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,8 +28,8 @@ class PaymentModal extends Component {
     this.setState({step: step });
   }
 
-  approveClick() {
-    this.props.approveClick();
+  continueClick() {
+    this.props.continueClick();
   }
 
   cancelClick() {
@@ -39,23 +37,17 @@ class PaymentModal extends Component {
     this.props.cancelClick();
   }
 
-  okClick() {
-    this.props.okClick();
-    this.resetState();
-  }
-
   render() {
     return (
       <Modal {...this.props} >
         <div className='payment-modal'>
           <div className={ this.state.step == 1 ? '' : 'hidden' }>
-            The fee for this transaction is <br />
-            <b>50 BOTC</b>.
-            Please approve this payment.
+            <h2> Finalizing Transaction!</h2>
+            <p> A metamask window will popup for you sign and authorize this transaction.</p>
             <p className='info'>
-              No BOTC tokens will be transferred during this process. A metamask window will popup for you sign and authorize this transaction. To learn more about this process click here.
+              BOTC tokens will be transferred from your account during this process. Please ensure MetaMask is installed, unlocked and set to the Kovan test network. To learn more about this process click here.
             </p>
-            <button type="button" className="primary" onClick={this.approveClick}>Authorize</button>
+            <button type="button" className="primary" onClick={this.continueClick}>Continue</button>
             <button type="button" className="" onClick={this.cancelClick}>Cancel</button>
           </div>
           <div className={ this.state.step == 2 ? '' : 'hidden' }>
@@ -69,4 +61,4 @@ class PaymentModal extends Component {
   }
 }
 
-export default PaymentModal;
+export default TransactionModal;
