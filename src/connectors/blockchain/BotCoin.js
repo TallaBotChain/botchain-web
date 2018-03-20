@@ -9,6 +9,24 @@ class BotCoin {
     console.log("New instance of BotCoin connector with address ", address);
   }
 
+  approve(amount,to) {
+    let self = this;
+    return this.web3.eth.getAccounts().then( (accounts) => {
+      return new Promise(function(resolve,reject) {
+        self.contract.methods.approve(to,amount*10**self.decimals)
+          .send({from: accounts[0]},
+            function(err,tx_id) {
+              if( ! err ) {
+                console.log("approve tx_id:",tx_id);
+                resolve(tx_id);
+              }
+            }).catch( (err) => {
+              reject(err);
+            });
+      });
+    });
+  }
+
   pay(amount,to) {
     let self = this;
     return this.web3.eth.getAccounts().then( (accounts) => {

@@ -40,6 +40,11 @@
     margin-top: 25px;
   }
 
+  button.primary {
+    background-color: #0854cc;
+    color: #fff;
+  }
+
   .info {
     background-color: #d8edf8;
     border-color: #bbe8f2;
@@ -49,4 +54,8 @@
     margin-top: 25px;
   }
 
+}
+
+.payment-modal {
+  text-align: center;
 }

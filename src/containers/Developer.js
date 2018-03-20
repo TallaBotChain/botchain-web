@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import { Head } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
-import FeeModal from '../components/search/FeeModal';
+import PaymentModal from '../components/developer/PaymentModal';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as Actions from '../connectors/redux/actions/developerActions';
 
@@ -30,6 +30,15 @@ class DeveloperPage extends Component {
     this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata, this.props.urlshortener_api_key);
   }
 
+  cancelClick = () => {
+    this.setState({modal_visible: false});
+  }
+
+  approveClick = () => {
+    console.log("Starting approve request");
+    this.props.approvePayment();
+  }
+
   render() {
 
     return (
@@ -42,7 +51,7 @@ class DeveloperPage extends Component {
           <p class='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
           <Errors errors={this.props.developer.errors} />
           <DeveloperForm onSubmit={this.submit} />
-          <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
+          <PaymentModal approved={false} completed={false} visible={this.state.modal_visible} okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick}  />
         </div>
     </div>
     )
@@ -60,6 +69,10 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchMetamaskAccount: () => {
       dispatch( Actions.fetchMetamaskAccount() );
+    },
+    approvePayment: () => {
+      let fee = 50.0; // TODO: to config
+      dispatch( Actions.approvePayment(fee) );
     },
     addDeveloper: (values) => {
       dispatch( Actions.addDeveloper(values.metadata_url, "{metadata}" ) );

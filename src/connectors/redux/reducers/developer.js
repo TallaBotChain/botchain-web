@@ -4,6 +4,7 @@ import update from 'immutability-helper';
 
 const initialState = {
   inProgress: false,
+  tx_id: null,
   allowanceTxId: null,
   addDeveloperTxId: null,
   errors: []
