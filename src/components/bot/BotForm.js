@@ -4,9 +4,9 @@ import { required, length, url } from 'redux-form-validators'
 import { MetadataValidator } from '../../connectors/validators/MetadataValidator';
 import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
-import MetadataTooltip from './MetadataTooltip';
+//import MetadataTooltip from './MetadataTooltip';
 
-const REQUIRED_METADATA_ATTRIBUTES = ["name","organization","street_1","city","state/province","postal_code","country","phone","email","url"]
+const REQUIRED_METADATA_ATTRIBUTES = ["id","description","tags"]
 
 const validateMetadata = (value) => {
   let mv = new MetadataValidator(REQUIRED_METADATA_ATTRIBUTES)
@@ -17,7 +17,7 @@ const asyncValidate = (values, dispatch, props) => {
   return MetadataValidator.fetch(values.metadata_url, props)
 }
 
-class DeveloperForm extends Component {
+class BotForm extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
@@ -27,31 +27,31 @@ class DeveloperForm extends Component {
           validate={[ required()]}
         />
         <Field name="metadata_url" type="url"
-          component={inputField} label="Developer Metadata URL" placeholder="https://example.com/..."
+          component={inputField} label="Bot Metadata URL" placeholder="https://example.com/..."
           validate={[ required(), length({ max: 132 }), url() ]}
-          appendComponent={<MetadataTooltip />}
+          // appendComponent={<MetadataTooltip />}
         />
         <Field name="metadata"
           component={textareaField} label="Metadata" placeholder="Will be autoloaded from url above"
           validate={[required(), validateMetadata]}
         />
-        <button className='primary' type="submit">Register</button>
+        <button className='primary' type="submit">Add Bot</button>
       </form>
     );
   }
 }
 
-DeveloperForm = reduxForm({
-  form: 'developer', // a unique name for this form,
+BotForm = reduxForm({
+  form: 'bot', // a unique name for this form,
   asyncValidate,
   asyncBlurFields: ['metadata_url']
-})(DeveloperForm);
+})(BotForm);
 
-DeveloperForm = connect(
+BotForm = connect(
   state => ({
     initialValues: {eth_address: state.metamask.eth_address},
-    enableReinitialize: true, // pull initial values from reducer
+    enableReinitialize: true // pull initial values from reducer
   })
-)(DeveloperForm)
+)(BotForm)
 
-export default DeveloperForm;
+export default BotForm;

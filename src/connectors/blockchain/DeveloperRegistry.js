@@ -13,7 +13,13 @@ class DeveloperRegistry {
     });
   }
 
- /**
+  getCurrentNetwork() {
+    return this.web3.eth.net.getId().then( netId => {
+      return Promise.resolve(netId);
+    })
+  }
+
+  /**
   * @param {string} url
   * @param {string} metadata
   * @returns {Promise}
@@ -27,20 +33,20 @@ class DeveloperRegistry {
     return this.web3.eth.getAccounts().then( (accounts) => {
       return new Promise(function(resolve,reject) {
         contract.methods.addDeveloper(metadataHash, urlBytes)
-          .send({from: accounts[0]},
-            function(err,tx_id) {
-              if( err ) {
-                console.log("addDeveloper error:",err);
-                reject( err );
-              }else {
-                console.log("addDeveloper tx_id:",tx_id);
-                resolve(tx_id);
-              }
-            });
+        .send({from: accounts[0]},
+          function(err,tx_id) {
+            if( err ) {
+              console.log("addDeveloper error:",err);
+              reject( err );
+            }else {
+              console.log("addDeveloper tx_id:",tx_id);
+              resolve(tx_id);
+            }
+          });
 
+        });
       });
-    });
+    }
   }
-}
 
-export default DeveloperRegistry;
+  export default DeveloperRegistry;

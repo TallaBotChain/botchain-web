@@ -8,10 +8,9 @@ class NoMetamaskPage extends Component {
     return (
       <div style={{textAlign: 'center'}}>
         <Head>
-          <title>{this.props.title}</title>
+          <title>{SITE_TITLE}</title>
         </Head>
-        <div className="alert">Unable to connect to MetaMask</div>
-        <div>Follow <a href="https://metamask.io" target="_blank">this link</a> to install MetaMask</div>
+        <div className="alert">Application requires <a href="https://metamask.io" target="_blank">Metamask</a> to be installed, unlocked and set to the Kovan test network. Read our FAQs to learn more about Metamask.</div>
       </div>
     )
   }
