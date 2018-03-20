@@ -3,7 +3,7 @@ import webpack from 'webpack'
 const configs = {
   development: {
     SITE_TITLE: JSON.stringify('[DEV] BotChain'),
-    API_ENDPOINT: JSON.stringify('http://localhost:3001'),
+    API_ENDPOINT: JSON.stringify('https://botchain-api.botchain.talla.io'),
     BOTCHAIN_CONTRACT: JSON.stringify("0x8b2c764339b269828eb2548ae1a821244bd0e232"),
     BOTCOIN_CONTRACT: JSON.stringify("0xD29b42f0d8E1eb49D74CE7Ae63137A0ff034a563"),
     DEVELOPER_REGISTRY_CONTRACT: JSON.stringify("0x8b2c764339b269828eb2548ae1a821244bd0e232"),

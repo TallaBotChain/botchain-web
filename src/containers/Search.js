@@ -30,7 +30,7 @@ class SearchPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
-    this.props.collectPayment(this.props.botcoin_contract, this.state.values.query);
+    this.props.collectPayment(this.state.values.query);
   }
 
   //TODO move this to seprate component. It can be re-used for dev reg and add bot
