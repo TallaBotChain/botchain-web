@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Head } from 'react-static';
+import { Head, withRouter } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as Actions from '../connectors/redux/actions/developerActions';
+import requireMetamask from '../hocs/requireMetamask';
 
 class DeveloperPage extends Component {
 
@@ -26,8 +26,7 @@ class DeveloperPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
-    //TODO remove this.props.urlshortener_api_key from params
-    this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata, this.props.urlshortener_api_key);
+    this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata);
   }
 
   render() {
@@ -39,7 +38,7 @@ class DeveloperPage extends Component {
         </Head>
         <div>
           <h1>Botchain Developer Registration</h1>
-          <p class='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+          <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
           <Errors errors={this.props.developer.errors} />
           <DeveloperForm onSubmit={this.submit} />
           <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
@@ -67,4 +66,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(DeveloperPage));

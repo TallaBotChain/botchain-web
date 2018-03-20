@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import { Head } from 'react-static';
 
 

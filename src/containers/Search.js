@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import { Head } from 'react-static';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -10,6 +9,7 @@ import FeeModal from '../components/search/FeeModal';
 import SearchResults from '../components/search/SearchResults';
 import TxStatus from '../connectors/helpers/TxStatus'
 import BodyClassName from 'react-body-classname';
+import requireMetamask from '../hocs/requireMetamask';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -73,11 +73,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    collectPayment: (botcoin_contract,query) => {
+    collectPayment: (query) => {
       dispatch( Actions.setQuery(query) );
-      dispatch( Actions.collectPayment(botcoin_contract, 50 /*TODO: replace this*/, "0xc4F65F5A6e1797cfEAb952B5a582eE21fca0573C" /*TODO: replace this */ ) );
+      dispatch( Actions.collectPayment(50) );
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(SearchPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(SearchPage));
