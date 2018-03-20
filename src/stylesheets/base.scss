@@ -1,0 +1,40 @@
+@import url("https://use.typekit.net/fnn1wzh.css");
+body {
+  font-family: 'Soleil', sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+
+  background-color: #00bc90;
+  color: #efefef;
+  &.home {
+    background-image: url(img/big-gear.png), url(img/small-gear.png), url(img/bg.png);
+    background-repeat: no-repeat,no-repeat,no-repeat;
+    background-position: 5px 400px, 275px 270px, center center;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #108db8;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1 {
+  font-size: 36px;
+  text-align: center;
+}
+
+.logo {
+  text-indent: -1000em;
+  background-image: url(img/logo.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 187px 44px;
+  width: 187px;
+  height: 44px;
+  margin-left: 60px;
+}

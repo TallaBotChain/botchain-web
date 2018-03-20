@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
-import developerRecord from './developerRecord'
-import auth from './auth'
-import bots from './bots'
+import developer from './developer'
+import bot from './bot'
+import search from './search'
+import metamask from './metamask'
+import txObserver from './txObserver'
 
 
 const reducer = combineReducers({
+  bot,
   form,
-  auth,
-  bots,
-  developerRecord
+  search,
+  metamask,
+  developer,
+  txObserver
 })
 
 export default reducer

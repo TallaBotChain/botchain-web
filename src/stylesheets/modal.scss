@@ -1,0 +1,52 @@
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.75);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  color: #32373e;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 20px;
+  width: 360px;
+  min-height: 150px;
+  background-image: url(img/logo-green.png);
+  background-repeat: no-repeat;
+  background-position: 50% 20px;
+  background-size: 187px 52px;
+  padding-top: 85px;
+  > div {
+    border-top: solid 1px #ccc;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+  }
+
+  button {
+    background-color: transparent;
+    color: #32373e;
+    margin-right: 15px;
+    margin-top: 25px;
+  }
+
+  .info {
+    background-color: #d8edf8;
+    border-color: #bbe8f2;
+    color: #3585af;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 25px;
+  }
+
+}
