@@ -9,6 +9,10 @@ class BotCoin {
     console.log("New instance of BotCoin connector with address ", BOTCOIN_CONTRACT);
   }
 
+  convertToHuman(bigNumber) {
+    return bigNumber / (10**this.decimals);
+  }
+
   approve(amount,to) {
     let self = this;
     return this.web3.eth.getAccounts().then( (accounts) => {

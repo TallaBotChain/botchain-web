@@ -19,6 +19,13 @@ class DeveloperRegistry {
     })
   }
 
+  getEntryPrice() {
+    let contract = this.contract;
+    return this.web3.eth.getAccounts().then( (accounts) => {
+      return contract.methods.entryPrice().call({from: accounts[0]});
+    });
+  }
+
   /**
   * @param {string} url
   * @param {string} metadata

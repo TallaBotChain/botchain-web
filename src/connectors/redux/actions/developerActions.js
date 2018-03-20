@@ -12,8 +12,12 @@ export const DeveloperActions = {
   ADD_TX_MINED: "ADD_TX_MINED"
 }
 
-export const setInProgress = (inProgress)  => {
-  return { type: DeveloperActions.SET_ATTRIBUTE, key: 'inProgress', value: inProgress }
+
+export const fetchEntryPrice = () => async (dispatch) => {
+  let registry = new DeveloperRegistry(DEVELOPER_REGISTRY_CONTRACT);
+  let price = await registry.getEntryPrice();
+  let botCoin = new BotCoin();
+  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'entryPrice', value: botCoin.convertToHuman(price) });
 }
 
 const setErrors = (errors)  => {
@@ -48,11 +52,12 @@ export const fetchMetamaskAccount = () => async (dispatch) => {
   dispatch( { type: DeveloperActions.SET_ATTRIBUTE, key: 'data', value: { 'eth_address': account } });
 }
 
-const resetTxs = () => (dispatch) => {
-    dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: false });
-    dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxId', value: null });
-    dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxMined', value: false });
-    dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxId', value: null });
+export const resetTxs = () => (dispatch) => {
+  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: false });
+  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxId', value: null });
+  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxMined', value: false });
+  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxId', value: null });
+  dispatch( setErrors([]) );
 }
 
 const addTxMined = (status) => (dispatch) => {
@@ -78,9 +83,11 @@ const setPayTxId = (tx_id) => {
   return { type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxId', value: tx_id }
 }
 
-export const approvePayment = (amount) => (dispatch) => {
-  let botCoin = new BotCoin(BOTCOIN_CONTRACT);
+export const approvePayment = () => (dispatch, getState) => {
+  let botCoin = new BotCoin();
   let chargingContract = DEVELOPER_REGISTRY_CONTRACT; // IS IT?
+  let amount = getState().developer.entryPrice;
+  console.log("Approving for amount ", amount);
   botCoin.approve(amount, chargingContract)
   .then( (tx_id) => {
     dispatch(startTxObserver(tx_id, payTxMined))

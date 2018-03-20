@@ -21,10 +21,19 @@ class DeveloperPage extends Component {
 
   componentDidMount() {
     this.props.connectToMetamask();
+    this.props.fetchEntryPrice();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("nextProps", nextProps);
+    if( nextProps.developer.errors.length > 0 ) {
+      console.log("hiding payment modal");
+      this.setState({payment_modal_visible: false});
+    }
   }
 
   submit = (values) => {
-    console.log(this.props);
+    this.props.reset();
     this.setState({payment_modal_visible: true, values: values});
   }
 
@@ -55,8 +64,8 @@ class DeveloperPage extends Component {
           <MetamaskErrors metamask={this.props.metamask} />
           <Errors errors={this.props.developer.errors} />
           <DeveloperForm onSubmit={this.submit} />
-          <PaymentModal tx_id={this.props.developer ? this.props.developer.allowanceTxId : null} visible={this.state.payment_modal_visible && (!this.props.developer.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick}  />
-          <TransactionModal tx_id={this.props.developer ? this.props.developer.addDeveloperTxId : null} visible={this.state.payment_modal_visible && this.props.developer.allowanceTxMined && (!this.props.developer.addDeveloperTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
+          <PaymentModal tx_id={this.props.developer.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.developer.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.developer.entryPrice} />
+          <TransactionModal tx_id={this.props.developer.addDeveloperTxId} visible={this.state.payment_modal_visible && this.props.developer.allowanceTxMined && (!this.props.developer.addDeveloperTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
         </div>
     </div>
     )
@@ -73,11 +82,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    reset: () => {
+      dispatch( DeveloperActions.resetTxs() );
+    },
+    fetchEntryPrice: () => {
+      dispatch( DeveloperActions.fetchEntryPrice() );
+    },
     connectToMetamask: () => {
       dispatch( MetamaskActions.connectToMetamask());
     },
     approvePayment: () => {
-      let fee = 50.0; // TODO: get from contract
+      let fee = 50.0; // TODO: get from contract (entryPrice)
       dispatch( DeveloperActions.approvePayment(fee) );
     },
     addDeveloper: (url, metadata) => {

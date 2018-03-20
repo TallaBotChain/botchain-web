@@ -50,7 +50,7 @@ class PaymentModal extends Component {
         <div className='payment-modal'>
           <div className={ this.state.step == 1 ? '' : 'hidden' }>
             The fee for this transaction is <br />
-            <b>50 BOTC</b>.
+            <b>{this.props.entryPrice} BOTC</b>.
             Please approve this payment.
             <p className='info'>
               No BOTC tokens will be transferred during this process. A metamask window will popup for you sign and authorize this transaction. To learn more about this process click here.
