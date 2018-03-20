@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => {
   return {
     collectPayment: (query) => {
       dispatch( Actions.setQuery(query) );
-      dispatch( Actions.collectPayment(50);
+      dispatch( Actions.collectPayment(50) );
     }
   }
 }
