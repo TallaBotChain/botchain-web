@@ -1,13 +1,19 @@
-import axios from 'axios'
-import config from './config'
+import React from 'react'
+import Config from './config'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
+
 export default {
-  getSiteProps: ({dev}) => config(dev),
   getRoutes: async () => {
     return [
       { path: '/',
         component: 'src/containers/Search'
+      },
+      { path: '/add_bot',
+        component: 'src/containers/Bot'
+      },
+      { path: '/developer',
+        component: 'src/containers/Developer'
       },
       {
         path: '/no_metamask',
@@ -19,7 +25,11 @@ export default {
       }
     ]
   },
-  webpack: (config, { defaultLoaders, stage }) => {
+  siteRoot: 'https://mysite.com',
+  stagingSiteRoot: 'http://localhost:3000',
+  webpack: (config, { defaultLoaders }) => {
+
+    config.plugins.push(Config)
     config.plugins.push( new ExtractTextPlugin({
           filename: getPath => {
             process.env.extractedCSSpath = getPath('styles.[hash:8].css')
@@ -27,13 +37,14 @@ export default {
           },
           allChunks: true,
         }));
+
     config.module.rules = [
       {
         oneOf: [
           {
             test: /\.s(a|c)ss$/,
             use:
-            stage === 'dev'
+            process.env.REACT_STATIC_ENV === 'development'
             ? [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }]
             : ExtractTextPlugin.extract({
               use: [
@@ -55,8 +66,8 @@ export default {
           defaultLoaders.cssLoader,
           defaultLoaders.jsLoader,
           defaultLoaders.fileLoader,
-        ],
-      },
+        ]
+      }
     ]
     return config
   }

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Head } from 'react-static';
+import { Head, withRouter } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
 import PaymentModal from '../components/developer/PaymentModal';
 import TransactionModal from '../components/developer/TransactionModal';
+import MetamaskErrors from '../components/MetamaskErrors';
 import TxStatus from '../connectors/helpers/TxStatus'
-import * as Actions from '../connectors/redux/actions/developerActions';
+import * as DeveloperActions from '../connectors/redux/actions/developerActions';
+import * as MetamaskActions from '../connectors/redux/actions/metamaskActions';
+import requireMetamask from '../hocs/requireMetamask';
 
 class DeveloperPage extends Component {
 
@@ -18,7 +20,7 @@ class DeveloperPage extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchMetamaskAccount();
+    this.props.connectToMetamask();
   }
 
   submit = (values) => {
@@ -45,11 +47,12 @@ class DeveloperPage extends Component {
     return (
       <div>
         <Head>
-          <title>{this.props.title}</title>
+          <title>{SITE_TITLE}</title>
         </Head>
         <div>
           <h1>Botchain Developer Registration</h1>
-          <p class='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+          <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+          <MetamaskErrors metamask={this.props.metamask} />
           <Errors errors={this.props.developer.errors} />
           <DeveloperForm onSubmit={this.submit} />
           <PaymentModal tx_id={this.props.developer ? this.props.developer.allowanceTxId : null} visible={this.state.payment_modal_visible && (!this.props.developer.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick}  />
@@ -63,23 +66,24 @@ class DeveloperPage extends Component {
 const mapStateToProps = state => {
   return {
     developer: state.developer,
+    metamask: state.metamask,
     transactions: state.txObserver.transactions
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchMetamaskAccount: () => {
-      dispatch( Actions.fetchMetamaskAccount() );
+    connectToMetamask: () => {
+      dispatch( MetamaskActions.connectToMetamask());
     },
     approvePayment: () => {
-      let fee = 50.0; // TODO: to config
-      dispatch( Actions.approvePayment(fee) );
+      let fee = 50.0; // TODO: get from contract
+      dispatch( DeveloperActions.approvePayment(fee) );
     },
     addDeveloper: (url, metadata) => {
-      dispatch( Actions.addDeveloper(url, metadata) );
+      dispatch( DeveloperActions.addDeveloper(url, metadata) );
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(DeveloperPage));

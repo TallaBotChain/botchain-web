@@ -12,9 +12,9 @@ export const searchActions = {
   TX_MINED: "SEARCH_TX_MINED"
 }
 
-export const collectPayment = (botcoin_contract, amount, to) => (dispatch) => {
-  let botcoin = new BotCoin(botcoin_contract);
-  botcoin.pay(amount, to)
+export const collectPayment = (amount) => (dispatch) => {
+  let botcoin = new BotCoin();
+  botcoin.pay(amount, BOTCOIN_CONTRACT)
     .then( (tx_id) => {
       dispatch(startTxObserver(tx_id, txMined))
       return dispatch( setTxId(tx_id) );
@@ -53,14 +53,11 @@ const setIsFetching = (isFetching) => {
 }
 
 const searchBots = () => (dispatch, getState) => {
-  // TODO - find way to read config from this file
-  // let apiEndpoint = config.api_endpoint;
-  let api_endpoint = "http://localhost:3001"
   const search = getState().search;
 
   dispatch(setIsFetching(true))
-  console.log("Making API request to search Bots ", api_endpoint);
-  axios.get(api_endpoint+"/v1/bots/search", {
+  console.log("Making API request to search Bots ", API_ENDPOINT);
+  axios.get(API_ENDPOINT+"/v1/bots/search", {
     params: {
       query: search.query,
       botcoin_tx_hash: search.tx_id

@@ -26,11 +26,12 @@ export const checkTransferAllowance = () => {}
 export const addDeveloper = (url, metadata) => async (dispatch) => {
   let shorten_url = url
   if (url.length > 32) {
-    shorten_url = await UrlShortener.shorten(url, "AIzaSyDS1dYnvSQPmC3Bwh5G62nrwFBD1pmveLM"); // TODO: config
+    shorten_url = await UrlShortener.shorten(url, URLSHORTENER_API_KEY);
   }
   //NOTE: metadata here is a json string, not an object
   console.log("addDeveloper with url:", shorten_url, " metadata:", metadata);
-  let registry = new DeveloperRegistry("0xda4aacc9120ccec230c5d9d0600947052b8bb86c"); // TODO: put real address
+  console.log("Developer registry contract:", DEVELOPER_REGISTRY_CONTRACT);
+  let registry = new DeveloperRegistry(DEVELOPER_REGISTRY_CONTRACT);
   try {
     let txId = await registry.addDeveloper(shorten_url, metadata);
     dispatch( { type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxId', value: txId });
@@ -39,9 +40,6 @@ export const addDeveloper = (url, metadata) => async (dispatch) => {
     console.log(e);
     dispatch( setErrors( ["Not signed in MetaMask. Request cancelled."] ));
   }
-}
-
-export const fetchDeveloperMetadata = () => {
 }
 
 export const fetchMetamaskAccount = () => async (dispatch) => {
@@ -81,9 +79,8 @@ const setPayTxId = (tx_id) => {
 }
 
 export const approvePayment = (amount) => (dispatch) => {
-  // TODO: replace with real contract address from config
-  let botCoin = new BotCoin("0xd29b42f0d8e1eb49d74ce7ae63137a0ff034a563");
-  let chargingContract = "0xc4F65F5A6e1797cfEAb952B5a582eE21fca0573C"; // TODO: to config
+  let botCoin = new BotCoin(BOTCOIN_CONTRACT);
+  let chargingContract = DEVELOPER_REGISTRY_CONTRACT; // IS IT?
   botCoin.approve(amount, chargingContract)
   .then( (tx_id) => {
     dispatch(startTxObserver(tx_id, payTxMined))
@@ -93,4 +90,3 @@ export const approvePayment = (amount) => (dispatch) => {
     dispatch( setErrors( ["Not approved in MetaMask. Request cancelled."] ));
   });
 }
-

@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import { Head } from 'react-static';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import * as Actions from '../connectors/redux/actions/searchActions';
+import * as SearchActions from '../connectors/redux/actions/searchActions';
+import * as MetamaskActions from '../connectors/redux/actions/metamaskActions';
 import SearchForm from '../components/search/SearchForm';
+import MetamaskErrors from '../components/MetamaskErrors';
 import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import SearchResults from '../components/search/SearchResults';
 import TxStatus from '../connectors/helpers/TxStatus'
 import BodyClassName from 'react-body-classname';
+import requireMetamask from '../hocs/requireMetamask';
 
 class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = { values: null, modal_visible: false };
     //  api_endpoint: this.props.api_endpoint
+  }
+
+  componentDidMount() {
+    this.props.connectToMetamask();
   }
 
   submit = (values) => {
@@ -49,9 +55,10 @@ render() {
     <BodyClassName className="home">
       <div style={{textAlign: 'center'}}>
         <Head>
-          <title>{this.props.title}</title>
+          <title>{SITE_TITLE}</title>
         </Head>
         <div>
+          <MetamaskErrors metamask={this.props.metamask} />
           <Errors errors={this.props.search.errors} />
           <SearchForm onSubmit={this.submit} />
           <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
@@ -67,17 +74,21 @@ render() {
 const mapStateToProps = state => {
   return {
     search: state.search,
+    metamask: state.metamask,
     transactions: state.txObserver.transactions
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    collectPayment: (botcoin_contract,query) => {
-      dispatch( Actions.setQuery(query) );
-      dispatch( Actions.collectPayment(botcoin_contract, 50 /*TODO: replace this*/, "0xc4F65F5A6e1797cfEAb952B5a582eE21fca0573C" /*TODO: replace this */ ) );
+    connectToMetamask: () => {
+      dispatch( MetamaskActions.connectToMetamask());
+    },
+    collectPayment: (query) => {
+      dispatch( SearchActions.setQuery(query) );
+      dispatch( SearchActions.collectPayment(50) );
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(SearchPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(SearchPage));
