@@ -9,6 +9,12 @@ export default {
       { path: '/',
         component: 'src/containers/Search'
       },
+      { path: '/bots',
+        component: 'src/containers/Bots'
+      },
+      { path: '/developer',
+        component: 'src/containers/Developer'
+      },
       {
         path: '/no_metamask',
         component: 'src/containers/NoMetamask',

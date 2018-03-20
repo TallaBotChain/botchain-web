@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Head, withRouter } from 'react-static';
+import { Head } from 'react-static';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as Actions from '../connectors/redux/actions/searchActions';
@@ -9,6 +9,7 @@ import FeeModal from '../components/search/FeeModal';
 import SearchResults from '../components/search/SearchResults';
 import TxStatus from '../connectors/helpers/TxStatus'
 import BodyClassName from 'react-body-classname';
+import requireMetamask from '../hocs/requireMetamask';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -79,4 +80,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(SearchPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(SearchPage));

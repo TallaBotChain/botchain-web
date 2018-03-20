@@ -7,6 +7,7 @@ import Errors from '../components/Errors';
 import FeeModal from '../components/search/FeeModal';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as Actions from '../connectors/redux/actions/developerActions';
+import requireMetamask from '../hocs/requireMetamask';
 
 class DeveloperPage extends Component {
 
@@ -38,7 +39,7 @@ class DeveloperPage extends Component {
         </Head>
         <div>
           <h1>Botchain Developer Registration</h1>
-          <p class='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+          <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
           <Errors errors={this.props.developer.errors} />
           <DeveloperForm onSubmit={this.submit} />
           <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
@@ -66,4 +67,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(DeveloperPage));

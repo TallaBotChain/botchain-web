@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import { Link } from 'react-router-dom'
 import * as Actions from '../connectors/redux/actions/botActions'
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import requireMetamask from '../hocs/requireMetamask';
 
 class BotsPage extends Component {
 
   componentDidMount() {
-    if (this.props.developerRecord.approved) {
+    if (this.props.developer.approved) {
         this.props.fetchBots(this.props.api_endpoint, this.props.auth.eth_address)
     }
   }
 
   render() {
     //if dev record is not approved
-    if (!this.props.developerRecord.approved) {
+    if (!this.props.developer.approved) {
       return <Redirect to='/developer'/>
     }
 
@@ -55,7 +55,7 @@ class BotsPage extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    developerRecord: state.developerRecord,
+    developer: state.developer,
     bots: state.bots
   }
 }
@@ -68,4 +68,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(getSiteProps(BotsPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(BotsPage));
