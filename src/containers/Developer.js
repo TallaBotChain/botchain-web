@@ -17,7 +17,7 @@ class DeveloperPage extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { no_metamask: false, payment_modal_visible: false };
+    this.state = { payment_modal_visible: false };
   }
 
   componentDidMount() {
