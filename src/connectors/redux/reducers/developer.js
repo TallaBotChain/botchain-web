@@ -3,9 +3,13 @@ import { DeveloperActions } from '../actions/developerActions.js'
 import update from 'immutability-helper';
 
 const initialState = {
+  entryPrice: null,
   inProgress: false,
   allowanceTxId: null,
+  allowanceTxMined: false,
   addDeveloperTxId: null,
+  addDeveloperTxMined: false,
+  successfullyAdded: false,
   errors: []
 }
 

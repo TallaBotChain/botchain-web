@@ -27,9 +27,7 @@ const tick = (tx_id, success_callback) => (dispatch) => {
         let status = succeeded ? TxStatus.SUCCEED : TxStatus.FAILED;
         console.log("status: ", status);
         dispatch({ type: txObserverActions.UPDATE_TX, tx_id: tx_id, key: 'status', value: status })
-        if(status == TxStatus.SUCCEED){
-          dispatch(success_callback(status))
-        }
+        dispatch(success_callback(status))
         dispatch(stop(tx_id))
       })
     }
