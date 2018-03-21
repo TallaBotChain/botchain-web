@@ -6,7 +6,7 @@ import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
 //import MetadataTooltip from './MetadataTooltip';
 
-const REQUIRED_METADATA_ATTRIBUTES = ["id","description","tags"]
+const REQUIRED_METADATA_ATTRIBUTES = ["developer_id","description","tags"]
 
 const validateMetadata = (value) => {
   let mv = new MetadataValidator(REQUIRED_METADATA_ATTRIBUTES)
@@ -22,7 +22,7 @@ class BotForm extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <Field name="eth_address" type="text" readOnly={true}
+        <Field name="eth_address" type="text"
           component={inputField} label="ETH Address" placeholder="0x000..."
           validate={[ required()]}
         />
@@ -49,7 +49,7 @@ BotForm = reduxForm({
 
 BotForm = connect(
   state => ({
-    initialValues: {eth_address: state.metamask.eth_address},
+    initialValues: {},
     enableReinitialize: true // pull initial values from reducer
   })
 )(BotForm)

@@ -3,9 +3,14 @@ import { BotActions } from '../actions/botActions.js'
 import update from 'immutability-helper';
 
 const initialState = {
-  inProgress: false,
+  entryPrice: null,
   allowanceTxId: null,
-  addBotTxId: null,
+  allowanceTxMined: false,
+  addDeveloperTxId: null,
+  addDeveloperTxMined: false,
+  successfullyAdded: false,
+  developerId: 0,
+  developerApproval: false,
   errors: []
 }
 
