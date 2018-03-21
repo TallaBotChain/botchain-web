@@ -17,7 +17,6 @@ class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = { values: null, modal_visible: false };
-    //  api_endpoint: this.props.api_endpoint
   }
 
   componentDidMount() {
@@ -30,7 +29,11 @@ class SearchPage extends Component {
 
   okClick = () => {
     this.setState({modal_visible: false});
-    this.props.collectPayment(this.props.botcoin_contract, this.state.values.query);
+    this.props.collectPayment(this.state.values.query);
+  }
+
+  cancelClick = () => {
+    this.setState({modal_visible: false});
   }
 
   //TODO move this to seprate component. It can be re-used for dev reg and add bot
@@ -61,7 +64,7 @@ render() {
           <MetamaskErrors metamask={this.props.metamask} />
           <Errors errors={this.props.search.errors} />
           <SearchForm onSubmit={this.submit} />
-          <FeeModal visible={this.state.modal_visible} okClick={this.okClick}  />
+          <FeeModal visible={this.state.modal_visible} okClick={this.okClick} cancelClick={this.cancelClick} />
         </div>
         {this.renderTxInfo()}
         {this.props.search.tx_id && this.props.transactions[this.props.search.tx_id].status == TxStatus.SUCCEED && <SearchResults query={this.state.values.query} bots={this.props.search.bots}/>}
@@ -86,7 +89,7 @@ const mapDispatchToProps = dispatch => {
     },
     collectPayment: (query) => {
       dispatch( SearchActions.setQuery(query) );
-      dispatch( SearchActions.collectPayment(50) );
+      dispatch( SearchActions.collectPayment(SEARCH_PRICE) );
     }
   }
 }
