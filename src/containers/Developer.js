@@ -96,8 +96,7 @@ const mapDispatchToProps = dispatch => {
       dispatch( MetamaskActions.connectToMetamask());
     },
     approvePayment: () => {
-      let fee = 50.0; // TODO: get from contract (entryPrice)
-      dispatch( DeveloperActions.approvePayment(fee) );
+      dispatch( DeveloperActions.approvePayment() );
     },
     addDeveloper: (url, metadata) => {
       dispatch( DeveloperActions.addDeveloper(url, metadata) );
