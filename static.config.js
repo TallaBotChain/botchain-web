@@ -9,9 +9,9 @@ export default {
       { path: '/',
         component: 'src/containers/Search'
       },
-      { path: '/add_bot',
-        component: 'src/containers/Bot'
-      },
+      // { path: '/add_bot',
+      //   component: 'src/containers/Bot'
+      // },
       { path: '/developer',
         component: 'src/containers/Developer'
       },
@@ -25,7 +25,7 @@ export default {
       }
     ]
   },
-  siteRoot: 'https://mysite.com',
+  siteRoot: 'https://ui.botchain.talla.io',
   stagingSiteRoot: 'http://localhost:3000',
   webpack: (config, { defaultLoaders }) => {
 

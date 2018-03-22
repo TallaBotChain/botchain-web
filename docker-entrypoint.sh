@@ -38,14 +38,14 @@ case $action in
     wait_for_services
     app_init
 
-    npm start
+    yarn start
   ;;
 
   compile)
     wait_for_services
     app_init
 
-    react-static build
+    yarn build
   ;;
 
   deploy)

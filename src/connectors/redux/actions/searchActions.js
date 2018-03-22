@@ -14,7 +14,7 @@ export const searchActions = {
 
 export const collectPayment = (amount) => (dispatch) => {
   let botcoin = new BotCoin();
-  botcoin.pay(amount, BOTCOIN_CONTRACT)
+  botcoin.pay(amount, SEARCH_COLLECT_ADDRESS)
     .then( (tx_id) => {
       dispatch(startTxObserver(tx_id, txMined))
       return dispatch( setTxId(tx_id) );
