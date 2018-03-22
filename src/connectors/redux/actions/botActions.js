@@ -22,6 +22,9 @@ export const fetchDeveloperId = () => async (dispatch) => {
   dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'developerApproval', value: approved });
   if( developerId > 0 ) {
     dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'developerId', value: developerId });
+    if( ! approved ) {
+      dispatch( setErrors(["Warning! This developer account is pending approval."]) );
+    }
   }else {
     dispatch( setErrors(["Warning! This account is not a registered developer."]) );
   }
