@@ -24,15 +24,16 @@ RUN pip install awscli
 
 # react-static build doesn't seem to work with an external node_modules with
 # PATH/NODE_PATH set accordingly, so install in app dir
+RUN npm install --global yarn
 WORKDIR $APP_DIR
 COPY package*.json $APP_DIR/
-RUN npm install && npm cache clean --force
+RUN yarn install
 
 # node_modules excluded from copy due to .dockerignore
 COPY . $APP_DIR/
 
 ENV PATH $APP_DIR/node_modules/.bin:$PATH
 
-RUN react-static build
+RUN yarn build
 
 ENTRYPOINT ["/srv/app/docker-entrypoint.sh"]
