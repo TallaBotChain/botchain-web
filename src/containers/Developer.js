@@ -1,38 +1,107 @@
 import React, { Component } from 'react';
-import { getSiteProps } from 'react-static';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { Head, withRouter } from 'react-static';
+import DeveloperForm from '../components/developer/DeveloperForm';
+import Errors from '../components/Errors';
+import PaymentModal from '../components/developer/PaymentModal';
+import TransactionModal from '../components/developer/TransactionModal';
+import MetamaskErrors from '../components/MetamaskErrors';
+import TxStatus from '../connectors/helpers/TxStatus'
+import * as DeveloperActions from '../connectors/redux/actions/developerActions';
+import * as MetamaskActions from '../connectors/redux/actions/metamaskActions';
+import requireMetamask from '../hocs/requireMetamask';
+import Success from '../components/developer/Success';
 
 class DeveloperPage extends Component {
 
-  render() {
-    //if dev record not exist
-    if (this.props.developerRecord.eth_address == null) {
-     return <Redirect to='/registration'/>
-    }
+  constructor(props) {
+    super(props);
+    this.state = { payment_modal_visible: false };
+  }
 
-    return <div>
-      <h1 style={{ textAlign: 'center' }}>Developer information</h1>
-      <div><strong>Name: </strong>{this.props.developerRecord.name}</div>
-      <div><strong>Description: </strong>{this.props.developerRecord.description}</div>
-      <div><strong>Street: </strong>{this.props.developerRecord.street_1}</div>
-      <div><strong>City: </strong>{this.props.developerRecord.city}</div>
-      <div><strong>State: </strong>{this.props.developerRecord.state}</div>
-      <div><strong>Postal Code: </strong>{this.props.developerRecord.postal_code}</div>
-      <div><strong>Phone: </strong>{this.props.developerRecord.phone}</div>
-      <div><strong>Email: </strong>{this.props.developerRecord.email}</div>
-      <div><strong>Eth address: </strong>{this.props.developerRecord.eth_address}</div>
-      <div><strong>Transaction status: </strong>{this.props.developerRecord.approved ? "Succeed" : "Checking Tx status..."}</div>
-      <div><strong>Etherscan: </strong><a target="_blank" href={`${this.props.etherscan_url}/tx/${this.props.developerRecord.transaction_address}`}>Check Transaction Status</a></div>
-    </div>;
+  componentDidMount() {
+    this.props.connectToMetamask();
+    this.props.fetchEntryPrice();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("nextProps", nextProps);
+    if( nextProps.developer.errors.length > 0 ) {
+      console.log("hiding payment modal");
+      this.setState({payment_modal_visible: false});
+    }
+  }
+
+  submit = (values) => {
+    this.props.reset();
+    this.setState({payment_modal_visible: true, values: values});
+  }
+
+  cancelClick = () => {
+    this.setState({payment_modal_visible: false});
+  }
+
+  approveClick = () => {
+    console.log("Starting approve request");
+    this.props.approvePayment();
+  }
+
+  continueClick = () => {
+    console.log("Sending actual addDeveloper transaction");
+    this.props.addDeveloper(this.state.values.metadata_url, this.state.values.metadata);
+  }
+
+  render() {
+
+    return (
+      <div>
+        <Head>
+          <title>{SITE_TITLE}</title>
+        </Head>
+        <div>
+          <h1>Botchain Developer Registration</h1>
+          <Success eth_address={this.props.developer.eth_address} visible={this.props.developer.successfullyAdded} />
+          <div className={ this.props.developer.successfullyAdded ? 'hidden' : '' } >
+            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+            <MetamaskErrors metamask={this.props.metamask} />
+            <Errors errors={this.props.developer.errors} />
+            <DeveloperForm onSubmit={this.submit} />
+            <PaymentModal tx_id={this.props.developer.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.developer.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.developer.entryPrice} />
+            <TransactionModal tx_id={this.props.developer.addDeveloperTxId} visible={this.state.payment_modal_visible && this.props.developer.allowanceTxMined && (!this.props.developer.addDeveloperTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    developerRecord: state.developerRecord
+    developer: state.developer,
+    metamask: state.metamask,
+    transactions: state.txObserver.transactions
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    reset: () => {
+      dispatch( DeveloperActions.resetTxs() );
+    },
+    fetchEntryPrice: () => {
+      dispatch( DeveloperActions.fetchEntryPrice() );
+    },
+    connectToMetamask: () => {
+      dispatch( MetamaskActions.connectToMetamask());
+    },
+    approvePayment: () => {
+      dispatch( DeveloperActions.approvePayment() );
+    },
+    addDeveloper: (url, metadata) => {
+      dispatch( DeveloperActions.addDeveloper(url, metadata) );
+    }
+  }
+}
 
-export default connect(mapStateToProps)(getSiteProps(DeveloperPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(DeveloperPage));

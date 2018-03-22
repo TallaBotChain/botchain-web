@@ -1,29 +1,23 @@
-import axios from 'axios'
-import config from './config'
+import React from 'react'
+import Config from './config'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+
 
 export default {
-  getSiteProps: ({dev}) => config(dev),
   getRoutes: async () => {
     return [
-      {
-        path: '/',
-        component: 'src/containers/Signin',
+      { path: '/',
+        component: 'src/containers/Search'
+      },
+      { path: '/add_bot',
+        component: 'src/containers/Bot'
+      },
+      { path: '/developer',
+        component: 'src/containers/Developer'
       },
       {
-        path: '/registration',
-        component: 'src/containers/Registration',
-      },
-      {
-        path: '/developer',
-        component: 'src/containers/Developer',
-      },
-      {
-        path: '/bot/new',
-        component: 'src/containers/CreateBot',
-      },
-      {
-        path: '/bots',
-        component: 'src/containers/Bots',
+        path: '/no_metamask',
+        component: 'src/containers/NoMetamask',
       },
       {
         is404: true,
@@ -31,20 +25,50 @@ export default {
       }
     ]
   },
-  // webpack: (config, { defaultLoaders }) => {
-  //   config.module.rules = [
-  //     {
-  //       oneOf: [
-  //         {
-  //           test: /\.json$/,
-  //           use: [{ loader: 'json-loader' }],
-  //         },
-  //         defaultLoaders.jsLoader,
-  //         defaultLoaders.cssLoader,
-  //         defaultLoaders.fileLoader,
-  //       ],
-  //     },
-  //   ]
-  //   return config
-  // },
+  siteRoot: 'https://mysite.com',
+  stagingSiteRoot: 'http://localhost:3000',
+  webpack: (config, { defaultLoaders }) => {
+
+    config.plugins.push(Config)
+    config.plugins.push( new ExtractTextPlugin({
+          filename: getPath => {
+            process.env.extractedCSSpath = getPath('styles.[hash:8].css')
+            return process.env.extractedCSSpath
+          },
+          allChunks: true,
+        }));
+
+    config.module.rules = [
+      {
+        oneOf: [
+          {
+            test: /\.s(a|c)ss$/,
+            use:
+            process.env.REACT_STATIC_ENV === 'development'
+            ? [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }]
+            : ExtractTextPlugin.extract({
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: {
+                    importLoaders: 1,
+                    minimize: true,
+                    sourceMap: false,
+                  },
+                },
+                {
+                  loader: 'sass-loader',
+                  options: { includePaths: ['src/'] },
+                },
+              ],
+            }),
+          },
+          defaultLoaders.cssLoader,
+          defaultLoaders.jsLoader,
+          defaultLoaders.fileLoader,
+        ]
+      }
+    ]
+    return config
+  }
 }

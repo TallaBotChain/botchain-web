@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "react-static start",
+    "stage": "react-static build --staging",
     "build": "react-static build",
     "serve": "serve dist -p 3000"
   },
@@ -13,18 +14,23 @@
     "country-list": "^1.1.0",
     "json-loader": "^0.5.7",
     "react": "^16.0.0",
+    "react-body-classname": "^1.2.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
-    "react-static": "^4.8.3",
+    "react-static": "^5.6.1",
     "redux": "^3.7.2",
-    "redux-form": "^7.2.0",
+    "redux-form": "^7.3.0",
+    "redux-form-validators": "^2.4.3",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "web3": "^1.0.0-beta.27"
   },
   "devDependencies": {
     "eslint-config-react-tools": "1.x.x",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
     "serve": "^6.1.0"
   }
 }

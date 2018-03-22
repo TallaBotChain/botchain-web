@@ -1,0 +1,31 @@
+.add-developer-success {
+  width: 800px;
+  margin: 0 auto;
+  color: #233550;
+  background-image: url(img/fun-picture.png);
+  background-size: 80px 80px;
+  background-position: center top;
+  background-repeat: no-repeat;
+  padding-top: 120px;
+  .welcome {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 2rem;
+  }
+  .link-buttons a {
+    &:first-child {
+      margin-right: 20px;
+    }
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: #ccf1e8;
+    border-radius: 5px;
+    color: #00bc90;
+    display: block;
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 360px;
+  }
+}

@@ -1,25 +1,26 @@
 {
-  "access_token": {
-    "access_token": "token-token",
-    "eth_address": "0x123"
+  "bots": [
+    {"id": "Bot #1", "name": "Smart Bot", "description": "Teach you smart things", "tags": ["smart", "bot"] },
+    {"id": "Bot #2", "name": "Qwerty Bot", "description": "Qwerty test bot", "tags": ["qwerty", "bot"] },
+    {"id": "Bot #3", "name": "Love Bot", "description": "Bot that loves you", "tags": ["love", "bot"]  }
+  ],
+  "valid_developer_metadata": {
+    "name": "BotChain",
+    "organization": "Talla",
+    "street_1": "23 Green Street",
+    "street_2": "",
+    "city": "Boston",
+    "state/province": "MA",
+    "postal_code": "123",
+    "country": "USA",
+    "phone": "12345678",
+    "phone_ext" : "",
+    "email": "info@talla.com",
+    "url": "http://talla.com",
+    "foo": "bar"
   },
-  "developer_records": {
-    "developer_record": {
-      "country": "United States",
-      "name": "Dmytro Salko",
-      "street_1": "153 apalachee lane, 8",
-      "city": "Jupiter",
-      "state": "FL",
-      "postal_code": "33458",
-      "phone": "5614609421",
-      "email": "dm.salko@gmail.com"
-    },
-    "access_token": "token-token",
-    "eth_address": "0x123"
-  },
-  "eth_transaction": {
-    "eth_address": "0x123",
-    "hashed_identifier": "ab12ba34",
-    "transaction_address": "0x124c877c7afa2d414ffbb40f19cf1ee929cd5143d75c1a52d4136d8bdf106b7a"
+  "invalid_developer_metadata": {
+    "name": "",
+    "organization": ""
   }
 }

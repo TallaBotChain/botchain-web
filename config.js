@@ -1,28 +1,29 @@
+import webpack from 'webpack'
+
 const configs = {
   development: {
-    title: '[DEV] Botchain ',
-    api_endpoint: 'http://localhost:3001',
-    botchain_contract: "0x8b2c764339b269828eb2548ae1a821244bd0e232",
-    etherscan_url: "https://kovan.etherscan.io"
+    SITE_TITLE: JSON.stringify('[DEV] BotChain'),
+    API_ENDPOINT: JSON.stringify('https://botchain-api.botchain.talla.io'),
+    BOTCOIN_CONTRACT: JSON.stringify("0x337bA7e4F7e86F429494D7196b7c122918f31f48"),
+    DEVELOPER_REGISTRY_CONTRACT: JSON.stringify("0x877005c049a458294d3c063d2b5e48485c0900a9"),
+    ETHERSCAN_URL: JSON.stringify("https://kovan.etherscan.io"),
+    URLSHORTENER_API_KEY: JSON.stringify("AIzaSyDS1dYnvSQPmC3Bwh5G62nrwFBD1pmveLM"),
+    ETHEREUM_NETWORK_ID: JSON.stringify(42),
+    SEARCH_COLLECT_ADDRESS: JSON.stringify("0xffc028710c1c98fb43b0f836f26013ccbfcdcb7f"),
+    SEARCH_PRICE: 1
   },
-  demo: {
-    title: '[TESTNET] Botchain ',
-    api_endpoint: 'https://botchain-api.botchain.talla.io',
-    botchain_contract: "0x9bbe731aef56ece5bd62b4da84e500bbc7507348",
-    etherscan_url: "https://kovan.etherscan.io"
-  },
-  production: { // the same with demo right now
-    title: 'Botchain',
-    api_endpoint: 'https://botchain-api.botchain.talla.io',
-    botchain_contract:  "0x9bbe731aef56ece5bd62b4da84e500bbc7507348",
-    etherscan_url: "https://kovan.etherscan.io"
+  production: {
+    SITE_TITLE: JSON.stringify('BotChain'),
+    API_ENDPOINT: JSON.stringify('https://botchain-api.botchain.talla.io'),
+    BOTCOIN_CONTRACT: JSON.stringify("0x337bA7e4F7e86F429494D7196b7c122918f31f48"),
+    DEVELOPER_REGISTRY_CONTRACT: JSON.stringify("0x877005c049a458294d3c063d2b5e48485c0900a9"),
+    ETHERSCAN_URL: JSON.stringify("https://kovan.etherscan.io"),
+    URLSHORTENER_API_KEY: JSON.stringify("AIzaSyDS1dYnvSQPmC3Bwh5G62nrwFBD1pmveLM"),
+    ETHEREUM_NETWORK_ID: JSON.stringify(42),
+    SEARCH_COLLECT_ADDRESS: JSON.stringify("0xffc028710c1c98fb43b0f836f26013ccbfcdcb7f"),
+    SEARCH_PRICE: 1
   }
 }
 
-export default (dev) => {
-  let enviroment = ( dev ? 'development' : 'production' );
-  if( process.env['ENV'] !== undefined ) {
-    enviroment = process.env['ENV'];
-  }
-  return configs[ enviroment.toLowerCase() ];
-}
+const Config = new webpack.DefinePlugin(configs[process.env.REACT_STATIC_ENV])
+export default Config
