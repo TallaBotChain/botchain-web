@@ -43,13 +43,13 @@ class SearchPage extends Component {
       let tx_link = <a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>Transaction</a>
       switch (this.props.transactions[this.props.search.tx_id].status) {
         case TxStatus.SUCCEED:
-          return(<h3>{tx_link} is being successfully processed.</h3>)
+          return(<h3>{tx_link} has been successfully processed.</h3>)
         case TxStatus.FAILED:
           return(<h3>{tx_link} failed</h3>)
         default:
           return(
           <div>
-            <h3>{tx_link} is processing. Please wait...</h3>
+            <h3>{tx_link} is being processed. Please wait...</h3>
             <Loader />
           </div>
         )
