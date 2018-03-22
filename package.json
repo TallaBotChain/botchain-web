@@ -13,6 +13,7 @@
     "axios": "^0.16.2",
     "country-list": "^1.1.0",
     "json-loader": "^0.5.7",
+    "node-sass": "^4.7.2",
     "react": "^16.0.0",
     "react-body-classname": "^1.2.0",
     "react-dom": "^16.0.0",
@@ -30,7 +31,6 @@
   "devDependencies": {
     "eslint-config-react-tools": "1.x.x",
     "extract-text-webpack-plugin": "^3.0.2",
-    "node-sass": "^4.7.2",
     "serve": "^6.1.0"
   }
 }

@@ -25,7 +25,7 @@ export default {
       }
     ]
   },
-  siteRoot: 'https://mysite.com',
+  siteRoot: 'https://ui.botchain.talla.io',
   stagingSiteRoot: 'http://localhost:3000',
   webpack: (config, { defaultLoaders }) => {
 
