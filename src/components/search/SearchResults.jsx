@@ -1,10 +1,16 @@
 import React from 'react'
+import Loader from '../Loader';
 
 class SearchResults extends React.Component {
 
   render() {
     if (this.props.isFetching) {
-      return (<h4>Retrieving Results. Please wait...</h4>)
+      return (
+        <div>
+          <h4>Retrieving Results. Please wait...</h4>
+          <Loader />
+        </div>
+      )
     }
     if (this.props.bots.length == 0) {
       return (<h4>No results were found for query: <b>{this.props.query}</b></h4>)
@@ -12,11 +18,11 @@ class SearchResults extends React.Component {
 
     return (
       <div>
-        <h4>Results for query: <b>{this.props.query}</b></h4>
+        <h4>Search results for query: <b>{this.props.query}</b></h4>
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Address</th>
               <th>Name</th>
               <th>Description</th>
               <th>Tags</th>
@@ -25,7 +31,7 @@ class SearchResults extends React.Component {
           <tbody>
             {this.props.bots.map((bot, i) => (
               <tr key={i}>
-                <td>{bot.id}</td>
+                <td>{bot.eth_address}</td>
                 <td>{bot.name}</td>
                 <td>{bot.description}</td>
                 <td>{bot.tags.join(", ")}</td>
