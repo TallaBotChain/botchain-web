@@ -24,7 +24,7 @@ RUN pip install awscli
 
 # react-static build doesn't seem to work with an external node_modules with
 # PATH/NODE_PATH set accordingly, so install in app dir
-RUN npm install --global yarn
+RUN npm install yarn
 WORKDIR $APP_DIR
 COPY package*.json $APP_DIR/
 RUN yarn install
