@@ -17,7 +17,7 @@ const configs = {
     API_ENDPOINT: JSON.stringify('https://botchain-api.botchain.talla.io'),
     BOTCOIN_CONTRACT: JSON.stringify("0x337bA7e4F7e86F429494D7196b7c122918f31f48"),
     DEVELOPER_REGISTRY_CONTRACT: JSON.stringify("0x877005c049a458294d3c063d2b5e48485c0900a9"),
-    ETHERSCAN_URL: JSON.stringify("https://production.etherscan.io"),
+    ETHERSCAN_URL: JSON.stringify("https://kovan.etherscan.io"),
     URLSHORTENER_API_KEY: JSON.stringify("AIzaSyDS1dYnvSQPmC3Bwh5G62nrwFBD1pmveLM"),
     ETHEREUM_NETWORK_ID: JSON.stringify(42),
     SEARCH_COLLECT_ADDRESS: JSON.stringify("0xffc028710c1c98fb43b0f836f26013ccbfcdcb7f"),

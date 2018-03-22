@@ -51,7 +51,7 @@ class TransactionModal extends Component {
             <button type="button" className="" onClick={this.cancelClick}>Cancel</button>
           </div>
           <div className={ this.state.step == 2 ? '' : 'hidden' }>
-            <p>Transaction successfully submitted. Waiting for confirmation. <a href={"http://kovan.etherscan.io/tx/"+this.props.tx_id} target='_blank'>Click here</a>  to check the status of this transaction.</p>
+            <p>Transaction successfully submitted. Waiting for confirmation. <a href={`${ETHERSCAN_URL}/tx/${this.props.tx_id}`} target='_blank'>Click here</a>  to check the status of this transaction.</p>
             <Loader />
             <p className='warning'>Please do not close this browser window. The Transactions speed depends on the Ethereum Network and can range anywhere from a few seconds to up to an hour.</p>
           </div>

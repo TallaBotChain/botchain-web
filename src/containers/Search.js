@@ -40,7 +40,7 @@ class SearchPage extends Component {
   //TODO move this to seprate component. It can be re-used for dev reg and add bot
   renderTxInfo = () => {
     if (this.props.search.tx_id) {
-      let tx_link = <a href={"https://kovan.etherscan.io/tx/"+this.props.search.tx_id} target='_blank'>Transaction</a>
+      let tx_link = <a href={`${ETHERSCAN_URL}/tx/${this.props.search.tx_id}`} target='_blank'>Transaction</a>
       switch (this.props.transactions[this.props.search.tx_id].status) {
         case TxStatus.SUCCEED:
           return(<h3>{tx_link} is being successfully processed.</h3>)
