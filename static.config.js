@@ -9,9 +9,9 @@ export default {
       { path: '/',
         component: 'src/containers/Search'
       },
-      // { path: '/add_bot',
-      //   component: 'src/containers/Bot'
-      // },
+      { path: '/add_bot',
+         component: 'src/containers/Bot'
+      },
       { path: '/developer',
         component: 'src/containers/Developer'
       },

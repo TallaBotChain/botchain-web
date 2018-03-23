@@ -7,6 +7,21 @@ class DeveloperRegistry {
     this.contract = new this.web3.eth.Contract(artifact.abi, DEVELOPER_REGISTRY_CONTRACT);
   }
 
+  getDeveloperId() {
+    let contract = this.contract;
+    return this.web3.eth.getAccounts().then( (accounts) => {
+      let ethAddress = accounts[0];
+      return contract.methods.owns(ethAddress).call({from: accounts[0]});
+    });
+  }
+
+  getDeveloperApproval(developerId) {
+    let contract = this.contract;
+    return this.web3.eth.getAccounts().then( (accounts) => {
+      return contract.methods.approvalStatus(developerId).call({from: accounts[0]});
+    });
+  }
+
   getActiveAccount() {
     return this.web3.eth.getAccounts().then( (accounts) => {
       return Promise.resolve(accounts[0]);
