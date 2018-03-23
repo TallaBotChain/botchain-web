@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { NavLink, withRouter } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-static'
 
 class Nav extends React.Component {
 
@@ -20,9 +20,6 @@ class Nav extends React.Component {
           <ul className="submenu">
             <li>
               <NavLink to="/add_bot">Add bot</NavLink>
-            </li>
-            <li>
-              <NavLink to="/add_instance">Add bot instance</NavLink>
             </li>
           </ul>
         </div>
