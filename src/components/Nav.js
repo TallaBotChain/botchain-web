@@ -26,7 +26,7 @@ class Nav extends React.Component {
             </li>
           </ul>
         </div>
-        <NavLink exact to="/">Services</NavLink>
+        <a href="/">Services</a>
       </nav>
     )
   }
