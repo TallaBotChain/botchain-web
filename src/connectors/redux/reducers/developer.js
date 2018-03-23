@@ -10,6 +10,7 @@ const initialState = {
   addDeveloperTxId: null,
   addDeveloperTxMined: false,
   successfullyAdded: false,
+  developerId: 0,
   errors: []
 }
 

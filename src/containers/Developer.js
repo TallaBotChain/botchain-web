@@ -23,6 +23,7 @@ class DeveloperPage extends Component {
   componentDidMount() {
     this.props.connectToMetamask();
     this.props.fetchEntryPrice();
+    this.props.fetchDeveloperId();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,6 +92,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchEntryPrice: () => {
       dispatch( DeveloperActions.fetchEntryPrice() );
+    },
+    fetchDeveloperId: () => {
+      dispatch( DeveloperActions.fetchDeveloperId() );
     },
     connectToMetamask: () => {
       dispatch( MetamaskActions.connectToMetamask());
