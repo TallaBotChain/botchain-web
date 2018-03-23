@@ -13,6 +13,15 @@ export const DeveloperActions = {
 }
 
 
+export const fetchDeveloperId = () => async (dispatch) => {
+  let registry = new DeveloperRegistry(DEVELOPER_REGISTRY_CONTRACT);
+  let developerId = await registry.getDeveloperId();
+  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'developerId', value: developerId });
+  if( developerId > 0 ) {
+      dispatch( setErrors(["Warning! This account is already registered developer."]) );
+  }
+}
+
 export const fetchEntryPrice = () => async (dispatch) => {
   let registry = new DeveloperRegistry(DEVELOPER_REGISTRY_CONTRACT);
   let price = await registry.getEntryPrice();
