@@ -7,9 +7,9 @@ import TxStatus from '../../helpers/TxStatus'
 
 
 export const DeveloperActions = {
-  SET_ATTRIBUTE: "SET_ATTRIBUTE",
-  PAY_TX_MINED: "PAY_TX_MINED",
-  ADD_TX_MINED: "ADD_TX_MINED"
+  SET_ATTRIBUTE: "DEVELOPER_SET_ATTRIBUTE",
+  PAY_TX_MINED: "DEVELOPER_PAY_TX_MINED",
+  ADD_TX_MINED: "DEVELOPER_ADD_TX_MINED"
 }
 
 

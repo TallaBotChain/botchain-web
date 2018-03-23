@@ -8,9 +8,9 @@ import TxStatus from '../../helpers/TxStatus'
 
 
 export const BotActions = {
-  SET_ATTRIBUTE: "SET_ATTRIBUTE",
-  PAY_TX_MINED: "PAY_TX_MINED",
-  ADD_TX_MINED: "ADD_TX_MINED"
+  SET_ATTRIBUTE: "BOT_SET_ATTRIBUTE",
+  PAY_TX_MINED: "BOT_PAY_TX_MINED",
+  ADD_TX_MINED: "BOT_ADD_TX_MINED"
 }
 
 export const fetchDeveloperId = () => async (dispatch) => {

@@ -3,7 +3,7 @@ import DeveloperRegistry from '../../blockchain/DeveloperRegistry';
 let accountObserverTimer = null;
 
 export const MetamaskActions = {
-  SET_ATTRIBUTE: "SET_ATTRIBUTE"
+  SET_ATTRIBUTE: "METAMASK_SET_ATTRIBUTE"
 }
 
 export const connectToMetamask = () => (dispatch) => {

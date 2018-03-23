@@ -7,8 +7,8 @@ import TxStatus from '../../helpers/TxStatus'
 let timer = null;
 
 export const searchActions = {
-  SET_ATTRIBUTE: "SET_ATTRIBUTE",
-  COLLECT_PAYMENT: "COLLECT_PAYMENT",
+  SET_ATTRIBUTE: "SEARCH_SET_ATTRIBUTE",
+  COLLECT_PAYMENT: "SEARCH_COLLECT_PAYMENT",
   TX_MINED: "SEARCH_TX_MINED"
 }
 
