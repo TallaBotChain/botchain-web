@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Head, withRouter } from 'react-static';
+import { Head, withRouter, Link } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
 import PaymentModal from '../components/developer/PaymentModal';
@@ -64,7 +64,7 @@ class DeveloperPage extends Component {
           <h1>Botchain Developer Registration</h1>
           <Success eth_address={this.props.developer.eth_address} visible={this.props.developer.successfullyAdded} />
           <div className={ this.props.developer.successfullyAdded ? 'hidden' : '' } >
-            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please click here to request approval.  Read more about the Developer Registration Process here. </p>
+            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Developer Registration Process <Link to="/faq">here.</Link></p>
             <MetamaskErrors metamask={this.props.metamask} />
             <Errors errors={this.props.developer.errors} />
             <DeveloperForm onSubmit={this.submit} />

@@ -13,12 +13,13 @@ export const DeveloperActions = {
 }
 
 
-export const fetchDeveloperId = () => async (dispatch) => {
+export const fetchDeveloperId = () => async (dispatch, getState) => {
   let registry = new DeveloperRegistry(DEVELOPER_REGISTRY_CONTRACT);
   let developerId = await registry.getDeveloperId();
   dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'developerId', value: developerId });
   if( developerId > 0 ) {
-      dispatch( setErrors(["Warning! This account is already registered developer."]) );
+     let eth_address = getState().metamask.eth_address;
+     dispatch( setErrors([ `${eth_address} is already a registered developer! You can register a Product now or search for what products are already out there.`]) );
   }
 }
 

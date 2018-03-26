@@ -24,6 +24,7 @@ class Nav extends React.Component {
           </ul>
         </div>
         <a href="/">Services</a>
+        <NavLink to="/faq">FAQ</NavLink>
       </nav>
     )
   }

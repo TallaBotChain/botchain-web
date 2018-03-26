@@ -20,6 +20,10 @@ export default {
         component: 'src/containers/NoMetamask',
       },
       {
+        path: '/faq',
+        component: 'src/containers/Faq',
+      },
+      {
         is404: true,
         component: 'src/containers/404',
       }
