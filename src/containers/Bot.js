@@ -69,7 +69,7 @@ class BotPage extends Component {
             <MetamaskErrors metamask={this.props.metamask} />
             <Errors errors={this.props.bot.errors} />
             <BotForm onSubmit={this.submit} />
-            <PaymentModal tx_id={this.props.bot.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.bot.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.bot.entryPrice} />
+            <PaymentModal token_balance={this.props.metamask.token_balance} tx_id={this.props.bot.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.bot.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.bot.entryPrice} />
             <TransactionModal tx_id={this.props.bot.addBotTxId} visible={this.state.payment_modal_visible && this.props.bot.allowanceTxMined && (!this.props.bot.addBotTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
           </div>
         </div>
