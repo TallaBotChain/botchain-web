@@ -49,7 +49,7 @@ class PaymentModal extends Component {
       <Modal {...this.props} >
         <div className='payment-modal'>
           <div className={ this.state.step == 1 ? '' : 'hidden' }>
-            {this.props.token_balance >= SEARCH_PRICE ? (
+            {this.props.token_balance >= this.props.entryPrice ? (
               <div>
                 The fee for this transaction is <br />
                 <b>{this.props.entryPrice} BOTC</b>.
