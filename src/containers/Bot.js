@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Head, withRouter } from 'react-static';
+import { Head, withRouter, Link } from 'react-static';
 import BotForm from '../components/bot/BotForm';
 import Errors from '../components/Errors';
 import PaymentModal from '../components/bot/PaymentModal';
