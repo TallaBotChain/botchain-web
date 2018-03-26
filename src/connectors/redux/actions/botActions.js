@@ -103,7 +103,7 @@ const setPayTxId = (tx_id) => {
 
 export const approvePayment = () => (dispatch, getState) => {
   let botCoin = new BotCoin();
-  let chargingContract = DEVELOPER_REGISTRY_CONTRACT; // IS IT?
+  let chargingContract = BOT_REGISTRY_CONTRACT;
   let amount = getState().bot.entryPrice;
   console.log("Approving for amount ", amount);
   botCoin.approve(amount, chargingContract)
