@@ -70,6 +70,15 @@ class BotCoin {
     });
   }
 
+  // @return Promise
+  getTokenBalance() {
+    let contract = this.contract;
+    return this.web3.eth.getAccounts().then( (accounts) => {
+      let ethAddress = accounts[0];
+      return contract.methods.balanceOf(ethAddress).call();
+    });
+  }
+
 }
 
 export default BotCoin;

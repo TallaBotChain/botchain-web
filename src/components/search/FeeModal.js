@@ -33,10 +33,19 @@ class FeeModal extends Component {
     return (
       <Modal {...this.props} >
         <div className={ this.state.step == 1 ? '' : 'hidden' }>
-          The fee for this transaction is <br />
-          <b>{SEARCH_PRICE} BOTC</b><br/>
-          <button type="button" className="primary" onClick={this.nextStep}>Authorize</button>
-          <button type="button" onClick={this.cancelClick}>Cancel</button>
+          {this.props.token_balance >= SEARCH_PRICE ? (
+            <div>
+              The fee for this transaction is <br />
+              <b>{SEARCH_PRICE} BOTC</b><br/>
+              <button type="button" className="primary" onClick={this.nextStep}>Authorize</button>
+              <button type="button" onClick={this.cancelClick}>Cancel</button>
+            </div>
+          ) : (
+            <div>
+              Insufficient tokens to carry out the transaction. <br />
+              <button type="button" onClick={this.cancelClick}>Cancel</button>
+            </div>
+          )}
         </div>
         <div className={ this.state.step == 2 ? '' : 'hidden' }>
           <p>Transferring <b>{SEARCH_PRICE} BOTC</b> from your account. A metamask window will popup for you sign and authorize this transaction.</p>
@@ -46,7 +55,7 @@ class FeeModal extends Component {
           </p>
         </div>
       </Modal>
-      )
+    )
   }
 }
 

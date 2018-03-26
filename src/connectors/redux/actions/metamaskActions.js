@@ -1,4 +1,5 @@
 import DeveloperRegistry from '../../blockchain/DeveloperRegistry';
+import BotCoin from '../../blockchain/BotCoin';
 
 let accountObserverTimer = null;
 
@@ -9,6 +10,7 @@ export const MetamaskActions = {
 export const connectToMetamask = () => (dispatch) => {
   dispatch( fetchNetwork() );
   dispatch( fetchAccount() );
+  dispatch( getTokenBalance() );
   dispatch( startAccountObserver() );
 }
 
@@ -22,6 +24,13 @@ const fetchNetwork = () => async (dispatch) => {
   let registry = new DeveloperRegistry();
   let id = await registry.getCurrentNetwork();
   dispatch( { type: MetamaskActions.SET_ATTRIBUTE, key: 'network_id', value: id });
+}
+
+const getTokenBalance = () => async (dispatch) => {
+  let botcoin = new BotCoin();
+  let balance = await botcoin.getTokenBalance();
+  console.log(balance)
+  dispatch( { type: MetamaskActions.SET_ATTRIBUTE, key: 'token_balance', value: (parseInt(balance)/10**18) });
 }
 
 const startAccountObserver = () => (dispatch) => {

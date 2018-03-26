@@ -49,14 +49,23 @@ class PaymentModal extends Component {
       <Modal {...this.props} >
         <div className='payment-modal'>
           <div className={ this.state.step == 1 ? '' : 'hidden' }>
-            The fee for this transaction is <br />
-            <b>{this.props.entryPrice} BOTC</b>.
-            Please approve this payment.
-            <p className='info'>
-              No BOTC tokens will be transferred during this process. A metamask window will popup for you sign and authorize this transaction. To learn more about this process click here.
-            </p>
-            <button type="button" className="primary" onClick={this.approveClick}>Authorize</button>
-            <button type="button" className="" onClick={this.cancelClick}>Cancel</button>
+            {this.props.token_balance >= this.props.entryPrice ? (
+              <div>
+                The fee for this transaction is <br />
+                <b>{this.props.entryPrice} BOTC</b>.
+                Please approve this payment.
+                <p className='info'>
+                  No BOTC tokens will be transferred during this process. A metamask window will popup for you sign and authorize this transaction. To learn more about this process click here.
+                </p>
+                <button type="button" className="primary" onClick={this.approveClick}>Authorize</button>
+                <button type="button" className="" onClick={this.cancelClick}>Cancel</button>
+              </div>
+            ) : (
+              <div>
+                Insufficient tokens to carry out the transaction. <br />
+                <button type="button" onClick={this.cancelClick}>Cancel</button>
+              </div>
+            )}
           </div>
           <div className={ this.state.step == 2 ? '' : 'hidden' }>
             <p>Transaction successfully submitted. Waiting for confirmation. <a href={"http://kovan.etherscan.io/tx/"+this.props.tx_id} target='_blank'>Click here</a>  to check the status of this transaction.</p>

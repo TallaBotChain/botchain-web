@@ -5,6 +5,7 @@ import update from 'immutability-helper';
 const initialState = {
   eth_address: null,
   network_id: null,
+  token_balance: 0,
   errors: []
 }
 
