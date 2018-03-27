@@ -65,7 +65,7 @@ class BotPage extends Component {
           <h1>Bot Registration</h1>
           <Success eth_address={this.props.bot.eth_address} visible={this.props.bot.successfullyAdded} />
           <div className={ this.props.bot.successfullyAdded ? 'hidden' : '' } >
-            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Bot Registration Process <Link to="/faq">here.</Link> </p>
+            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Bot Registration Process <a href="/faq#bot_registration" target="_blank">here.</a> </p>
             <MetamaskErrors metamask={this.props.metamask} />
             <Errors errors={this.props.bot.errors} />
             <BotForm onSubmit={this.submit} />
