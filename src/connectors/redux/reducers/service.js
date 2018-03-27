@@ -1,4 +1,4 @@
-import { BotActions } from '../actions/botActions.js'
+import { ServiceActions } from '../actions/serviceActions.js'
 
 import update from 'immutability-helper';
 
@@ -6,21 +6,21 @@ const initialState = {
   entryPrice: null,
   allowanceTxId: null,
   allowanceTxMined: false,
-  addBotTxId: null,
-  addBotTxMined: false,
+  addServiceTxId: null,
+  addServiceTxMined: false,
   successfullyAdded: false,
   developerId: 0,
   developerApproval: false,
   errors: []
 }
 
-const bot = (state = initialState, action) => {
+const service = (state = initialState, action) => {
   switch (action.type) {
-    case BotActions.SET_ATTRIBUTE:
+    case ServiceActions.SET_ATTRIBUTE:
       return update(state, {[action.key]: {$set: action.value}});
     default:
       return state
   }
 }
 
-export default bot;
+export default service;

@@ -5,7 +5,7 @@ import { Head, withRouter, Link } from 'react-static';
 import BotForm from '../components/bot/BotForm';
 import Errors from '../components/Errors';
 import PaymentModal from '../components/shared/PaymentModal';
-import TransactionModal from '../components/bot/TransactionModal';
+import TransactionModal from '../components/shared/TransactionModal';
 import MetamaskErrors from '../components/MetamaskErrors';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as BotActions from '../connectors/redux/actions/botActions';

@@ -39,7 +39,7 @@ button {
   font-size: 18px;
   font-weight: bold;
   padding: 15px 25px;
-  max-width: 140px;
+  max-width: 180px;
   border: solid 1px #cccccc;
   border-radius: 5px;
   background-color: rgba(255,255,255,0.9);
@@ -53,6 +53,7 @@ button.primary {
   background-color: #0854cc;
   border-color: #0854cc;
   color: #fff;
+  white-space: nowrap;
 }
 
 form .input {
@@ -112,4 +113,16 @@ form .input {
 }
 .search-form {
   margin-top: 90px;
+}
+a.button {
+  background-color: #00aae7;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  margin: 1rem auto;
+  padding: 10px 20px;
+  text-align: center;
+  width: auto;
 }

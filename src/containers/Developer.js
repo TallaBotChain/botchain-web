@@ -5,7 +5,7 @@ import { Head, withRouter, Link } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
 import PaymentModal from '../components/shared/PaymentModal';
-import TransactionModal from '../components/developer/TransactionModal';
+import TransactionModal from '../components/shared/TransactionModal';
 import MetamaskErrors from '../components/MetamaskErrors';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as DeveloperActions from '../connectors/redux/actions/developerActions';

@@ -12,6 +12,9 @@ export default {
       { path: '/add_bot',
          component: 'src/containers/Bot'
       },
+      { path: '/add_service',
+         component: 'src/containers/Service'
+      },
       { path: '/developer',
         component: 'src/containers/Developer'
       },
