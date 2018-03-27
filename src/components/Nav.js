@@ -23,7 +23,13 @@ class Nav extends React.Component {
             </li>
           </ul>
         </div>
-        <a href="/">Services</a>
+        <div className='menu-item'>Services <b> &#8964;</b>
+          <ul className="submenu">
+            <li>
+              <NavLink to="/add_service">Add service</NavLink>
+            </li>
+          </ul>
+        </div>
         <NavLink to="/faq">FAQ</NavLink>
       </nav>
     )
