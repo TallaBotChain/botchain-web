@@ -8,7 +8,7 @@ class MetadataTooltip extends Component {
     return (
       <Tooltip {...this.props} >
         Read our FAQs to learn more about hosting your own Developer Metadata.
-        <Link to="/faq" className='button'>Learn more</Link>
+        <a href="/faq#question_7" target="_blank" className='button'>Learn more</a>
       </Tooltip>
     );
   }

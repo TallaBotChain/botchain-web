@@ -64,7 +64,7 @@ class DeveloperPage extends Component {
           <h1>Botchain Developer Registration</h1>
           <Success eth_address={this.props.developer.eth_address} visible={this.props.developer.successfullyAdded} />
           <div className={ this.props.developer.successfullyAdded ? 'hidden' : '' } >
-            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Developer Registration Process <Link to="/faq">here.</Link></p>
+            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Developer Registration Process <a href="/faq#developer_registration" target="_blank">here.</a></p>
             <MetamaskErrors metamask={this.props.metamask} />
             <Errors errors={this.props.developer.errors} />
             <DeveloperForm onSubmit={this.submit} />
