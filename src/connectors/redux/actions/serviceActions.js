@@ -32,7 +32,7 @@ export const addService = (ethAddress, url, metadata) => async (dispatch,getStat
     shorten_url = await UrlShortener.shorten(url, URLSHORTENER_API_KEY);
   }
   //NOTE: metadata here is a json string, not an object
-  let developerId = getState().service.developerId;
+  let developerId = getState().developer.developerId;
   console.log("addService with developerId:", developerId,"url:", shorten_url, " metadata:", metadata);
   console.log("Service registry contract:", SERVICE_REGISTRY_CONTRACT);
   let registry = new ServiceRegistry(SERVICE_REGISTRY_CONTRACT);

@@ -32,7 +32,7 @@ export const addBot = (ethAddress, url, metadata) => async (dispatch,getState) =
     shorten_url = await UrlShortener.shorten(url, URLSHORTENER_API_KEY);
   }
   //NOTE: metadata here is a json string, not an object
-  let developerId = getState().bot.developerId;
+  let developerId = getState().developer.developerId;
   console.log("addBot with developerId:", developerId,"url:", shorten_url, " metadata:", metadata);
   console.log("Bot registry contract:", BOT_REGISTRY_CONTRACT);
   let registry = new BotRegistry(BOT_REGISTRY_CONTRACT);
