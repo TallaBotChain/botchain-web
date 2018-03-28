@@ -8,7 +8,7 @@ class Nav extends React.Component {
 
     return (
       <nav>
-        <strong className="logo">Botchain</strong>
+        <a href='/' className="logo">Botchain</a>
         <div className='menu-item'>Developer <b>&#8964;</b>
           <ul className="submenu">
             <li>
@@ -23,7 +23,16 @@ class Nav extends React.Component {
             </li>
           </ul>
         </div>
-        <a href="/">Services</a>
+        <div className='menu-item'>Services <b> &#8964;</b>
+          <ul className="submenu">
+            <li>
+              <NavLink to="/">Search</NavLink>
+            </li>
+            <li>
+              <NavLink to="/add_service">Add service</NavLink>
+            </li>
+          </ul>
+        </div>
         <NavLink to="/faq">FAQ</NavLink>
       </nav>
     )

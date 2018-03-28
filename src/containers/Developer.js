@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom'
 import { Head, withRouter, Link } from 'react-static';
 import DeveloperForm from '../components/developer/DeveloperForm';
 import Errors from '../components/Errors';
-import PaymentModal from '../components/developer/PaymentModal';
-import TransactionModal from '../components/developer/TransactionModal';
+import PaymentModal from '../components/shared/PaymentModal';
+import TransactionModal from '../components/shared/TransactionModal';
 import MetamaskErrors from '../components/MetamaskErrors';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as DeveloperActions from '../connectors/redux/actions/developerActions';
@@ -67,6 +67,11 @@ class DeveloperPage extends Component {
             <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Developer Registration Process <a href="/faq#developer_registration" target="_blank">here.</a></p>
             <MetamaskErrors metamask={this.props.metamask} />
             <Errors errors={this.props.developer.errors} />
+            {this.props.developer.developerId > 0 && (
+              <div className="alert">
+                {`${this.props.metamask.eth_address} is already a registered developer! You can register a Product now or search for what products are already out there.`}
+              </div>
+            )}
             <DeveloperForm onSubmit={this.submit} />
             <PaymentModal token_balance={this.props.metamask.token_balance} tx_id={this.props.developer.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.developer.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.developer.entryPrice} />
             <TransactionModal tx_id={this.props.developer.addDeveloperTxId} visible={this.state.payment_modal_visible && this.props.developer.allowanceTxMined && (!this.props.developer.addDeveloperTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />

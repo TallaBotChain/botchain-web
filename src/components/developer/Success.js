@@ -9,8 +9,8 @@ class Success extends Component {
         <p>Once approved, you can register a product or service in Botchain. </p>
         <p>Learn more about:</p>
         <div className='link-buttons'>
-          <a href='#'>Registering a product or bot in Botchain</a>
-          <a href='#'>Registering a service in Botchain</a>
+          <a href='/add_bot'>Registering a product or bot in Botchain</a>
+          <a href='/add_service'>Registering a service in Botchain</a>
         </div>
       </div>
     );

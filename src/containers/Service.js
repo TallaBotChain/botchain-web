@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Head, withRouter, Link } from 'react-static';
-import BotForm from '../components/bot/BotForm';
+import ServiceForm from '../components/service/ServiceForm';
 import Errors from '../components/Errors';
 import NotDeveloperError from '../components/developer/NotDeveloperError';
 import PendingApprovalError from '../components/developer/PendingApprovalError';
@@ -10,13 +10,13 @@ import PaymentModal from '../components/shared/PaymentModal';
 import TransactionModal from '../components/shared/TransactionModal';
 import MetamaskErrors from '../components/MetamaskErrors';
 import TxStatus from '../connectors/helpers/TxStatus'
-import * as BotActions from '../connectors/redux/actions/botActions';
+import * as ServiceActions from '../connectors/redux/actions/serviceActions';
 import * as MetamaskActions from '../connectors/redux/actions/metamaskActions';
 import * as DeveloperActions from '../connectors/redux/actions/developerActions';
 import requireMetamask from '../hocs/requireMetamask';
-import Success from '../components/bot/Success';
+import Success from '../components/service/Success';
 
-class BotPage extends Component {
+class ServicePage extends Component {
 
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class BotPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log("nextProps", nextProps);
-    if( nextProps.bot.errors.length > 0 ) {
+    if( nextProps.service.errors.length > 0 ) {
       console.log("hiding payment modal");
       this.setState({payment_modal_visible: false});
     }
@@ -52,8 +52,8 @@ class BotPage extends Component {
   }
 
   continueClick = () => {
-    console.log("Sending actual addBot transaction");
-    this.props.addBot(this.state.values.eth_address, this.state.values.metadata_url, this.state.values.metadata);
+    console.log("Sending actual addService transaction");
+    this.props.addService(this.state.values.eth_address, this.state.values.metadata_url, this.state.values.metadata);
 
   }
 
@@ -65,19 +65,19 @@ class BotPage extends Component {
           <title>{SITE_TITLE}</title>
         </Head>
         <div>
-          <h1>Bot Registration</h1>
-          <Success eth_address={this.props.bot.eth_address} visible={this.props.bot.successfullyAdded} />
-          <div className={ this.props.bot.successfullyAdded ? 'hidden' : '' } >
+          <h1>Service Registration</h1>
+          <Success eth_address={this.props.service.eth_address} visible={this.props.service.successfullyAdded} />
+          <div className={ this.props.service.successfullyAdded ? 'hidden' : '' } >
             {!this.props.developer.developerApproval && (
-              <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Bot Registration Process <a href="/faq#bot_registration" target="_blank">here.</a> </p>
+              <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://servicechain.talla.com/developers">click here</a> to request approval. Read more about the Service Registration Process <a href="/faq#service_registration" target="_blank">here.</a> </p>
             )}
             <MetamaskErrors metamask={this.props.metamask} />
-            <Errors errors={this.props.bot.errors} />
+            <Errors errors={this.props.service.errors} />
             {this.props.developer.developerId == 0 && <NotDeveloperError />}
             {this.props.developer.developerId > 0 && !this.props.developer.developerApproval && <PendingApprovalError />}
-            <BotForm onSubmit={this.submit} />
-            <PaymentModal token_balance={this.props.metamask.token_balance} tx_id={this.props.bot.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.bot.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.bot.entryPrice} />
-            <TransactionModal tx_id={this.props.bot.addBotTxId} visible={this.state.payment_modal_visible && this.props.bot.allowanceTxMined && (!this.props.bot.addBotTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
+            <ServiceForm onSubmit={this.submit} />
+            <PaymentModal token_balance={this.props.metamask.token_balance} tx_id={this.props.service.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.service.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.service.entryPrice} />
+            <TransactionModal tx_id={this.props.service.addServiceTxId} visible={this.state.payment_modal_visible && this.props.service.allowanceTxMined && (!this.props.service.addServiceTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
           </div>
         </div>
       </div>
@@ -87,9 +87,9 @@ class BotPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    bot: state.bot,
-    developer: state.developer,
+    service: state.service,
     metamask: state.metamask,
+    developer: state.developer,
     transactions: state.txObserver.transactions
   }
 }
@@ -97,24 +97,24 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     reset: () => {
-      dispatch( BotActions.resetTxs() );
+      dispatch( ServiceActions.resetTxs() );
     },
     fetchDeveloperId: () => {
       dispatch( DeveloperActions.fetchDeveloperId() );
     },
     fetchEntryPrice: () => {
-      dispatch( BotActions.fetchEntryPrice() );
+      dispatch( ServiceActions.fetchEntryPrice() );
     },
     connectToMetamask: () => {
       dispatch( MetamaskActions.connectToMetamask());
     },
     approvePayment: () => {
-      dispatch( BotActions.approvePayment() );
+      dispatch( ServiceActions.approvePayment() );
     },
-    addBot: (ethAddress, url, metadata) => {
-      dispatch( BotActions.addBot(ethAddress, url, metadata) );
+    addService: (ethAddress, url, metadata) => {
+      dispatch( ServiceActions.addService(ethAddress, url, metadata) );
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(BotPage));
+export default connect(mapStateToProps,mapDispatchToProps)(requireMetamask(ServicePage));

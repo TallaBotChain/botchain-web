@@ -7,9 +7,9 @@ class SearchForm extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='search-form'>
         <Field name="query" type="text"
-          component={inputField} label="Search Botchain"
+          component={inputField} placeholder="Search Botchain"
           validate={[ required() ]}
         />
         <button type="submit">Search</button>

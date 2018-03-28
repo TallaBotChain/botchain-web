@@ -4,7 +4,6 @@ import { required, length, url } from 'redux-form-validators'
 import { MetadataValidator } from '../../connectors/validators/MetadataValidator';
 import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
-//import MetadataTooltip from './MetadataTooltip';
 
 const REQUIRED_METADATA_ATTRIBUTES = ["developer_id","description","tags"]
 
@@ -17,7 +16,7 @@ const asyncValidate = (values, dispatch, props) => {
   return MetadataValidator.fetch(values.metadata_url, props)
 }
 
-class BotForm extends Component {
+class ServiceForm extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
@@ -27,7 +26,7 @@ class BotForm extends Component {
           validate={[ required()]}
         />
         <Field name="metadata_url" type="url"
-          component={inputField} label="Bot Metadata URL" placeholder="https://example.com/..."
+          component={inputField} label="Service Metadata URL" placeholder="https://example.com/..."
           validate={[ required(), length({ max: 132 }), url() ]}
           // appendComponent={<MetadataTooltip />}
         />
@@ -35,16 +34,16 @@ class BotForm extends Component {
           component={textareaField} label="Metadata" placeholder="Will be autoloaded from url above"
           validate={[required(), validateMetadata]}
         />
-        <button className='primary' type="submit">Add Bot</button>
+        <button className='primary' type="submit">Add Service</button>
       </form>
     );
   }
 }
 
-BotForm = reduxForm({
-  form: 'bot', // a unique name for this form,
+ServiceForm = reduxForm({
+  form: 'service', // a unique name for this form,
   asyncValidate,
   asyncBlurFields: ['metadata_url']
-})(BotForm);
+})(ServiceForm);
 
-export default BotForm;
+export default ServiceForm;
