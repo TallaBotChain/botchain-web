@@ -15,7 +15,8 @@ const initialState = {
 const service = (state = initialState, action) => {
   switch (action.type) {
     case ServiceActions.RESET_STATE:
-      return update(state, {$set: initialState});
+      let new_state = {...initialState, ...{entryPrice: state.entryPrice}}
+      return update(state, {$set: new_state});
     case ServiceActions.SET_ATTRIBUTE:
       return update(state, {[action.key]: {$set: action.value}});
     default:
