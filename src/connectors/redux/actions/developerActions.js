@@ -69,7 +69,6 @@ const addTxMined = (status) => (dispatch) => {
 }
 
 const payTxMined = (status) => (dispatch) => {
-  dispatch({ type: DeveloperActions.PAY_TX_MINED, status })
   if(status == TxStatus.SUCCEED){
     console.log("Mined approval transaction");
     dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: true });

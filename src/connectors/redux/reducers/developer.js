@@ -18,7 +18,8 @@ const initialState = {
 const developer = (state = initialState, action) => {
   switch (action.type) {
     case DeveloperActions.RESET_STATE:
-      return update(state, {$set: initialState});
+      let new_state = {...initialState, ...{entryPrice: state.entryPrice, developerId: state.developerId, developerApproval: state.developerApproval}}
+      return update(state, {$set: new_state});
     case DeveloperActions.SET_ATTRIBUTE:
       return update(state, {[action.key]: {$set: action.value}});
     default:
