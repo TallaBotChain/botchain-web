@@ -7,9 +7,8 @@ import TxStatus from '../../helpers/TxStatus'
 
 
 export const DeveloperActions = {
-  SET_ATTRIBUTE: "DEVELOPER_SET_ATTRIBUTE",
-  PAY_TX_MINED: "DEVELOPER_PAY_TX_MINED",
-  ADD_TX_MINED: "DEVELOPER_ADD_TX_MINED"
+  RESET_STATE: "DEVELOPER_RESET_STATE",
+  SET_ATTRIBUTE: "DEVELOPER_SET_ATTRIBUTE"
 }
 
 
@@ -18,8 +17,8 @@ export const fetchDeveloperId = () => async (dispatch, getState) => {
   let developerId = await registry.getDeveloperId();
   dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'developerId', value: developerId });
   if( developerId > 0 ) {
-     let eth_address = getState().metamask.eth_address;
-     dispatch( setErrors([ `${eth_address} is already a registered developer! You can register a Product now or search for what products are already out there.`]) );
+    let approved = await registry.getDeveloperApproval(developerId);
+    dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'developerApproval', value: approved });
   }
 }
 
@@ -56,25 +55,13 @@ export const addDeveloper = (url, metadata) => async (dispatch) => {
   }
 }
 
-export const fetchMetamaskAccount = () => async (dispatch) => {
-  let registry = new DeveloperRegistry();
-  let account = await registry.getActiveAccount();
-  dispatch( { type: DeveloperActions.SET_ATTRIBUTE, key: 'data', value: { 'eth_address': account } });
-}
-
 export const resetTxs = () => (dispatch) => {
-  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: false });
-  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxId', value: null });
-  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxMined', value: false });
-  dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxId', value: null });
-  dispatch( setErrors([]) );
+  dispatch({ type: DeveloperActions.RESET_STATE });
 }
 
 const addTxMined = (status) => (dispatch) => {
-  dispatch({ type: DeveloperActions.ADD_TX_MINED, status });
   dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxMined', value: true });
   if(status == TxStatus.SUCCEED){
-    dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'addDeveloperTxMined', value: true });
     dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'successfullyAdded', value: true });
   } else {
     dispatch( setErrors( ["Add developer transaction failed."] ));
@@ -82,7 +69,6 @@ const addTxMined = (status) => (dispatch) => {
 }
 
 const payTxMined = (status) => (dispatch) => {
-  dispatch({ type: DeveloperActions.PAY_TX_MINED, status })
   if(status == TxStatus.SUCCEED){
     console.log("Mined approval transaction");
     dispatch({ type: DeveloperActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: true });

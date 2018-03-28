@@ -41,16 +41,9 @@ class ServiceForm extends Component {
 }
 
 ServiceForm = reduxForm({
-  form: 'bot', // a unique name for this form,
+  form: 'service', // a unique name for this form,
   asyncValidate,
   asyncBlurFields: ['metadata_url']
 })(ServiceForm);
-
-ServiceForm = connect(
-  state => ({
-    initialValues: {},
-    enableReinitialize: true // pull initial values from reducer
-  })
-)(ServiceForm)
 
 export default ServiceForm;

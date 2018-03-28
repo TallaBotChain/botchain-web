@@ -8,26 +8,8 @@ import TxStatus from '../../helpers/TxStatus'
 
 
 export const BotActions = {
-  SET_ATTRIBUTE: "BOT_SET_ATTRIBUTE",
-  PAY_TX_MINED: "BOT_PAY_TX_MINED",
-  ADD_TX_MINED: "BOT_ADD_TX_MINED"
-}
-
-export const fetchDeveloperId = () => async (dispatch) => {
-  let registry = new DeveloperRegistry(DEVELOPER_REGISTRY_CONTRACT);
-  let developerId = await registry.getDeveloperId();
-  let approved = await registry.getDeveloperApproval(developerId);
-  console.log("Developer id is ", developerId);
-  console.log("Developer approval is ", approved);
-  dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'developerApproval', value: approved });
-  if( developerId > 0 ) {
-    dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'developerId', value: developerId });
-    if( ! approved ) {
-      dispatch( setErrors(["You have to be an approved developer to register a bot or an AI service. Your account is pending approval. Please try again later."]) );
-    }
-  }else {
-    dispatch( setErrors(["You need to be pre-approved o register a bot or an AI service."]) );
-  }
+  RESET_STATE: "BOT_RESET_STATE",
+  SET_ATTRIBUTE: "BOT_SET_ATTRIBUTE"
 }
 
 export const fetchEntryPrice = () => async (dispatch) => {
@@ -50,7 +32,7 @@ export const addBot = (ethAddress, url, metadata) => async (dispatch,getState) =
     shorten_url = await UrlShortener.shorten(url, URLSHORTENER_API_KEY);
   }
   //NOTE: metadata here is a json string, not an object
-  let developerId = getState().bot.developerId;
+  let developerId = getState().developer.developerId;
   console.log("addBot with developerId:", developerId,"url:", shorten_url, " metadata:", metadata);
   console.log("Bot registry contract:", BOT_REGISTRY_CONTRACT);
   let registry = new BotRegistry(BOT_REGISTRY_CONTRACT);
@@ -64,25 +46,13 @@ export const addBot = (ethAddress, url, metadata) => async (dispatch,getState) =
   }
 }
 
-export const fetchMetamaskAccount = () => async (dispatch) => {
-  let registry = new BotRegistry();
-  let account = await registry.getActiveAccount();
-  dispatch( { type: BotActions.SET_ATTRIBUTE, key: 'data', value: { 'eth_address': account } });
-}
-
 export const resetTxs = () => (dispatch) => {
-  dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: false });
-  dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'allowanceTxId', value: null });
-  dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'addBotTxMined', value: false });
-  dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'addBotTxId', value: null });
-  dispatch( setErrors([]) );
+  dispatch({ type: BotActions.RESET_STATE });
 }
 
 const addTxMined = (status) => (dispatch) => {
-  dispatch({ type: BotActions.ADD_TX_MINED, status });
   dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'addBotTxMined', value: true });
   if(status == TxStatus.SUCCEED){
-    dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'addBotTxMined', value: true });
     dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'successfullyAdded', value: true });
   } else {
     dispatch( setErrors( ["Add bot transaction failed."] ));
@@ -90,7 +60,6 @@ const addTxMined = (status) => (dispatch) => {
 }
 
 const payTxMined = (status) => (dispatch) => {
-  dispatch({ type: BotActions.PAY_TX_MINED, status })
   if(status == TxStatus.SUCCEED){
     console.log("Mined approval transaction");
     dispatch({ type: BotActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: true });
