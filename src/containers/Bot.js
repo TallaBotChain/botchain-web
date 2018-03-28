@@ -4,12 +4,15 @@ import { Redirect } from 'react-router-dom'
 import { Head, withRouter, Link } from 'react-static';
 import BotForm from '../components/bot/BotForm';
 import Errors from '../components/Errors';
+import NotDeveloperError from '../components/developer/NotDeveloperError';
+import PendingApprovalError from '../components/developer/PendingApprovalError';
 import PaymentModal from '../components/shared/PaymentModal';
 import TransactionModal from '../components/shared/TransactionModal';
 import MetamaskErrors from '../components/MetamaskErrors';
 import TxStatus from '../connectors/helpers/TxStatus'
 import * as BotActions from '../connectors/redux/actions/botActions';
 import * as MetamaskActions from '../connectors/redux/actions/metamaskActions';
+import * as DeveloperActions from '../connectors/redux/actions/developerActions';
 import requireMetamask from '../hocs/requireMetamask';
 import Success from '../components/bot/Success';
 
@@ -65,9 +68,13 @@ class BotPage extends Component {
           <h1>Bot Registration</h1>
           <Success eth_address={this.props.bot.eth_address} visible={this.props.bot.successfullyAdded} />
           <div className={ this.props.bot.successfullyAdded ? 'hidden' : '' } >
-            <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Bot Registration Process <a href="/faq#bot_registration" target="_blank">here.</a> </p>
+            {!this.props.developer.developerApproval && (
+              <p className='alert-info'>Note : You have to be pre-approved to successfully complete the registration. Please <a href="https://botchain.talla.com/developers">click here</a> to request approval. Read more about the Bot Registration Process <a href="/faq#bot_registration" target="_blank">here.</a> </p>
+            )}
             <MetamaskErrors metamask={this.props.metamask} />
             <Errors errors={this.props.bot.errors} />
+            {this.props.developer.developerId == 0 && <NotDeveloperError />}
+            {this.props.developer.developerId > 0 && !this.props.developer.developerApproval && <PendingApprovalError />}
             <BotForm onSubmit={this.submit} />
             <PaymentModal token_balance={this.props.metamask.token_balance} tx_id={this.props.bot.allowanceTxId} visible={this.state.payment_modal_visible && (!this.props.bot.allowanceTxMined) } okClick={this.okClick} approveClick={this.approveClick} cancelClick={this.cancelClick} entryPrice={this.props.bot.entryPrice} />
             <TransactionModal tx_id={this.props.bot.addBotTxId} visible={this.state.payment_modal_visible && this.props.bot.allowanceTxMined && (!this.props.bot.addBotTxMined) } okClick={this.okClick} continueClick={this.continueClick} cancelClick={this.cancelClick}  />
@@ -81,6 +88,7 @@ class BotPage extends Component {
 const mapStateToProps = state => {
   return {
     bot: state.bot,
+    developer: state.developer,
     metamask: state.metamask,
     transactions: state.txObserver.transactions
   }
@@ -92,7 +100,7 @@ const mapDispatchToProps = dispatch => {
       dispatch( BotActions.resetTxs() );
     },
     fetchDeveloperId: () => {
-      dispatch( BotActions.fetchDeveloperId() );
+      dispatch( DeveloperActions.fetchDeveloperId() );
     },
     fetchEntryPrice: () => {
       dispatch( BotActions.fetchEntryPrice() );

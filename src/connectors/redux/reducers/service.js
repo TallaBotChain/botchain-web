@@ -9,13 +9,13 @@ const initialState = {
   addServiceTxId: null,
   addServiceTxMined: false,
   successfullyAdded: false,
-  developerId: 0,
-  developerApproval: false,
   errors: []
 }
 
 const service = (state = initialState, action) => {
   switch (action.type) {
+    case ServiceActions.RESET_STATE:
+      return update(state, {$set: initialState});
     case ServiceActions.SET_ATTRIBUTE:
       return update(state, {[action.key]: {$set: action.value}});
     default:

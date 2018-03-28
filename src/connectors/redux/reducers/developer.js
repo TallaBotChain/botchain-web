@@ -11,11 +11,14 @@ const initialState = {
   addDeveloperTxMined: false,
   successfullyAdded: false,
   developerId: 0,
+  developerApproval: false,
   errors: []
 }
 
 const developer = (state = initialState, action) => {
   switch (action.type) {
+    case DeveloperActions.RESET_STATE:
+      return update(state, {$set: initialState});
     case DeveloperActions.SET_ATTRIBUTE:
       return update(state, {[action.key]: {$set: action.value}});
     default:

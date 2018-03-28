@@ -8,26 +8,8 @@ import TxStatus from '../../helpers/TxStatus'
 
 
 export const ServiceActions = {
-  SET_ATTRIBUTE: "SERVICE_SET_ATTRIBUTE",
-  PAY_TX_MINED: "SERVICE_PAY_TX_MINED",
-  ADD_TX_MINED: "SERVICE_ADD_TX_MINED"
-}
-
-export const fetchDeveloperId = () => async (dispatch) => {
-  let registry = new DeveloperRegistry(DEVELOPER_REGISTRY_CONTRACT);
-  let developerId = await registry.getDeveloperId();
-  let approved = await registry.getDeveloperApproval(developerId);
-  console.log("Developer id is ", developerId);
-  console.log("Developer approval is ", approved);
-  dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'developerApproval', value: approved });
-  if( developerId > 0 ) {
-    dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'developerId', value: developerId });
-    if( ! approved ) {
-      dispatch( setErrors(["You have to be an approved developer to register a bot or an AI service. Your account is pending approval. Please try again later."]) );
-    }
-  }else {
-    dispatch( setErrors(["You need to be pre-approved o register a service or an AI service."]) );
-  }
+  RESET_STATE: "SERVICE_RESET_STATE",
+  SET_ATTRIBUTE: "SERVICE_SET_ATTRIBUTE"
 }
 
 export const fetchEntryPrice = () => async (dispatch) => {
@@ -64,25 +46,13 @@ export const addService = (ethAddress, url, metadata) => async (dispatch,getStat
   }
 }
 
-export const fetchMetamaskAccount = () => async (dispatch) => {
-  let registry = new ServiceRegistry();
-  let account = await registry.getActiveAccount();
-  dispatch( { type: ServiceActions.SET_ATTRIBUTE, key: 'data', value: { 'eth_address': account } });
-}
-
 export const resetTxs = () => (dispatch) => {
-  dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: false });
-  dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'allowanceTxId', value: null });
-  dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'addServiceTxMined', value: false });
-  dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'addServiceTxId', value: null });
-  dispatch( setErrors([]) );
+  dispatch({ type: ServiceActions.RESET_STATE });
 }
 
 const addTxMined = (status) => (dispatch) => {
-  dispatch({ type: ServiceActions.ADD_TX_MINED, status });
   dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'addServiceTxMined', value: true });
   if(status == TxStatus.SUCCEED){
-    dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'addServiceTxMined', value: true });
     dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'successfullyAdded', value: true });
   } else {
     dispatch( setErrors( ["Add service transaction failed."] ));
@@ -90,7 +60,6 @@ const addTxMined = (status) => (dispatch) => {
 }
 
 const payTxMined = (status) => (dispatch) => {
-  dispatch({ type: ServiceActions.PAY_TX_MINED, status })
   if(status == TxStatus.SUCCEED){
     console.log("Mined approval transaction");
     dispatch({ type: ServiceActions.SET_ATTRIBUTE, key: 'allowanceTxMined', value: true });
@@ -115,4 +84,3 @@ export const approvePayment = () => (dispatch, getState) => {
     dispatch( setErrors( ["Not approved in MetaMask. Request cancelled."] ));
   });
 }
-

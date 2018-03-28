@@ -9,13 +9,13 @@ const initialState = {
   addBotTxId: null,
   addBotTxMined: false,
   successfullyAdded: false,
-  developerId: 0,
-  developerApproval: false,
   errors: []
 }
 
 const bot = (state = initialState, action) => {
   switch (action.type) {
+    case BotActions.RESET_STATE:
+      return update(state, {$set: initialState});
     case BotActions.SET_ATTRIBUTE:
       return update(state, {[action.key]: {$set: action.value}});
     default:

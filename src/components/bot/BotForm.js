@@ -47,11 +47,4 @@ BotForm = reduxForm({
   asyncBlurFields: ['metadata_url']
 })(BotForm);
 
-BotForm = connect(
-  state => ({
-    initialValues: {},
-    enableReinitialize: true // pull initial values from reducer
-  })
-)(BotForm)
-
 export default BotForm;
