@@ -53,6 +53,9 @@ case $action in
     app_init
 
     if [[ -n $UI_BUCKET ]]; then
+      echo "Cleanup bucket $UI_BUCKET"
+      aws s3 rm s3://$UI_BUCKET --recursive
+
       echo "Copying web files to $UI_BUCKET"
       aws s3 cp --acl bucket-owner-full-control --recursive \
         dist/ s3://$UI_BUCKET/
