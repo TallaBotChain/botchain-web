@@ -4,7 +4,7 @@ import artifact from './abi/BotInstanceRegistryDelegate.json'
 class InstanceRegistry {
   constructor() {
     this.web3 = new Web3(window.web3.currentProvider);
-    this.contract = new this.web3.eth.Contract(artifact.abi, SERVICE_REGISTRY_CONTRACT);
+    this.contract = new this.web3.eth.Contract(artifact.abi, INSTANCE_REGISTRY_CONTRACT);
   }
 
   getActiveAccount() {
