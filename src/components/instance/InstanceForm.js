@@ -26,7 +26,7 @@ class InstanceForm extends Component {
           validate={[ required()]}
         />
         <Field name="eth_address" type="text"
-          component={inputField} label="ETH Address" placeholder="0x000..."
+          component={inputField} label="Instance Address" placeholder="0x000..."
           validate={[ required()]}
         />
         <Field name="metadata_url" type="url"
