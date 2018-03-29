@@ -21,6 +21,9 @@ class Nav extends React.Component {
             <li>
               <NavLink to="/add_bot">Add bot</NavLink>
             </li>
+            <li>
+              <NavLink to="/add_bot_instance">Add bot instance</NavLink>
+            </li>
           </ul>
         </div>
         <div className='menu-item'>Services <b> &#8964;</b>
