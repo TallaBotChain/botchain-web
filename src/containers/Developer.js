@@ -69,7 +69,7 @@ class DeveloperPage extends Component {
             <Errors errors={this.props.developer.errors} />
             {this.props.developer.developerId > 0 && (
               <div className="alert">
-                {`${this.props.metamask.eth_address} is already a registered developer! You can register a Product now or search for what products are already out there.`}
+                {this.props.metamask.eth_address} is already a registered developer! You can <a href="/add_bot">register a Product</a> now or <a href="/">search</a> for what products are already out there.
               </div>
             )}
             <DeveloperForm onSubmit={this.submit} />
