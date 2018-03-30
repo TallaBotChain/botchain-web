@@ -1,10 +1,10 @@
-import artifact from './abi/BotServiceRegistryDelegate.json'
+import artifact from './abi/BotInstanceRegistryDelegate.json'
 import BaseRegistry from './BaseRegistry'
 
-class ServiceRegistry extends BaseRegistry {
+class InstanceRegistry extends BaseRegistry {
   constructor() {
     super();
-    this.contract = new this.web3.eth.Contract(artifact.abi, SERVICE_REGISTRY_CONTRACT);
+    this.contract = new this.web3.eth.Contract(artifact.abi, INSTANCE_REGISTRY_CONTRACT);
   }
 
   /**
@@ -12,24 +12,24 @@ class ServiceRegistry extends BaseRegistry {
    * @param {string} metadata
    * @returns {Promise}
    */
-  addService(developerId, ethAddress, url, metadata) {
+  addInstance(botId, ethAddress, url, metadata) {
     let metadataHash = this.web3.utils.sha3(metadata); // bytes32
     let urlBytes = this.web3.utils.utf8ToHex(url.substring(0,31)); // bytes32
     let contract = this.contract;
-    console.log("service developerId: ", developerId);
-    console.log("service ethAddress: ", ethAddress);
-    console.log("service url: ", urlBytes );
-    console.log("service metadata:", metadataHash );
+    console.log("instance botId: ", botId);
+    console.log("instance ethAddress: ", ethAddress);
+    console.log("instance url: ", urlBytes );
+    console.log("instance metadata:", metadataHash );
     return this.web3.eth.getAccounts().then( (accounts) => {
       return new Promise(function(resolve,reject) {
-        contract.methods.createBotService(developerId,ethAddress,metadataHash, urlBytes)
+        contract.methods.createBotInstance(botId,ethAddress,metadataHash, urlBytes)
           .send({from: accounts[0]},
             function(err,tx_id) {
               if( err ) {
-                console.log("addService error:",err);
+                console.log("createBotInstance error:",err);
                 reject( err );
               }else {
-                console.log("addService tx_id:",tx_id);
+                console.log("createBotInstance tx_id:",tx_id);
                 resolve(tx_id);
               }
             });
@@ -39,4 +39,4 @@ class ServiceRegistry extends BaseRegistry {
   }
 }
 
-export default ServiceRegistry;
+export default InstanceRegistry;

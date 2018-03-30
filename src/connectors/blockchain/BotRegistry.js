@@ -1,28 +1,16 @@
-import Web3 from 'web3'
 import artifact from './abi/BotProductRegistryDelegate.json'
+import BaseRegistry from './BaseRegistry'
 
-class BotRegistry {
+class BotRegistry extends BaseRegistry {
   constructor() {
-    this.web3 = new Web3(window.web3.currentProvider);
+    super();
     this.contract = new this.web3.eth.Contract(artifact.abi, BOT_REGISTRY_CONTRACT);
   }
 
-  getActiveAccount() {
-    return this.web3.eth.getAccounts().then( (accounts) => {
-      return Promise.resolve(accounts[0]);
-    });
-  }
-
-  getCurrentNetwork() {
-    return this.web3.eth.net.getId().then( netId => {
-      return Promise.resolve(netId);
-    })
-  }
-
-  getEntryPrice() {
+  botEntryIdForAddress(address) {
     let contract = this.contract;
     return this.web3.eth.getAccounts().then( (accounts) => {
-      return contract.methods.entryPrice().call({from: accounts[0]});
+      return contract.methods.botEntryIdForAddress(address).call({from: accounts[0]});
     });
   }
 
