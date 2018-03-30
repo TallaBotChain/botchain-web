@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required, length, url } from 'redux-form-validators'
 import { MetadataValidator } from '../../connectors/validators/MetadataValidator';
+import BotAddressValidator from '../../connectors/validators/BotAddressValidator';
 import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
 
@@ -12,8 +13,14 @@ const validateMetadata = (value) => {
   return mv.validate(value)
 }
 
+const validateBotAddress = (value) => {
+  let botValidator = new BotAddressValidator();
+  return botValidator.validate(value);
+}
+
 const asyncValidate = (values, dispatch, props) => {
-  return MetadataValidator.fetch(values.metadata_url, props)
+  MetadataValidator.fetch(values.metadata_url, props);
+  return BotAddressValidator.validate(values.bot_address, props);
 }
 
 class InstanceForm extends Component {
@@ -47,7 +54,7 @@ class InstanceForm extends Component {
 InstanceForm = reduxForm({
   form: 'instance', // a unique name for this form,
   asyncValidate,
-  asyncBlurFields: ['metadata_url']
+  asyncBlurFields: ['metadata_url','bot_address']
 })(InstanceForm);
 
 export default InstanceForm;
