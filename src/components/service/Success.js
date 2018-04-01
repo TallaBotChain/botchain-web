@@ -6,7 +6,7 @@ class Success extends Component {
       <div className={ this.props.visible ? 'add-developer-success' : 'hidden' }>
         <div className='welcome'>Congratulations!</div>
         <p>The service has been successfully registered.  </p>
-        <a class='button' href='/add_service'>Add another service</a>
+        <a className='button' href='/add_service'>Add another service</a>
       </div>
     );
   }

@@ -18,9 +18,10 @@ const validateBotAddress = (value) => {
   return botValidator.validate(value);
 }
 
-const asyncValidate = (values, dispatch, props) => {
-  MetadataValidator.fetch(values.metadata_url, props);
-  return BotAddressValidator.validate(values.bot_address, props);
+const asyncValidate = (values, dispatch, props, field) => {
+  if( field == 'bot_address') return BotAddressValidator.validate(values.bot_address, props);
+  if( field == 'metadata_url') return MetadataValidator.fetch(values.metadata_url, props);
+  return Promise.resolve();
 }
 
 class InstanceForm extends Component {
