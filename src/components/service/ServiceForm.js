@@ -5,7 +5,7 @@ import { MetadataValidator } from '../../connectors/validators/MetadataValidator
 import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
 
-const REQUIRED_METADATA_ATTRIBUTES = ["developer_id","description","tags"]
+const REQUIRED_METADATA_ATTRIBUTES = ["service_name","service_description","service_tags","current_version","developer_eth_address"]
 
 const validateMetadata = (value) => {
   let mv = new MetadataValidator(REQUIRED_METADATA_ATTRIBUTES)

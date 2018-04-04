@@ -23,12 +23,12 @@ export class MetadataValidator {
     try {
       metadata = JSON.parse(metadata)
     } catch (e) {
-      return "is not valid JSON";
+      return "Metadata is not valid JSON.";
     }
 
     for (var i = 0; i < this.required_fields.length; i++) {
       if(!metadata[this.required_fields[i]]){
-        return 'Required attributes are missed'
+        return 'Required attributes are missing.'
       }
     }
 
