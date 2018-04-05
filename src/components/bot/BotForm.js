@@ -6,7 +6,7 @@ import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
 //import MetadataTooltip from './MetadataTooltip';
 
-const REQUIRED_METADATA_ATTRIBUTES = ["developer_id","description","tags"]
+const REQUIRED_METADATA_ATTRIBUTES = ["name","description","tags","current_version","developer_eth_address"]
 
 const validateMetadata = (value) => {
   let mv = new MetadataValidator(REQUIRED_METADATA_ATTRIBUTES)

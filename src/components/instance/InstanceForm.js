@@ -6,7 +6,7 @@ import BotAddressValidator from '../../connectors/validators/BotAddressValidator
 import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
 
-const REQUIRED_METADATA_ATTRIBUTES = ["developer_id","description","tags"]
+const REQUIRED_METADATA_ATTRIBUTES = ["instance_name","instance_description","developer_eth_address","bot_eth_address"]
 
 const validateMetadata = (value) => {
   let mv = new MetadataValidator(REQUIRED_METADATA_ATTRIBUTES)
