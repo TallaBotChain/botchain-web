@@ -8,12 +8,14 @@ if (typeof window === 'undefined') {
   global.window = {}
 }
 
-const loggerMiddleware = createLogger()
+const middlewares = [];
+middlewares.push(thunk);
+if( CONSOLE_ENABLED ) middlewares.push( createLogger() );
 
 const store = createStore(
   reducer,
   {}, // initial state
-  applyMiddleware(thunk,loggerMiddleware)
+  applyMiddleware(...middlewares)
 )
 
 export default store

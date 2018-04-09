@@ -13,7 +13,8 @@ const configs = {
     URLSHORTENER_API_KEY: JSON.stringify("AIzaSyDS1dYnvSQPmC3Bwh5G62nrwFBD1pmveLM"),
     ETHEREUM_NETWORK_ID: JSON.stringify(42),
     SEARCH_COLLECT_ADDRESS: JSON.stringify("0xffc028710c1c98fb43b0f836f26013ccbfcdcb7f"),
-    SEARCH_PRICE: 1
+    SEARCH_PRICE: 1,
+    CONSOLE_ENABLED: true
   },
   production: {
     SITE_TITLE: JSON.stringify('BotChain'),
@@ -27,7 +28,8 @@ const configs = {
     URLSHORTENER_API_KEY: JSON.stringify("AIzaSyDS1dYnvSQPmC3Bwh5G62nrwFBD1pmveLM"),
     ETHEREUM_NETWORK_ID: JSON.stringify(42),
     SEARCH_COLLECT_ADDRESS: JSON.stringify("0xffc028710c1c98fb43b0f836f26013ccbfcdcb7f"),
-    SEARCH_PRICE: 1
+    SEARCH_PRICE: 1,
+    CONSOLE_ENABLED: false
   }
 }
 
