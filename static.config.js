@@ -35,7 +35,7 @@ export default {
       }
     ]
   },
-  siteRoot: 'https://ui.botchain.talla.io',
+  siteRoot: 'https://platform.botchain.network',
   stagingSiteRoot: 'http://localhost:3000',
   webpack: (config, { defaultLoaders }) => {
 
