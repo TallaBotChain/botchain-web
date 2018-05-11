@@ -9,8 +9,13 @@ import Nav from './components/Nav'
 
 import './stylesheets/app.scss'
 
-
-
+if( ! CONSOLE_ENABLED ) {
+  window.console = {};
+  window.console.log = function () {};
+  window.console.info = function () {};
+  window.console.warn = function () {};
+  window.console.error = function () {};
+}
 
 export default () => (
   <Provider store={store}>

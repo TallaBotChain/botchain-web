@@ -32,9 +32,9 @@ class SearchResults extends React.Component {
             {this.props.bots.map((bot, i) => (
               <tr key={i}>
                 <td>{bot.eth_address}</td>
-                <td>{bot.name}</td>
-                <td>{bot.description}</td>
-                <td>{bot.tags.join(", ")}</td>
+                <td>{bot.bot_name}</td>
+                <td>{bot.bot_description}</td>
+                <td>{bot.bot_tags ? bot.bot_tags.join(", ") : ''}</td>
               </tr>
             ))}
           </tbody>

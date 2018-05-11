@@ -73,7 +73,7 @@ class SearchPage extends Component {
             <FeeModal token_balance={this.props.metamask.token_balance} visible={this.state.modal_visible} okClick={this.okClick} cancelClick={this.cancelClick} />
           </div>
           {this.renderTxInfo()}
-          {this.props.search.tx_id && this.props.transactions[this.props.search.tx_id].status == TxStatus.SUCCEED && <SearchResults isFetching={this.props.search.isFetching} query={this.state.values.query} bots={this.props.search.bots}/>}
+          {this.props.search.tx_id && this.props.transactions[this.props.search.tx_id].status == TxStatus.SUCCEED && <SearchResults isFetching={this.props.search.isFetching} query={this.props.search.query} bots={this.props.search.bots}/>}
         </div>
       </BodyClassName>
     )

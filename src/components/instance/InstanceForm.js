@@ -2,18 +2,26 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required, length, url } from 'redux-form-validators'
 import { MetadataValidator } from '../../connectors/validators/MetadataValidator';
+import BotAddressValidator from '../../connectors/validators/BotAddressValidator';
 import { inputField, textareaField } from '../form/FormFields';
 import {connect} from 'react-redux'
 
-const REQUIRED_METADATA_ATTRIBUTES = ["developer_id","description","tags"]
+const REQUIRED_METADATA_ATTRIBUTES = ["instance_name","instance_description","developer_eth_address","bot_eth_address"]
 
 const validateMetadata = (value) => {
   let mv = new MetadataValidator(REQUIRED_METADATA_ATTRIBUTES)
   return mv.validate(value)
 }
 
-const asyncValidate = (values, dispatch, props) => {
-  return MetadataValidator.fetch(values.metadata_url, props)
+const validateBotAddress = (value) => {
+  let botValidator = new BotAddressValidator();
+  return botValidator.validate(value);
+}
+
+const asyncValidate = (values, dispatch, props, field) => {
+  if( field == 'bot_address') return BotAddressValidator.validate(values.bot_address, props);
+  if( field == 'metadata_url') return MetadataValidator.fetch(values.metadata_url, props);
+  return Promise.resolve();
 }
 
 class InstanceForm extends Component {
@@ -47,7 +55,7 @@ class InstanceForm extends Component {
 InstanceForm = reduxForm({
   form: 'instance', // a unique name for this form,
   asyncValidate,
-  asyncBlurFields: ['metadata_url']
+  asyncBlurFields: ['metadata_url','bot_address']
 })(InstanceForm);
 
 export default InstanceForm;
