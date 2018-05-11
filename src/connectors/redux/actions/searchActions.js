@@ -55,7 +55,7 @@ const setIsFetching = (isFetching) => {
 const searchBots = () => (dispatch, getState) => {
   const search = getState().search;
   dispatch(setIsFetching(true))
-  dispatch(setBots([])
+  dispatch(setBots([]))
   console.log("Making API request to search Bots ", API_ENDPOINT);
   axios.get(API_ENDPOINT+"/v1/bots/search", {
     params: {
